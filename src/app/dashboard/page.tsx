@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getMyProfile, listClients, type ClientRow } from "@/db/agency";
 import { createSupabaseServer } from "@/db/supabase/server";
@@ -44,6 +45,8 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
         </div>
         {supabase && <form action={signOut}><button className="rounded-lg border border-slate-300 px-3 py-2 text-sm">Sign out</button></form>}
       </header>
+
+      <Link href="/content" className="rounded-lg border border-slate-300 bg-white p-3 text-center font-semibold">Open content studio (mock)</Link>
 
       {!supabase && <p className="rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm">MOCK data. Nothing is saved or connected.</p>}
       {error && <p role="alert" className="rounded-lg border border-red-300 bg-red-50 p-3 text-sm text-red-800">{error}</p>}

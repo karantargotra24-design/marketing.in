@@ -1,0 +1,14 @@
+import Link from "next/link";
+import { ContentStudio } from "@/ui/ContentStudio";
+
+export default function ContentPage() {
+  return (
+    <main className="mx-auto flex max-w-md flex-col gap-4 px-4 py-6">
+      <header className="flex items-center justify-between">
+        <h1 className="text-xl font-bold">Content</h1>
+        <Link href="/dashboard" className="text-sm underline">Clients</Link>
+      </header>
+      <ContentStudio />
+    </main>
+  );
+}
