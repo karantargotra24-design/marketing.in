@@ -25,3 +25,13 @@ Copy `.env.example` to `.env.local` when keys are needed (later phases). `.env.l
 
 ## Folder map
 `src/app` pages · `src/ui` components · `src/services` business rules · `src/db` database · `src/agents` AI agents · `src/integrations` outside services
+
+## Phase 1: login and clients (needs Supabase)
+1. Supabase dashboard → **Project Settings → API → Exposed schemas** → add `agency`.
+2. Supabase dashboard → **Authentication → Users → Add user**: your email + a password (8+ characters). Tick "Auto confirm".
+3. Tell Claude your email. It links that login to the "ScapeMedia" agency as **owner** (only the owner can do this step, there is no public sign-up).
+4. Create `.env.local` from `.env.example` and set `APP_MODE=real`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (both safe to expose; they are in Supabase → Settings → API).
+5. `npm run dev`, open `/login`.
+
+Without those keys the app stays in **MOCK mode** and shows example clients that are not saved.
+Note: this Supabase project is shared with the Academy app, so Academy students can create logins too. They cannot see anything in Agency OS because they have no agency profile.

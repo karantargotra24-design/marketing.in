@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getAppMode } from "@/lib/appMode";
 
 export default function Home() {
@@ -12,6 +13,9 @@ export default function Home() {
           ? "Nothing is connected yet. All data is fake."
           : "Real mode is on. Connections are configured in the server environment."}
       </p>
+      <Link href="/dashboard" className="rounded-lg bg-slate-900 p-3 text-center font-semibold text-white">
+        Open dashboard
+      </Link>
     </main>
   );
 }
