@@ -13,6 +13,9 @@ export const contentRequestSchema = z.object({
   topic: z.string().trim().min(3, "Topic needs at least 3 characters").max(200),
   tone: z.string().trim().max(80).default("friendly"),
   language: z.enum(languages).default("hinglish"),
+  brand: z
+    .object({ usps: z.array(z.string()).default([]), doNot: z.array(z.string()).default([]) })
+    .default({ usps: [], doNot: [] }),
 });
 export type ContentRequest = z.infer<typeof contentRequestSchema>;
 

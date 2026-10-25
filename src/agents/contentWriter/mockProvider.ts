@@ -10,9 +10,10 @@ export const mockProvider: ContentProvider = {
     const hi = r.language === "hinglish";
     const where = r.city ? ` in ${r.city}` : "";
     const hook = hi ? `${r.topic}? Yeh zaroor padhein 👇` : `${r.topic}? Read this before you decide 👇`;
+    const usp = r.brand.usps[0] ? ` ${r.brand.usps[0]}.` : "";
     const caption = hi
-      ? `${hook}\n\n${r.clientName}${where} mein hum ${r.topic.toLowerCase()} ko aasan banate hain. [CONFIRM OFFER]\n\nAaj hi visit karein ya DM karein.`
-      : `${hook}\n\nAt ${r.clientName}${where}, we make ${r.topic.toLowerCase()} simple. [CONFIRM OFFER]\n\nVisit us or send a DM today.`;
+      ? `${hook}\n\n${r.clientName}${where} mein hum ${r.topic.toLowerCase()} ko aasan banate hain. [CONFIRM OFFER]${usp}\n\nAaj hi visit karein ya DM karein.`
+      : `${hook}\n\nAt ${r.clientName}${where}, we make ${r.topic.toLowerCase()} simple. [CONFIRM OFFER]${usp}\n\nVisit us or send a DM today.`;
     const tags = [r.clientName, r.city, r.industry, r.platform === "instagram" ? "InstagramIndia" : "LocalBusiness"]
       .map(slug)
       .filter(Boolean)
@@ -33,7 +34,7 @@ export const mockProvider: ContentProvider = {
       seoTitle: `${r.topic}${where} | ${r.clientName}`.slice(0, 70),
       seoDescription: `${r.clientName}${where}: ${r.topic}. Visit or message us to know more.`.slice(0, 160),
       altText: `${r.clientName} ${r.topic}`.slice(0, 200),
-      qaFlags: ["Offer/price placeholder needs your confirmation"],
+      qaFlags: [],
     };
   },
 };

@@ -1,8 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { runContentWriter } from "@/agents/contentWriter";
 import type { ContentDraft } from "@/agents/contentWriter/schema";
+import type { SavedBrand } from "@/services/brandProfile";
+import { BRANDS_KEY, SEED_BRANDS } from "./brands";
+import { useMockList } from "./useMockList";
 import { labels, nextStatuses, humanOnly, transition, type ContentStatus } from "@/services/contentWorkflow";
 
 type Item = {
@@ -16,46 +19,30 @@ type Item = {
   draft: ContentDraft;
 };
 
-const CLIENTS = [
-  { name: "Jammu Motors (example)", industry: "Car dealership", city: "Jammu" },
-  { name: "Dogra Sweets (example)", industry: "Food & retail", city: "Jammu" },
-];
 const KEY = "agency-os-mock-content-v1";
 const today = () => new Date().toISOString().slice(0, 10);
 const field = "rounded-lg border border-slate-300 bg-white p-3 text-base";
 
 export function ContentStudio() {
-  const [items, setItems] = useState<Item[]>([]);
+  const [items, save] = useMockList<Item>(KEY, []);
+  const [brands] = useMockList<SavedBrand>(BRANDS_KEY, SEED_BRANDS);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const [open, setOpen] = useState<string | null>(null);
   const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem(KEY);
-      // Loading saved mock data from the browser once on mount is the intended use here.
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      if (saved) setItems(JSON.parse(saved));
-    } catch {}
-  }, []);
-  const save = (next: Item[]) => {
-    setItems(next);
-    try {
-      localStorage.setItem(KEY, JSON.stringify(next));
-    } catch {}
-  };
-
   async function onGenerate(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
-    const client = CLIENTS[Number(f.get("client"))];
+    const client = brands[Number(f.get("client"))];
+    if (!client) return setError("Add a client profile first (Onboarding).");
     setBusy(true);
     setError("");
     const result = await runContentWriter({
       clientName: client.name, industry: client.industry, city: client.city,
       platform: f.get("platform"), format: f.get("format"), topic: f.get("topic"),
-      tone: "friendly", language: f.get("language"),
+      tone: client.tone, language: f.get("language"),
+      brand: { usps: client.usps, doNot: client.doNot },
     });
     setBusy(false);
     if (!result.ok) return setError(result.error);
@@ -88,14 +75,14 @@ export function ContentStudio() {
 
       <form onSubmit={onGenerate} className="flex flex-col gap-3 rounded-xl border border-slate-200 bg-white p-3">
         <h2 className="font-semibold">New content</h2>
-        <select name="client" aria-label="Client" className={field}>{CLIENTS.map((c, i) => <option key={c.name} value={i}>{c.name}</option>)}</select>
+        <select name="client" aria-label="Client" className={field}>{brands.map((c, i) => <option key={c.id} value={i}>{c.name}</option>)}</select>
         <div className="grid grid-cols-2 gap-3">
           <select name="platform" aria-label="Platform" className={field}><option value="instagram">Instagram</option><option value="facebook">Facebook</option><option value="google_business">Google Business</option></select>
           <select name="format" aria-label="Format" className={field}><option value="post">Post</option><option value="reel">Reel</option><option value="carousel">Carousel</option></select>
         </div>
         <input name="topic" required minLength={3} maxLength={200} placeholder="Topic, e.g. Diwali test drive" aria-label="Topic" className={field} />
         <div className="grid grid-cols-2 gap-3">
-          <select name="language" aria-label="Language" className={field}><option value="hinglish">Hinglish</option><option value="english">English</option></select>
+          <select name="language" aria-label="Language" defaultValue="hinglish" className={field}><option value="hinglish">Hinglish</option><option value="english">English</option></select>
           <input name="date" type="date" required defaultValue={today()} aria-label="Post date" className={field} />
         </div>
         {error && <p role="alert" className="text-sm text-red-700">{error}</p>}
