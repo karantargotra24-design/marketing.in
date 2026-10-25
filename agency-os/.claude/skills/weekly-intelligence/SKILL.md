@@ -8,7 +8,7 @@ description: Weekly research brief with primary sources and a 0-100 score per id
 
 **Required inputs:** niche, current week
 
-**Workflow:** 1 Search current week. 2 Primary sources only for facts. 3 Score each idea out of 100 (relevance, timeliness, proof, brand fit). 4 Top 5.
+**Workflow:** 1 Search current week. 2 Primary sources only for facts. 3 Score each idea out of 100 (research triage only; the final draft gate is the 1-5 scale in final-quality-assurance) (relevance, timeliness, proof, brand fit). 4 Top 5.
 
 **Output template:** research/weekly-<date>.md
 

@@ -9,3 +9,6 @@
 | F Connectors/approvals | PARTIAL | Deny/ask config validated statically. A real publish attempt NOT tested |
 | G Tests | PARTIAL | TEST 1 and TEST 2 done by main session, thin research, QA not by subagent. Missing-data handling shown (blanks, NOT INSPECTED) |
 Stale/risky: all of knowledge/00 assumed; design v3.1 placeholder; Instagram specs need re-verify.
+
+## Update 2026-10-25b: Personal Brand Content OS pack received
+Folded in as personal-brand/pack-source (verbatim) + memory/ + brand-profile.md. New SOURCED rules P1-P7 in knowledge/00. /personal-content, weekly-content-planning, final-quality-assurance, weekly-intelligence updated. Pack brand profile is an EMPTY template: voice/audience/HEX/fonts still unknown. Conflict resolved: pack's exactly-4-posts + 1-5 quality gate overrides the master prompt's "score /100" for drafts. TEST 2 output (personal-brand/content/week-2026-10-25.md) predates the pack and does NOT meet P1 (2+2): re-run needed.

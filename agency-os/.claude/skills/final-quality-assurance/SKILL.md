@@ -15,3 +15,5 @@ description: QA gate before delivery.
 **Quality checklist:** Verdict on line 1; each FAIL has fix. Plus rules in knowledge/00 (sources, no invented data, isolation).
 
 **Example invocation:** /qa <path>
+
+**Content scoring (SOURCED, P3):** score each draft 1-5 on accuracy, audience relevance, originality, hook strength, usefulness, readability, brand fit, CTA fit. Any dimension <4 -> revise or FAIL. Unverifiable claim -> flag.
