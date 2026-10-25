@@ -1,0 +1,2 @@
+# Approval and Publishing
+1 Draft saved + QA PASS. 2 Owner reviews in chat. 3 Owner says explicit approve for named items; record in approvals.md + audit-trail. 4 Only then Metricool "create for review"/"send for review" (still asks permission). Direct scheduling/publishing tools are DENIED in settings; owner publishes manually or lifts the deny deliberately. Clone/avatar content: Gate A first. Always disclose AI where required.

@@ -1,0 +1,48 @@
+{
+  "permissions": {
+    "deny": [
+      "mcp__Metricool_Social_Media_Management__createScheduledPost",
+      "mcp__Metricool_Social_Media_Management__updateScheduledPost",
+      "mcp__Windsor_ai__execute_action",
+      "mcp__Zapier__execute_zapier_write_action",
+      "mcp__Higgsfield__tiktok_prepare_publish",
+      "mcp__Higgsfield__publish_project",
+      "mcp__Higgsfield__publish_website",
+      "mcp__Higgsfield__deploy_website",
+      "mcp__Google_Drive__share_file",
+      "mcp__Google_Drive__trash_file",
+      "mcp__Gmail__trash_message",
+      "mcp__Gmail__trash_thread",
+      "mcp__Razorpay__*",
+      "Read(./.env*)"
+    ],
+    "ask": [
+      "mcp__Metricool_Social_Media_Management__createScheduledPostForReview",
+      "mcp__Metricool_Social_Media_Management__sendScheduledPostForReview",
+      "mcp__Gmail__create_draft",
+      "mcp__Google_Calendar__create_event",
+      "mcp__Google_Sheets__append_values",
+      "mcp__Google_Sheets__update_values",
+      "mcp__Notion__notion-create-pages",
+      "mcp__Notion__notion-update-page",
+      "mcp__Canva__create-design",
+      "mcp__Canva__generate-design",
+      "mcp__Canva__edit-design",
+      "mcp__Canva__generate-image",
+      "mcp__ElevenLabs__creative_generate_speech",
+      "mcp__ElevenLabs-de371457__creative_generate_speech",
+      "mcp__ElevenLabs-de371457__creative_generate_image",
+      "mcp__ElevenLabs-de371457__creative_generate_video",
+      "mcp__Higgsfield__generate_image",
+      "mcp__Higgsfield__generate_video",
+      "mcp__Higgsfield__create_voice",
+      "mcp__Higgsfield__media_upload",
+      "mcp__ai-video-editor__media_forge_generate",
+      "mcp__ai-video-editor__video_editor_upload_file",
+      "mcp__Gamma__generate",
+      "mcp__HubSpot__manage_crm_objects",
+      "mcp__Supabase__execute_sql",
+      "mcp__Supabase__apply_migration"
+    ]
+  }
+}

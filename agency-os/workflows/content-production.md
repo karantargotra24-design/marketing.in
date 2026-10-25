@@ -1,0 +1,2 @@
+# Content Production
+Inputs: brand voice, audience, services, goals, previous content -> research -> audience problems -> strategy -> calendar -> per item (date, platform, format, pillar, objective, hook, script/copy, caption, CTA, visual direction, design prompt, KPI) -> originality/brand/claims/platform checks -> save -> approval checklist + outstanding actions. Designs only via verified, owner-approved tool; else label "prompt only".
