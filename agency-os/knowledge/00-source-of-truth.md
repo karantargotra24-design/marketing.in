@@ -12,7 +12,7 @@ Precedence: latest chat instruction > this file > design system / SOPs > everyth
 | H4 | Every research claim has a source URL + access date; label facts vs assumptions | ASSUMED (from prompt) |
 | H5 | Personal brand handle: @karantargotra.a. Personal-brand content in English only | ASSUMED (from prompt) |
 | H6 | Personal brand formats: carousels and static posts only (no reels yet) | ASSUMED (from prompt) |
-| H7 | Design system v3.1 applies. Token values are PLACEHOLDERS in `knowledge/04-design-system-v3.1.md` until Karan supplies the real ones | ASSUMED, content missing |
+| H7 | Design system v3.1 applies. Token values are PLACEHOLDERS in `knowledge/04-design-system-v3.1.md` until Karan supplies the real ones | ASSUMED, content missing; Drive search found no spec, only one draft (see 04) |
 | H8 | Personal-brand weekly content is previewed to Karan one day before the scheduled date | ASSUMED (from prompt) |
 | H9 | Clone-voice / avatar content is never published until Karan approves a Gate A check | ASSUMED (from prompt) |
 | H10 | AI disclosure and platform ad policies are followed; no unverifiable public claims | ASSUMED |

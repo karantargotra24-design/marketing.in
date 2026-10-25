@@ -12,6 +12,6 @@ description: Create carousel copy and slide specs.
 
 **Output template:** slide table
 
-**Quality checklist:** 1080x1350; <=30 words/slide; sources on data slides. Plus rules in knowledge/00 (sources, no invented data, isolation).
+**Quality checklist:** 2160x2700; <=30 words/slide; sources on data slides. Plus rules in knowledge/00 (sources, no invented data, isolation).
 
 **Example invocation:** /content-week personal
