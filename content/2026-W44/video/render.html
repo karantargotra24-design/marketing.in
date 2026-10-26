@@ -1,0 +1,234 @@
+<title>W44 Post Preview</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: review page, one row per post, slides as a swipeable 4:5 strip, English caption beneath.
+   Slides follow Design System v2 "Karan Targotra" (Version C, warm editorial) and are fixed-colour; page chrome follows theme. */
+:root {
+  /* page chrome */
+  --page: #F6F1E9; --panel: #FFFFFF; --text: #2A211B; --muted: #6B6157; --line: #E2DAD0;
+  /* DS v2 tokens, fixed on slides */
+  --white: #FFFFFF; --sand: #EDE5D8; --sand-top: #F3EBDE; --sand-bot: #E3D6C3;
+  --espresso: #2A211B; --cream: #F5EFE3; --stone: #C9B8A3; --clay: #7A5A40;
+  --body-brown: #4A423B; --foot: #6B6157; --hair: #E2DAD0;
+  --brand-red: #FF0000; --btn-red: #DC2626;
+  --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --punch: "Plus Jakarta Sans", Inter, system-ui, sans-serif;
+  --sans: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --page: #1C1612; --panel: #251D18; --text: #F3EADC; --muted: #B3A595; --line: #3A2F28; color-scheme: dark } }
+:root[data-theme="dark"] { --page: #1C1612; --panel: #251D18; --text: #F3EADC; --muted: #B3A595; --line: #3A2F28; color-scheme: dark }
+
+body { background: var(--page); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1240px; margin: 0 auto; padding-block: 28px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 44px; }
+header { display: grid; gap: 8px; }
+.eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+header h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(34px, 6vw, 56px); line-height: 1; margin: 0; text-wrap: balance; }
+header h1 b { font-family: var(--punch); font-weight: 800; color: var(--btn-red); letter-spacing: -.03em; text-transform: uppercase; font-size: .9em; }
+header p { margin: 0; color: var(--muted); max-width: 72ch; }
+
+.post { display: grid; gap: 14px; }
+.post-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; }
+.post-head h2 { margin: 0; font-family: var(--serif); font-weight: 400; font-size: 30px; line-height: 1; }
+.meta { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+.chip { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px; color: var(--muted); }
+
+.strip { display: flex; gap: 14px; overflow-x: auto; padding-bottom: 10px; scroll-snap-type: x mandatory; }
+.strip:focus-visible { outline: 2px solid var(--clay); outline-offset: 4px; }
+
+/* ---- slide: 1080x1350, 1cqw = 10.8px ---- */
+.slide { flex: 0 0 auto; width: min(320px, 80vw); max-width: 100%; aspect-ratio: 4 / 5; container-type: inline-size; scroll-snap-align: start; position: relative; overflow: hidden; background: var(--white); color: var(--espresso); box-shadow: 0 0 0 1px var(--line); }
+.slide.sand { background: var(--sand); }
+.slide.grad { background: linear-gradient(180deg, var(--sand-top), var(--sand-bot)); }
+.in { position: absolute; inset: 0; display: flex; flex-direction: column; padding: 8.9cqw 8.9cqw 5.9cqw; }
+.top { display: flex; justify-content: space-between; align-items: center; }
+.pill { display: inline-flex; align-items: center; gap: 1.4cqw; border: .2cqw solid var(--stone); border-radius: 999px; padding: 1cqw 2.4cqw; font: 600 2.2cqw/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--espresso); }
+.pill::before { content: ""; width: .93cqw; height: .93cqw; border-radius: 50%; background: var(--clay); }
+.top .num { font: 500 2.4cqw/1 var(--sans); color: var(--foot); font-variant-numeric: tabular-nums; }
+.main { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 3.4cqw; min-height: 0; }
+.main.low { justify-content: flex-start; padding-top: 6cqw; }
+.cover { font: 400 13cqw/.98 var(--serif); letter-spacing: -.02em; margin: 0; text-wrap: balance; }
+.title { font: 400 8.15cqw/1.02 var(--serif); letter-spacing: -.02em; margin: 0; text-wrap: balance; }
+.p { display: block; font-family: var(--punch); font-weight: 800; text-transform: uppercase; letter-spacing: -.04em; font-size: 1.04em; line-height: .95; }
+.p.red { color: var(--brand-red); }
+.i { font-family: var(--serif); font-style: italic; color: var(--clay); font-size: .42em; letter-spacing: 0; display: block; margin: .5em 0 .25em; }
+.kicker { font: italic 400 4.07cqw/1.15 var(--serif); color: var(--clay); margin: 0; }
+.big { font: 400 22cqw/.85 var(--serif); letter-spacing: -.03em; color: var(--brand-red); margin: 0; }
+.body { font: 400 3.4cqw/1.45 var(--sans); color: var(--body-brown); margin: 0; max-width: 92%; }
+.sub { font: 500 2.8cqw/1.35 var(--sans); color: var(--foot); margin: 0; }
+.prompt { font: 500 2.9cqw/1.5 var(--mono); color: var(--espresso); background: var(--white); border-left: .6cqw solid var(--clay); padding: 3cqw 3.4cqw; margin: 0; border-radius: 0 1.1cqw 1.1cqw 0; box-shadow: 0 1cqw 3cqw rgba(42,33,27,.10); }
+.prompt em { font-style: normal; color: var(--clay); font-weight: 500; }
+.btn { align-self: flex-start; background: var(--btn-red); color: #fff; font: 600 3.1cqw/1 var(--sans); padding: 2.4cqw 4cqw; border-radius: .56cqw; }
+.foot { display: flex; justify-content: space-between; border-top: .1cqw solid var(--hair); padding-top: 2cqw; font: 500 2.4cqw/1.2 var(--sans); color: var(--foot); }
+.slide.sand .foot, .slide.grad .foot { border-color: var(--stone); }
+
+/* hero objects (statics) */
+.hero { display: flex; gap: 3cqw; align-items: flex-end; justify-content: center; margin-top: auto; padding-bottom: 5.5cqw; }
+.card { background: var(--cream); border-radius: 1.1cqw; padding: 3.4cqw 3.6cqw; box-shadow: 0 1.6cqw 4.4cqw rgba(42,33,27,.16); display: grid; gap: 1.4cqw; }
+.card .lbl { font: 600 2cqw/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--clay); }
+.card .nm { font: 400 6.4cqw/1 var(--serif); color: var(--espresso); }
+.card .ln { height: .9cqw; background: var(--stone); border-radius: .5cqw; opacity: .6; }
+.card.tilt-l { transform: rotate(-4deg); width: 30cqw; }
+.card.tilt-r { transform: rotate(3deg); width: 30cqw; }
+.bubble { background: var(--cream); border-radius: 3cqw 3cqw 3cqw .8cqw; padding: 3cqw 3.6cqw; font: 500 3cqw/1.4 var(--sans); color: var(--espresso); width: 54cqw; box-shadow: 0 1.6cqw 4.4cqw rgba(42,33,27,.16); }
+.bubble small { display: block; font-size: 2cqw; color: var(--foot); text-align: right; margin-top: 1cqw; }
+.flyer { background: var(--white); width: 24cqw; padding: 3cqw; transform: rotate(-6deg); box-shadow: 0 1cqw 3cqw rgba(42,33,27,.12); font: 800 2.6cqw/1.15 var(--punch); text-transform: uppercase; color: var(--stone); text-decoration: line-through; text-decoration-color: var(--foot); }
+
+/* caption */
+details { background: var(--panel); border: 1px solid var(--line); padding: 12px 16px; max-width: 760px; }
+summary { cursor: pointer; font-weight: 600; font-size: 14px; }
+summary:focus-visible { outline: 2px solid var(--clay); outline-offset: 3px; }
+.cap { white-space: pre-wrap; margin: 12px 0 8px; font-size: 14.5px; line-height: 1.6; }
+.tags { color: var(--muted); font-size: 13.5px; }
+.flag { color: var(--btn-red); font-weight: 600; }
+.notes { background: var(--panel); border: 1px solid var(--line); padding: 14px 18px; display: grid; gap: 6px; font-size: 14px; max-width: 760px; }
+.notes h3 { margin: 0 0 2px; font: 400 24px/1.1 var(--serif); }
+.notes ul { margin: 0; padding-left: 18px; color: var(--muted); }
+footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); padding-top: 16px; }
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">2026-W44 · @karantargotra.a · draft, not approved</span>
+    <h1>Do less, get <b>more</b></h1>
+    <p>All 4 posts mocked up in Design System v2 (warm editorial): serif headline, one red punch word, sand and white grounds. Swipe each row. These are layout mockups for checking copy, not final Canva exports.</p>
+  </header>
+
+  <div class="notes">
+    <h3>Built on these choices</h3>
+    <ul>
+      <li>Red: #FF0000 for display, #DC2626 for buttons. Still an open decision in your Creative DNA doc.</li>
+      <li>Statics use soft shadows under objects and a sand gradient, matching the approved W43 posters. Your written rule says flat, so tell me if you want them flat.</li>
+      <li>All covers are type covers. Photo covers need a real, approved photo of you.</li>
+      <li>Captions are in English (your 15 Oct rule). All slots are 8 PM IST, from your Metricool best-time data.</li>
+    </ul>
+  </div>
+
+  <div id="posts" style="display:grid;gap:52px"></div>
+  <footer>Reply <b>approve C1 S1 C2 S2</b> in chat, or send edits per slide (e.g. "C2 slide 5: shorter").</footer>
+</div>
+
+<script>
+const H = "@karantargotra.a";
+const ft = (r) => `<div class="foot"><span>${H}</span><span>${r}</span></div>`;
+const tp = (tag, n) => `<div class="top">${tag ? `<span class="pill">${tag}</span>` : "<span></span>"}<span class="num">${n || ""}</span></div>`;
+
+const posts = [
+ { id: "C1", label: "7-slide carousel", pillar: "Instagram Growth", goal: "send", when: "Tue 27 Oct · 8:00 PM IST",
+   slides: [
+    ["", `${tp("Instagram growth","")}<div class="main"><h3 class="cover">Hashtags won't grow you.<span class="i">this will:</span><span class="p red">Sends</span></h3><p class="sub">What Instagram's head actually said about reach.</p></div>${ft("Swipe →")}`],
+    ["sand", `${tp("","02/07")}<div class="main"><p class="kicker">the myth</p><h3 class="title">More hashtags, more reach?<span class="p red">No.</span></h3><p class="body">Instagram now caps posts at 5 hashtags. Adam Mosseri has said hashtags don't meaningfully increase reach.</p></div>${ft("")}`],
+    ["", `${tp("","03/07")}<div class="main"><p class="kicker">what they actually do</p><h3 class="title">Hashtags are<span class="p red">Labels</span></h3><p class="body">They tell Instagram and searchers what your post is about. Use 3 to 5 specific tags, not #love #instagood.</p></div>${ft("")}`],
+    ["sand", `${tp("","04/07")}<div class="main"><p class="big">3</p><h3 class="title">signals that drive reach</h3><p class="body">Mosseri named watch time, likes and sends as the top 3 ranking signals (Jan 2025).</p></div>${ft("")}`],
+    ["", `${tp("","05/07")}<div class="main"><p class="kicker">why sends matter</p><h3 class="title">Every send is free<span class="p red">Reach</span></h3><p class="body">A post forwarded in a DM lands with people who may not follow you yet.</p></div>${ft("")}`],
+    ["sand", `${tp("","06/07")}<div class="main"><p class="kicker">before you post, ask</p><h3 class="title">Is this worth a<span class="p red">Send?</span></h3><p class="body">Who would I forward this to? Checklists, templates and relatable truths get sent. Generic tips don't.</p></div>${ft("")}`],
+    ["", `${tp("","07/07")}<div class="main"><h3 class="cover" style="font-size:11cqw">Track sends, not likes.</h3><p class="body">Insights → your post → Shares. Make more of whatever gets forwarded.</p><span class="btn">Send this to a friend →</span></div>${ft("")}`]
+   ],
+   caption: "Hashtags don't grow your reach on Instagram. Adam Mosseri, who runs Instagram, has said so himself.\n\nInstagram now also caps posts at 5 hashtags, so pasting 30 is over.\n\nWhat hashtags still do: tell Instagram and search what your post is about.\n\nWhat drives reach: Mosseri named watch time, likes and sends as the top 3 signals. Sends matter because a forwarded post reaches people who don't follow you yet.\n\nTry this this week. Open Insights on each post and check Shares. Make more of whatever got shared most.\n\nSend this to a friend who still uses 30 hashtags.",
+   tags: "#instagramgrowth #instagramtips #contentcreator #digitalmarketingindia" },
+
+ { id: "S1", label: "Static", pillar: "AI Tools", goal: "follow", when: "Thu 29 Oct · 8:00 PM IST",
+   slides: [
+    ["grad", `${tp("AI tools","")}<div class="main low"><h3 class="cover" style="font-size:11.5cqw">You don't need 10 AI tools.<span class="i">you need just</span><span class="p red">2</span></h3></div><div class="hero"><div class="card tilt-l"><span class="lbl">01 · think &amp; write</span><span class="nm">Chat</span><span class="ln"></span><span class="ln" style="width:70%"></span></div><div class="card tilt-r"><span class="lbl">02 · visuals</span><span class="nm">Design</span><span class="ln"></span><span class="ln" style="width:60%"></span></div></div>${ft("Follow for more")}`]
+   ],
+   caption: "Stop collecting AI tools. Ten free trials won't make your work faster.\n\nTo start, you need 2:\n1. A chat assistant (ChatGPT, Claude or Gemini) to think, write and plan\n2. A design tool (like Canva) for posts and visuals\n\nDon't add a third until these two speed up your daily work. Start free, and pay only when you actually hit the limit.\n\n[[ADD: which 2 you use and why, in 1 line]]\n\nFollow @karantargotra.a for practical AI workflows.",
+   tags: "#aitools #chatgpttips #aiforbusiness #freelancingindia" },
+
+ { id: "C2", label: "7-slide carousel", pillar: "Automation", goal: "save", when: "Sat 31 Oct · 8:00 PM IST",
+   slides: [
+    ["", `${tp("Automation","")}<div class="main"><h3 class="cover">Same DM question every day?<span class="i">answer it in</span><span class="p red">1 tap</span></h3><p class="sub">Instagram saved replies + ChatGPT. Free, on your phone.</p></div>${ft("Swipe →")}`],
+    ["sand", `${tp("","02/07")}<div class="main"><p class="kicker">sound familiar?</p><h3 class="title">Price? Location? Timings?<span class="p red">Again.</span></h3><p class="body">If your DMs keep asking the same 5 or 6 questions, typing every reply by hand eats your week.</p></div>${ft("")}`],
+    ["", `${tp("","03/07")}<div class="main"><p class="big">01</p><h3 class="title">List your top 5 DM questions</h3><p class="body">Scroll your last 30 DMs. Write down what repeats: price, location, timings, delivery, booking.</p></div>${ft("")}`],
+    ["sand", `${tp("","04/07")}<div class="main"><p class="big">02</p><h3 class="title">Draft replies with ChatGPT</h3><p class="prompt">Write 5 short, friendly DM replies for my <em>[business]</em> answering: <em>[questions]</em>. Under 40 words each. End each with one next step.</p></div>${ft("")}`],
+    ["", `${tp("","05/07")}<div class="main"><p class="big">03</p><h3 class="title">Save them in Instagram</h3><p class="body">Settings → Business tools → Saved replies → +. Add a shortcut like "price" and paste the reply. Menu names vary by version.</p></div>${ft("")}`],
+    ["sand", `${tp("","06/07")}<div class="main"><p class="big">04</p><h3 class="title">Type the shortcut, tap, send</h3><p class="body">In any DM, type "price" and tap the suggestion. Change one detail so it still feels personal.</p></div>${ft("")}`],
+    ["", `${tp("","07/07")}<div class="main"><h3 class="cover" style="font-size:11cqw">Save this for setup day.</h3><p class="body">Needs a Business or Creator account. Start with your top 3 questions.</p><span class="btn">Save →</span></div>${ft("")}`]
+   ],
+   caption: "Instagram saved replies answer the same DM in 1 tap. If you type the same answers to 'price?' and 'where are you?' every day, this is a 15-minute setup.\n\n1. Go through your last 30 DMs and list the questions that repeat\n2. Ask ChatGPT for 5 short replies (prompt on slide 4)\n3. Add them to Instagram's Saved replies, each with a shortcut like 'price'\n4. In a DM, type the shortcut, tap, change one detail, send\n\nOne rule: when your price or timings change, update the saved reply too. A fast wrong answer is worse than a slow right one.\n\nNeeds a Business or Creator account. Menu names can differ slightly by app version.\n\nSave this for when you set it up.",
+   tags: "#marketingautomation #instagramtips #smallbusinessindia #chatgpttips" },
+
+ { id: "S2", label: "Static", pillar: "Digital Marketing", goal: "send", when: "Sun 1 Nov · 8:00 PM IST",
+   slides: [
+    ["grad", `${tp("Digital marketing","")}<div class="main low"><h3 class="cover" style="font-size:9.4cqw">Write ads like a WhatsApp message<span class="i">not a</span><span class="p red">Pamphlet</span></h3></div><div class="hero" style="align-items:center"><div class="flyer">Best quality! Lowest price! All services! Contact now!</div><div class="bubble">Home AC service for ₹499, same-day visit in Jammu city. Reply "AC" to book a slot.<small>8:02 PM</small></div></div>${ft("Send to a shop owner")}`]
+   ],
+   caption: "Write your ad copy like a WhatsApp message, not a pamphlet.\n\nPamphlet copy: \"Best quality, lowest price, all services available, contact now!\" Nobody stops for it.\n\nWhatsApp copy: \"Home AC service for ₹499, same-day visit in Jammu city. Reply 'AC' to book a slot.\"\n\nThe difference:\n→ Talks to one person\n→ Shows the ₹ price\n→ Gives one next step\n\nBefore your next ad, read it out loud. If you wouldn't send it to a friend, don't send it to a customer.\n\nSend this to a friend who runs ads for their shop.",
+   tags: "#metaads #digitalmarketingindia #smallbusinessindia #adcopy" }
+];
+
+const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+document.getElementById("posts").innerHTML = posts.map(p => {
+  const n = p.slides.length;
+  const slides = p.slides.map(([bg, html], i) => `<div class="slide ${bg}" role="img" aria-label="${p.id} ${n > 1 ? `slide ${i+1} of ${n}` : "static post"}"><div class="in">${html}</div></div>`).join("");
+  const cap = esc(p.caption).replace(/\[\[(.+?)\]\]/g, '<span class="flag">[$1]</span>');
+  return `<section class="post">
+    <div class="post-head"><h2>${p.id} · ${p.label}</h2><span class="chip">${p.pillar}</span><span class="chip">goal: ${p.goal}</span><span class="meta">${p.when}</span></div>
+    <div class="strip" tabindex="0" aria-label="${p.id} slides">${slides}</div>
+    <details${p.id === "C1" ? " open" : ""}><summary>Caption + hashtags (English)</summary><div class="cap">${cap}</div><div class="tags">${p.tags}</div></details>
+  </section>`;
+}).join("");
+</script>
+<style>
+html,body{margin:0;padding:0;background:#000;overflow:hidden}
+.wrap{display:none!important}
+#stage{position:fixed;left:0;top:0;width:1080px;height:1350px;overflow:hidden;background:#fff}
+#track{position:absolute;left:0;top:0;height:1350px;display:flex;will-change:transform}
+#track .slide{width:1080px;height:1350px;flex:0 0 1080px;box-shadow:none;aspect-ratio:auto}
+</style>
+<div id="stage"><div id="track"></div></div>
+<script>
+const D_SLIDE = 3.2, D_SWIPE = 0.45, D_STATIC = 7, HOLD_END = 0.8;
+const eo = p => 1 - Math.pow(1 - Math.min(Math.max(p,0),1), 3);
+const eio = p => { p = Math.min(Math.max(p,0),1); return p < .5 ? 4*p*p*p : 1 - Math.pow(-2*p+2,3)/2; };
+let cur = null, items = [];
+window.setup = (id) => {
+  cur = posts.find(p => p.id === id);
+  const tr = document.getElementById("track");
+  tr.innerHTML = cur.slides.map(([bg, html]) => `<div class="slide ${bg}"><div class="in">${html}</div></div>`).join("");
+  items = [...tr.querySelectorAll(".slide")].map(s => {
+    const els = [...s.querySelectorAll(".main > *, .hero > *")];
+    // split headline lines: animate punch/connector separately
+    const extra = [...s.querySelectorAll(".main .p, .main .i")];
+    return { s, els, extra };
+  });
+  const n = cur.slides.length;
+  return n === 1 ? D_STATIC : n * D_SLIDE + HOLD_END;
+};
+window.render = (t) => {
+  const n = items.length;
+  let idx, local, x;
+  if (n === 1) { idx = 0; local = t; x = 0; }
+  else {
+    idx = Math.min(Math.floor(t / D_SLIDE), n - 1);
+    local = t - idx * D_SLIDE;
+    const sw = (idx < n - 1) ? eio((local - (D_SLIDE - D_SWIPE)) / D_SWIPE) : 0;
+    x = -(idx + sw) * 1080;
+  }
+  document.getElementById("track").style.transform = `translateX(${x}px)`;
+  items.forEach((it, i) => {
+    const lt = i === idx ? local : (i < idx ? 99 : -1);
+    let k = 0;
+    it.els.forEach(el => {
+      const isHero = el.parentElement.classList.contains("hero");
+      const d = (n === 1 ? 0.25 : 0.12) + k * (isHero ? 0.28 : 0.16) + (isHero ? 0.6 : 0);
+      const p = eo((lt - d) / 0.6);
+      if (el.dataset.rot === undefined) el.dataset.rot = getComputedStyle(el).transform;
+      const base = el.dataset.rot;
+      const dy = (1 - p) * (isHero ? 120 : 40);
+      el.style.opacity = p;
+      el.style.transform = `translateY(${dy}px) ${base === "none" ? "" : base}`;
+      k++;
+    });
+    it.extra.forEach((el, j) => {
+      const isP = el.classList.contains("p");
+      const d = (n === 1 ? 0.25 : 0.12) + (isP ? 0.75 : 0.5);
+      const p = eo((lt - d) / (isP ? 0.45 : 0.5));
+      el.style.opacity = p;
+      el.style.transform = isP ? `scale(${0.86 + 0.14 * p})` : `translateY(${(1-p)*16}px)`;
+      el.style.transformOrigin = "left bottom";
+    });
+  });
+};
+</script>
