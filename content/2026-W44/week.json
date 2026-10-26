@@ -6,7 +6,7 @@
       "id": "C1",
       "format": "carousel",
       "day": "Tue 2026-10-27",
-      "time_ist": "19:30",
+      "time_ist": "20:00",
       "pillar": "INSTAGRAM GROWTH",
       "objective": "send",
       "topic": "Hashtags vs sends: what actually drives Instagram reach",
@@ -17,16 +17,70 @@
         "Instagram capped hashtags at 5. Here's why."
       ],
       "slides": [
-        {"n": 1, "type": "hook", "tag": "INSTAGRAM GROWTH", "hook": "30 hashtags won't grow you.", "hook_red": "Sends will.", "hook_sub": "What Instagram's head actually said about reach.", "visual": "White ground, huge ExtraBold hook, 'Sends will.' in red on its own line, Swipe → footer"},
-        {"n": 2, "type": "content", "title": "More hashtags, more reach?", "title_red": "Myth.", "body": "Instagram now caps posts at 5 hashtags. Adam Mosseri has said hashtags don't meaningfully increase reach.", "visual": "Grey #F3F4F6 ground, '#' symbol crossed with red line, big '5' in red"},
-        {"n": 3, "type": "content", "title": "What hashtags actually do", "title_red": "Labels, not boosters", "body": "They tell Instagram and searchers what your post is about. Use 3-5 specific tags, not #love #instagood.", "visual": "Two tag chips: '#instagood' struck through, '#promptengineering' with red tick"},
-        {"n": 4, "type": "content", "title": "What drives reach instead", "title_red": "3 signals", "body": "Mosseri named watch time, likes and sends as the top 3 ranking signals (Jan 2025).", "visual": "Three stacked rows: Watch time / Likes / Sends, red → before Sends"},
-        {"n": 5, "type": "content", "title": "Sends reach new people", "title_red": "Sends", "body": "When someone forwards your post in a DM, it lands with people who may not follow you yet.", "visual": "Grey ground, simple paper-plane line icon with red arrow to 3 new circles"},
-        {"n": 6, "type": "content", "title": "Make posts worth sending", "title_red": "One question", "body": "Before posting, ask: who would I forward this to? Checklists, templates and relatable truths get sent. Generic tips don't.", "visual": "Question in quote marks, three small check items below"},
-        {"n": 7, "type": "cta", "cta_title": "Track sends, not likes", "cta_body": "Insights → post → Shares. Send this to a friend still using 30 hashtags.", "visual": "Red #DC2626 button shape with 'Send this', handle footer"}
+        {
+          "n": 1,
+          "type": "hook",
+          "tag": "INSTAGRAM GROWTH",
+          "hook": "30 hashtags won't grow you.",
+          "hook_red": "Sends will.",
+          "hook_sub": "What Instagram's head actually said about reach.",
+          "visual": "White ground, huge ExtraBold hook, 'Sends will.' in red on its own line, Swipe → footer"
+        },
+        {
+          "n": 2,
+          "type": "content",
+          "title": "More hashtags, more reach?",
+          "title_red": "Myth.",
+          "body": "Instagram now caps posts at 5 hashtags. Adam Mosseri has said hashtags don't meaningfully increase reach.",
+          "visual": "Grey #F3F4F6 ground, '#' symbol crossed with red line, big '5' in red"
+        },
+        {
+          "n": 3,
+          "type": "content",
+          "title": "What hashtags actually do",
+          "title_red": "Labels, not boosters",
+          "body": "They tell Instagram and searchers what your post is about. Use 3-5 specific tags, not #love #instagood.",
+          "visual": "Two tag chips: '#instagood' struck through, '#promptengineering' with red tick"
+        },
+        {
+          "n": 4,
+          "type": "content",
+          "title": "What drives reach instead",
+          "title_red": "3 signals",
+          "body": "Mosseri named watch time, likes and sends as the top 3 ranking signals (Jan 2025).",
+          "visual": "Three stacked rows: Watch time / Likes / Sends, red → before Sends"
+        },
+        {
+          "n": 5,
+          "type": "content",
+          "title": "Sends reach new people",
+          "title_red": "Sends",
+          "body": "When someone forwards your post in a DM, it lands with people who may not follow you yet.",
+          "visual": "Grey ground, simple paper-plane line icon with red arrow to 3 new circles"
+        },
+        {
+          "n": 6,
+          "type": "content",
+          "title": "Make posts worth sending",
+          "title_red": "One question",
+          "body": "Before posting, ask: who would I forward this to? Checklists, templates and relatable truths get sent. Generic tips don't.",
+          "visual": "Question in quote marks, three small check items below"
+        },
+        {
+          "n": 7,
+          "type": "cta",
+          "cta_title": "Track sends, not likes",
+          "cta_body": "Insights → post → Shares. Send this to a friend still using 30 hashtags.",
+          "visual": "Red #DC2626 button shape with 'Send this', handle footer"
+        }
       ],
-      "caption": "Instagram hashtags se reach nahi badhti. Yeh main nahi, Instagram ke head Adam Mosseri bol chuke hain.\n\nAb toh Instagram ne ek post pe max 5 hashtags ka limit bhi laga diya hai. Toh 30 hashtags copy-paste karna officially khatam.\n\nHashtags ka kaam simple hai: Instagram aur search ko batana ki post kis baare mein hai. Bas.\n\nReach ke liye Mosseri ne 3 signals bataye: watch time, likes aur sends. Sends isliye important hain kyunki forward hui post un logon tak pahunchti hai jo tumhe abhi follow nahi karte.\n\nIs week ka simple test: Insights mein har post ka Shares number dekho. Jo post sabse zyada share hui, usi type ki aur banao.\n\nUs dost ko bhejo jo abhi bhi 30 hashtags laga raha hai.",
-      "hashtags": ["#instagramgrowth", "#instagramtips", "#contentcreator", "#digitalmarketingindia"],
+      "caption": "Hashtags don't grow your reach on Instagram. Adam Mosseri, who runs Instagram, has said so himself.\n\nInstagram now also caps posts at 5 hashtags, so pasting 30 is over.\n\nWhat hashtags still do: tell Instagram and search what your post is about.\n\nWhat drives reach: Mosseri named watch time, likes and sends as the top 3 signals. Sends matter because a forwarded post reaches people who don't follow you yet.\n\nTry this this week. Open Insights on each post and check Shares. Make more of whatever got shared most.\n\nSend this to a friend who still uses 30 hashtags.",
+      "hashtags": [
+        "#instagramgrowth",
+        "#instagramtips",
+        "#contentcreator",
+        "#digitalmarketingindia"
+      ],
       "alt_text": [
         "Text slide: 30 hashtags won't grow you. Sends will.",
         "Myth: more hashtags means more reach. Instagram caps posts at 5 hashtags.",
@@ -36,20 +90,37 @@
         "Before posting, ask who you would forward this to.",
         "Track sends, not likes. Find Shares in post insights."
       ],
-      "facebook_caption": "Hashtags reach nahi badhate. Instagram ke head Adam Mosseri ke hisaab se top signals hain watch time, likes aur sends. Ab Instagram pe max 5 hashtags hi chalte hain. Har post ke Shares track karo, likes nahi. Kisi aise dost ke saath share karo jo abhi bhi 30 hashtags lagata hai.",
+      "facebook_caption": "Hashtags don't grow reach. Instagram's Adam Mosseri named watch time, likes and sends as the top ranking signals, and posts now take max 5 hashtags. Track Shares on each post, not likes. Share this with a friend who still uses 30 hashtags.",
       "linkedin_post": "Instagram now caps posts at 5 hashtags, and Adam Mosseri has said hashtags don't meaningfully increase reach.\n\nWhat does? In January 2025 he named the top three ranking signals: watch time, likes and sends.\n\nFor small businesses, sends are the interesting one. A forwarded post lands in front of people who don't follow you yet. That's free distribution.\n\nA practical change for this week: stop judging posts by likes. Open each post's insights and track Shares. Make more of whatever gets forwarded.\n\nWhat's your most-shared post format so far?",
       "sources": [
-        {"claim": "Instagram limits posts to 5 hashtags; Mosseri says hashtags don't improve visibility", "url": "https://www.socialmediatoday.com/news/instagram-implements-new-limits-on-hashtag-use/808309/", "date": "2025-12"},
-        {"claim": "Mosseri: top three ranking signals are watch time, likes and sends", "url": "https://www.socialsamosa.com/news-2/instagram-reveals-key-factors-for-boosting-reach-8646916", "date": "2025-01"}
+        {
+          "claim": "Instagram limits posts to 5 hashtags; Mosseri says hashtags don't improve visibility",
+          "url": "https://www.socialmediatoday.com/news/instagram-implements-new-limits-on-hashtag-use/808309/",
+          "date": "2025-12"
+        },
+        {
+          "claim": "Mosseri: top three ranking signals are watch time, likes and sends",
+          "url": "https://www.socialsamosa.com/news-2/instagram-reveals-key-factors-for-boosting-reach-8646916",
+          "date": "2025-01"
+        }
       ],
       "placeholders": [],
-      "qc": {"accuracy": 4, "relevance": 5, "originality": 4, "hook": 5, "usefulness": 4, "readability": 5, "brand_fit": 5, "cta_fit": 5}
+      "qc": {
+        "accuracy": 4,
+        "relevance": 5,
+        "originality": 4,
+        "hook": 5,
+        "usefulness": 4,
+        "readability": 5,
+        "brand_fit": 5,
+        "cta_fit": 5
+      }
     },
     {
       "id": "S1",
       "format": "static",
       "day": "Thu 2026-10-29",
-      "time_ist": "13:00",
+      "time_ist": "20:00",
       "pillar": "AI TOOLS",
       "objective": "follow",
       "topic": "You only need 2 AI tools to start",
@@ -72,20 +143,38 @@
         "cta": "Follow for tools that earn their place",
         "visual": "White ground, headline top-left in ExtraBold, '2' in red, two simple outlined boxes labelled 'Chat' and 'Design'; no tool logos"
       },
-      "caption": "AI tools ki list save karna band karo. 10 tools ka trial lene se kuch nahi hota.\n\nShuru karne ke liye bas 2 chahiye:\n1. Ek chat assistant (ChatGPT, Claude ya Gemini) — sochne, likhne, plan karne ke liye\n2. Ek design tool (jaise Canva) — posts aur visuals ke liye\n\nJab tak in 2 se roz ka kaam fast nahi ho jaata, teesra tool mat jodo. Free versions se start karo, paid tab lo jab limit sach mein lagne lage.\n\n[ADD: aap personally kaun se 2 use karte ho aur kyun — 1 line]\n\nAise practical AI workflows ke liye follow @karantargotra.a",
-      "hashtags": ["#aitools", "#chatgpttips", "#aiforbusiness", "#freelancingindia"],
-      "alt_text": ["You don't need 10 AI tools. You need 2: a chat assistant and a design tool."],
-      "facebook_caption": "10 AI tools try karne se better hai 2 tools master karna: ek chat assistant (ChatGPT/Claude/Gemini) aur ek design tool (jaise Canva). Free versions se shuru karo. Aise practical AI tips ke liye page follow karo.",
+      "caption": "Stop collecting AI tools. Ten free trials won't make your work faster.\n\nTo start, you need 2:\n1. A chat assistant (ChatGPT, Claude or Gemini) to think, write and plan\n2. A design tool (like Canva) for posts and visuals\n\nDon't add a third until these two speed up your daily work. Start free, and pay only when you actually hit the limit.\n\n[ADD: which 2 you use and why, in 1 line]\n\nFollow @karantargotra.a for practical AI workflows.",
+      "hashtags": [
+        "#aitools",
+        "#chatgpttips",
+        "#aiforbusiness",
+        "#freelancingindia"
+      ],
+      "alt_text": [
+        "You don't need 10 AI tools. You need 2: a chat assistant and a design tool."
+      ],
+      "facebook_caption": "You don't need 10 AI tools to start. Master 2: a chat assistant (ChatGPT, Claude or Gemini) and a design tool (like Canva). Start free. Follow the page for practical AI tips.",
       "linkedin_post": null,
       "sources": [],
-      "placeholders": ["Caption line: which 2 tools Karan personally uses and why"],
-      "qc": {"accuracy": 5, "relevance": 5, "originality": 4, "hook": 5, "usefulness": 4, "readability": 5, "brand_fit": 5, "cta_fit": 5}
+      "placeholders": [
+        "Caption line: which 2 tools Karan personally uses and why"
+      ],
+      "qc": {
+        "accuracy": 5,
+        "relevance": 5,
+        "originality": 4,
+        "hook": 5,
+        "usefulness": 4,
+        "readability": 5,
+        "brand_fit": 5,
+        "cta_fit": 5
+      }
     },
     {
       "id": "C2",
       "format": "carousel",
       "day": "Sat 2026-10-31",
-      "time_ist": "11:00",
+      "time_ist": "20:00",
       "pillar": "AUTOMATION",
       "objective": "save",
       "topic": "Answer repeat DMs in 1 tap with Instagram saved replies + ChatGPT",
@@ -96,16 +185,70 @@
         "Stop typing 'price kya hai' replies."
       ],
       "slides": [
-        {"n": 1, "type": "hook", "tag": "AUTOMATION", "hook": "Answering the same DM daily?", "hook_red": "Do it in 1 tap.", "hook_sub": "Instagram saved replies + ChatGPT. Free, works on your phone.", "visual": "White ground, phone outline with chat bubble, red '1 tap'"},
-        {"n": 2, "type": "content", "title": "Price? Location? Timings?", "title_red": "On repeat.", "body": "If your DMs keep asking the same 5-6 questions, typing each reply by hand eats your week.", "visual": "Grey ground, 3 repeating chat bubbles with the questions"},
-        {"n": 3, "type": "content", "title": "List your top 5 DM questions", "title_red": "Step 1", "body": "Scroll your last 30 DMs. Write down what repeats: price, location, timings, delivery, booking.", "visual": "Numbered list 1-5, red step label"},
-        {"n": 4, "type": "content", "title": "Draft replies with ChatGPT", "title_red": "Step 2", "body": "Prompt: 'Write 5 short, friendly DM replies for my [business] answering: [questions]. Under 40 words each, end with one next step.'", "visual": "Prompt in a light grey code-style box; [brackets] in red"},
-        {"n": 5, "type": "content", "title": "Save them in Instagram", "title_red": "Step 3", "body": "Settings → Business tools → Saved replies → +. Add a shortcut like 'price' and paste the reply. Menu names vary by version.", "visual": "Breadcrumb path with red → arrows"},
-        {"n": 6, "type": "content", "title": "Type the shortcut, tap, send", "title_red": "Step 4", "body": "In any DM, type 'price' and tap the suggestion. Edit one detail so it still feels personal.", "visual": "Chat bar mock with 'price' typed and a suggestion chip"},
-        {"n": 7, "type": "cta", "cta_title": "Save this for setup day", "cta_body": "Needs a Business or Creator account. Start with your top 3 questions.", "visual": "Red #DC2626 'Save' button shape, handle footer"}
+        {
+          "n": 1,
+          "type": "hook",
+          "tag": "AUTOMATION",
+          "hook": "Answering the same DM daily?",
+          "hook_red": "Do it in 1 tap.",
+          "hook_sub": "Instagram saved replies + ChatGPT. Free, works on your phone.",
+          "visual": "White ground, phone outline with chat bubble, red '1 tap'"
+        },
+        {
+          "n": 2,
+          "type": "content",
+          "title": "Price? Location? Timings?",
+          "title_red": "On repeat.",
+          "body": "If your DMs keep asking the same 5-6 questions, typing each reply by hand eats your week.",
+          "visual": "Grey ground, 3 repeating chat bubbles with the questions"
+        },
+        {
+          "n": 3,
+          "type": "content",
+          "title": "List your top 5 DM questions",
+          "title_red": "Step 1",
+          "body": "Scroll your last 30 DMs. Write down what repeats: price, location, timings, delivery, booking.",
+          "visual": "Numbered list 1-5, red step label"
+        },
+        {
+          "n": 4,
+          "type": "content",
+          "title": "Draft replies with ChatGPT",
+          "title_red": "Step 2",
+          "body": "Prompt: 'Write 5 short, friendly DM replies for my [business] answering: [questions]. Under 40 words each, end with one next step.'",
+          "visual": "Prompt in a light grey code-style box; [brackets] in red"
+        },
+        {
+          "n": 5,
+          "type": "content",
+          "title": "Save them in Instagram",
+          "title_red": "Step 3",
+          "body": "Settings → Business tools → Saved replies → +. Add a shortcut like 'price' and paste the reply. Menu names vary by version.",
+          "visual": "Breadcrumb path with red → arrows"
+        },
+        {
+          "n": 6,
+          "type": "content",
+          "title": "Type the shortcut, tap, send",
+          "title_red": "Step 4",
+          "body": "In any DM, type 'price' and tap the suggestion. Edit one detail so it still feels personal.",
+          "visual": "Chat bar mock with 'price' typed and a suggestion chip"
+        },
+        {
+          "n": 7,
+          "type": "cta",
+          "cta_title": "Save this for setup day",
+          "cta_body": "Needs a Business or Creator account. Start with your top 3 questions.",
+          "visual": "Red #DC2626 'Save' button shape, handle footer"
+        }
       ],
-      "caption": "Instagram saved replies: same DM ka jawab 1 tap mein. Har din 'price kya hai?', 'location kahan hai?' type karte ho? Yeh 15 minute ka setup hai.\n\n1. Last 30 DMs dekho, jo questions repeat hote hain unki list banao\n2. ChatGPT se 5 short replies likhwao (prompt slide 4 pe hai)\n3. Instagram mein Saved replies mein daalo, har ek ka shortcut rakho jaise 'price'\n4. DM mein shortcut type karo, tap karo, ek detail personalise karo, send\n\nBas dhyan rakho: reply mein price/timings badle toh saved reply bhi update karo. Galat info wala fast reply, slow reply se bura hai.\n\nNote: yeh feature Business ya Creator account pe milta hai. Menu ka naam app version ke hisaab se thoda alag ho sakta hai.\n\nSave kar lo — setup karte waqt kaam aayega.",
-      "hashtags": ["#marketingautomation", "#instagramtips", "#smallbusinessindia", "#chatgpttips"],
+      "caption": "Instagram saved replies answer the same DM in 1 tap. If you type the same answers to 'price?' and 'where are you?' every day, this is a 15-minute setup.\n\n1. Go through your last 30 DMs and list the questions that repeat\n2. Ask ChatGPT for 5 short replies (prompt on slide 4)\n3. Add them to Instagram's Saved replies, each with a shortcut like 'price'\n4. In a DM, type the shortcut, tap, change one detail, send\n\nOne rule: when your price or timings change, update the saved reply too. A fast wrong answer is worse than a slow right one.\n\nNeeds a Business or Creator account. Menu names can differ slightly by app version.\n\nSave this for when you set it up.",
+      "hashtags": [
+        "#marketingautomation",
+        "#instagramtips",
+        "#smallbusinessindia",
+        "#chatgpttips"
+      ],
       "alt_text": [
         "Text slide: Answering the same DM daily? Do it in 1 tap.",
         "Price, location, timings: the same DM questions on repeat.",
@@ -115,20 +258,37 @@
         "Step 4: type the shortcut in a DM, tap the suggestion, send.",
         "Save this. Needs a Business or Creator account."
       ],
-      "facebook_caption": "Same DM sawaal roz? Instagram Saved replies se 1 tap mein jawab do. Top 5 questions list karo, ChatGPT se short replies likhwao, Saved replies mein shortcut ke saath save karo. Business/Creator account chahiye. Save kar lo.",
+      "facebook_caption": "Same DM questions every day? Instagram Saved replies answer them in 1 tap. List your top 5 questions, draft short replies with ChatGPT, save each with a shortcut. Needs a Business or Creator account. Save this for setup day.",
       "linkedin_post": "A small, free automation most local businesses skip: Instagram saved replies.\n\nIf your DMs keep asking about price, location and timings, set it up once:\n1. List the 5 questions that repeat in your last 30 DMs\n2. Draft short, friendly replies with ChatGPT (under 40 words, one next step each)\n3. Save each one in Instagram under Saved replies with a shortcut like 'price'\n4. Type the shortcut in a DM, tap, personalise one detail, send\n\nIt needs a Business or Creator account. Keep the replies updated when your prices or hours change; a fast wrong answer is worse than a slow right one.",
       "sources": [
-        {"claim": "Saved replies: create via settings with a shortcut + message; trigger by typing the shortcut in a DM", "url": "https://later.com/blog/instagram-quick-replies/", "date": "accessed 2026-10-26"},
-        {"claim": "Saved replies need a Business or Creator account; menu labels vary", "url": "https://www.guidingtech.com/how-to-create-saved-replies-on-instagram/", "date": "accessed 2026-10-26"}
+        {
+          "claim": "Saved replies: create via settings with a shortcut + message; trigger by typing the shortcut in a DM",
+          "url": "https://later.com/blog/instagram-quick-replies/",
+          "date": "accessed 2026-10-26"
+        },
+        {
+          "claim": "Saved replies need a Business or Creator account; menu labels vary",
+          "url": "https://www.guidingtech.com/how-to-create-saved-replies-on-instagram/",
+          "date": "accessed 2026-10-26"
+        }
       ],
       "placeholders": [],
-      "qc": {"accuracy": 4, "relevance": 5, "originality": 4, "hook": 4, "usefulness": 5, "readability": 4, "brand_fit": 5, "cta_fit": 5}
+      "qc": {
+        "accuracy": 4,
+        "relevance": 5,
+        "originality": 4,
+        "hook": 4,
+        "usefulness": 5,
+        "readability": 4,
+        "brand_fit": 5,
+        "cta_fit": 5
+      }
     },
     {
       "id": "S2",
       "format": "static",
       "day": "Sun 2026-11-01",
-      "time_ist": "19:30",
+      "time_ist": "20:00",
       "pillar": "DIGITAL MARKETING",
       "objective": "send",
       "topic": "Write ad copy like a WhatsApp message",
@@ -151,14 +311,34 @@
         "cta": "Send this to someone running ads",
         "visual": "Split card: left 'Do' column with red ticks, right 'Don't' column in grey with strikethrough; no stock photos"
       },
-      "caption": "Ad copy ko WhatsApp message ki tarah likho, pamphlet ki tarah nahi.\n\nPamphlet wali copy: \"Best quality, lowest price, all services available, contact now!\" Isse koi rukta nahi.\n\nWhatsApp wali copy: \"Ghar ka AC service ₹499 mein, Jammu city mein same-day visit. Slot book karne ke liye 'AC' likh ke bhejo.\"\n\nFarak dekho:\n✔ Ek insaan se baat\n✔ ₹ price saaf\n✔ Ek hi next step\n\nAgli ad likhne se pehle zor se padho. Agar dost ko aise message nahi bhejoge, toh customer ko bhi mat bhejo.\n\nUs dost ko bhejo jo apni shop ki ads khud chalata hai.",
-      "hashtags": ["#metaads", "#digitalmarketingindia", "#smallbusinessindia", "#adcopy"],
-      "alt_text": ["Write ads like a WhatsApp message, not a pamphlet. Do and Don't list for ad copy."],
-      "facebook_caption": "Ad copy WhatsApp message jaisi likho: ek insaan se baat, ₹ price saaf, ek next step. 'Best quality, all services available' jaisi lines se koi nahi rukta. Kisi shop owner dost ke saath share karo.",
+      "caption": "Write your ad copy like a WhatsApp message, not a pamphlet.\n\nPamphlet copy: \"Best quality, lowest price, all services available, contact now!\" Nobody stops for it.\n\nWhatsApp copy: \"Home AC service for ₹499, same-day visit in Jammu city. Reply 'AC' to book a slot.\"\n\nThe difference:\n→ Talks to one person\n→ Shows the ₹ price\n→ Gives one next step\n\nBefore your next ad, read it out loud. If you wouldn't send it to a friend, don't send it to a customer.\n\nSend this to a friend who runs ads for their shop.",
+      "hashtags": [
+        "#metaads",
+        "#digitalmarketingindia",
+        "#smallbusinessindia",
+        "#adcopy"
+      ],
+      "alt_text": [
+        "Write ads like a WhatsApp message, not a pamphlet. Do and Don't list for ad copy."
+      ],
+      "facebook_caption": "Write ad copy like a WhatsApp message: talk to one person, show the ₹ price, give one next step. Lines like 'best quality, all services available' don't stop anyone. Share this with a shop owner who runs their own ads.",
       "linkedin_post": null,
       "sources": [],
       "placeholders": [],
-      "qc": {"accuracy": 5, "relevance": 5, "originality": 4, "hook": 5, "usefulness": 5, "readability": 5, "brand_fit": 4, "cta_fit": 5}
+      "qc": {
+        "accuracy": 5,
+        "relevance": 5,
+        "originality": 4,
+        "hook": 5,
+        "usefulness": 5,
+        "readability": 5,
+        "brand_fit": 4,
+        "cta_fit": 5
+      }
     }
+  ],
+  "notes": [
+    "Captions in English per the 15 Oct language rule (Design System v2 / Creative DNA conflict 6).",
+    "All slots 8 PM IST per Metricool best-time data in W44 Plan & Stats (18 Oct)."
   ]
 }

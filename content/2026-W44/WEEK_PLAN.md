@@ -2,6 +2,8 @@
 
 Instagram @karantargotra.a · 2 carousels + 2 statics · Status: DRAFT (not approved)
 
+> **Update 26 Oct:** captions switched to English and all slots moved to 8 PM IST. `week.json` is the current version; the captions below are the earlier Hinglish draft.
+
 ## Week at a glance
 
 | ID | Day / time IST | Format | Pillar | Objective | Hook |
