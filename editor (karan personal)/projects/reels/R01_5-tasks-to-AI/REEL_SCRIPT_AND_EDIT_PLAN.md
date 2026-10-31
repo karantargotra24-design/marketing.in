@@ -7,26 +7,35 @@ Format: your reference reels, **Style A (Clean Tech Minimal)**. Black title box 
 - Solid black or white T-shirt. Look at the lens. Pause half a second between lines (makes cutting easy).
 - Mic: phone 30 cm away or a lapel mic. Quiet room.
 
-## 2. Script + edit timeline
-| Time | You say (A-roll) | On screen | Cutaway file |
+## 2. Script + edit timeline v2 (follows `knowledge/REEL_EDITING_GRAMMAR.md`)
+W = wide A-roll, P = punch-in 120% (alternate on every A-roll cut). Captions run the whole time (1–3 words).
+
+| Time | You say | Picture | Asset |
 |---|---|---|---|
-| 0–2 s | "Stop using AI only for captions." | Hook overlay on top of you | `00_hook_title_OVERLAY.png` (0–3 s) |
-| 2–6 s | "Here are 5 tasks you can hand to AI this week. Save this." | Captions only | — |
-| 6–11 s | "One: caption first drafts. Ask ChatGPT for 10 hooks, pick one, then edit it in your words." | Cut to card after "one" | `01_task1_chatgpt.png` (≈3 s) |
-| 11–16 s | "Two: paste a long brief into Claude and ask for decisions, questions and next steps." | Card | `02_task2_claude.png` |
-| 16–21 s | "Three: research a topic fast with Gemini. But always check the sources." | Card | `03_task3_gemini.png` |
-| 21–26 s | "Four: design one post in Canva, then resize it for Story and Reel cover." | Card | `04_task4_canva.png` |
-| 26–31 s | "Five: list your 10 most asked DM questions and let AI draft quick replies." | Card | `05_task5_any.png` |
-| 31–37 s | "One rule: AI writes the first draft. You make it yours." | Rule card on "one rule" | `06_rule_diagram.png` (≈3 s) |
-| 37–45 s | "Want the exact prompt for each task? Comment TOOLS and I'll DM you all five." | Stay on you, pill overlay | `07_cta_pill_OVERLAY.png` (last 4–5 s, transparent) |
+| 0–2.0 s | "Stop using AI only for captions." | W, you + hook box (stays through the line) | `00_hook_title_OVERLAY` 0–2.5 s |
+| 2.0–4.5 s | "Here are 5 tasks you can hand to AI this week." | **Map graphic** (rule 2) | `00b_map_graphic` |
+| 4.5–6 s | "Save this." | P, you + logo row pops above your head (rule 6) | `09_logo_row_OVERLAY` |
+| 6–8 s | "One: caption first drafts." | W | — |
+| 8–11 s | "Ask ChatGPT for 10 hooks, pick one, then edit it in your words." | Task card, chat bubbles pop in on the words | `01_task1_chatgpt` |
+| 11–13 s | "Two: summarise long documents." | P | — |
+| 13–16 s | "Paste a brief into Claude: decisions, questions, next steps." | Task card | `02_task2_claude` |
+| 16–19 s | "Three: research fast with Gemini, but check the sources." | Task card | `03_task3_gemini` |
+| 19–21 s | "Four: design once in Canva..." | W | — |
+| 21–23 s | "...then resize it for Story and Reel cover." | Task card, 9:16 frame pops in red | `04_task4_canva` |
+| 23–25 s | "Five: draft your DM replies." | P | — |
+| 25–27 s | "List your top 10 questions, let AI draft the replies." | Task card | `05_task5_any` |
+| 27–29 s | "That's ChatGPT, Claude, Gemini, Canva..." | **Burst montage** 0.4 s each (rule 7) | `10_burst_1..4` |
+| 29–34 s | "One rule: AI writes the first draft. You make it yours." | Rule diagram, nodes draw in one by one | `06_rule_diagram` |
+| 34–36 s | "Want the exact prompt for each task?" | P | — |
+| 36–42 s | "Comment TOOLS and I'll DM you all five." | **End on your face** + pill animates in (rule 9) | `07_cta_pill_OVERLAY` last 5 s |
 
 ## 3. Edit steps (CapCut or InShot)
 1. Import your clip. Cut out pauses and mistakes (jump cuts are fine, keep each shot 3–5 s).
 2. Put `00_hook_title_OVERLAY.png` on an overlay track for 0–3 s (it's transparent).
 3. Drop cards 01–07 as full-screen cutaways at the times above, keeping your voice underneath.
 4. Auto-captions (Style A): Inter Light, white, large (~110 px on 1080 wide), soft shadow, 1–3 words, placed mid-frame above your head line; one key word in Bold. See `08_caption_style_SAMPLE_OVERLAY.png`.
-5. Light zoom-in (105%) on every other A-roll cut. Soft whoosh SFX on each card, low volume.
-6. Audio: normalise to around −14 LUFS. No loud music; a quiet beat at −25 dB is enough.
+5. Alternate W / P (120% scale) on every A-roll cut. Animate each card: pop-in 0.15 s; chat bubbles and diagram nodes appear on the spoken word. Hard cuts only (no flash transitions in Style A). Quiet pop/whoosh on card entries.
+6. Audio: a music bed runs under the voice the whole time (around −25 dB, never silent). Compress the voice and master to −14 LUFS.
 7. Cover: a frame of you with the black hook box (`00_hook_title_OVERLAY.png`).
 8. Export 1080×1920, 30 fps, high bitrate.
 
