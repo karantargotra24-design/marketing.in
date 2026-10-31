@@ -1,0 +1,5 @@
+# Raw media stays out of git (too heavy). Keep contact sheets + notes instead.
+*.mp4
+*.mov
+*.wav
+*.mp3
