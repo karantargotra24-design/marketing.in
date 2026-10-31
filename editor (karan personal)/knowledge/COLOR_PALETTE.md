@@ -1,5 +1,13 @@
 # Colour Palette
 
+## 0. Carousel palette v2 (Karan, 31 Oct 2026, wins for carousels)
+| Role | Hex |
+|---|---|
+| Primary ground / ink | Black #0B0B0B |
+| Secondary ground | White #FFFFFF |
+| Accent (one key element) | Red #FF0000 |
+| Supporting greys | #F4F4F4 · #E6E6E6 · #6B6B6B |
+
 ## 1. Karan's personal brand — VERIFIED (Design System v2, Oct 2026)
 Source: Karan's design-system artifact (README + Canva Brand Kit list in checklist.md).
 

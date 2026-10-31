@@ -2,6 +2,13 @@
 
 Status: **Karan's personal brand = VERIFIED (Design System v2).** Reel editing pattern = from 4 reference reels. Slide decks = follow brand system until PPT refs arrive.
 
+## 0A. CAROUSEL LOOK v2 — Karan, 31 Oct 2026 (overrides §0 grounds/elements for carousels)
+- **Grounds: black #0B0B0B (primary) and white #FFFFFF (secondary)**, alternating. Red #FF0000 accent. Greys #F4F4F4 / #E6E6E6 / #6B6B6B only for supporting elements. Sand/espresso no longer used for carousels.
+- **Never typography-only.** Every slide carries at least one visual element: real tool logo tiles (monochrome), lucide-style line icons, phone/post mockups, flow nodes, icon cards, red highlighter marker, dot grid (white) / line grid (black).
+- Logos: real marks from simple-icons, rendered black-on-white or white-on-black, used only to name the tool. Never recoloured into fake variants.
+- Type unchanged: Plus Jakarta Sans 800 for punch/caps headlines, Instrument Serif for serif lines, Inter for body.
+- Reference build: `projects/carousel-system-preview/index.html` (v2). Generator: icon/logo kit from npm `simple-icons` + `lucide-static`.
+
 ## 0. KARAN'S PERSONAL BRAND (overrides Style A/B for his own content)
 > Real face. Warm light. Red only where the eye must land.
 
