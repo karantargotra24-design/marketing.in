@@ -124,7 +124,8 @@
         "brand_fit": 5,
         "cta_fit": 5
       },
-      "approval_status": "approved 2026-10-31"
+      "approval_status": "approved 2026-10-31",
+      "publish_status": "scheduled in Meta Business Suite (by Karan, 31 Oct 2026; not verifiable from here)"
     },
     {
       "id": "S1",
@@ -177,7 +178,8 @@
         "brand_fit": 5,
         "cta_fit": 5
       },
-      "approval_status": "approved 2026-10-31"
+      "approval_status": "approved 2026-10-31",
+      "publish_status": "scheduled in Meta Business Suite (by Karan, 31 Oct 2026; not verifiable from here)"
     },
     {
       "id": "C2",
@@ -285,7 +287,8 @@
         "brand_fit": 5,
         "cta_fit": 5
       },
-      "approval_status": "approved 2026-10-31"
+      "approval_status": "approved 2026-10-31",
+      "publish_status": "scheduled in Meta Business Suite (by Karan, 31 Oct 2026; not verifiable from here)"
     },
     {
       "id": "S2",
@@ -346,7 +349,8 @@
         "brand_fit": 5,
         "cta_fit": 5
       },
-      "approval_status": "approved 2026-10-31"
+      "approval_status": "approved 2026-10-31",
+      "publish_status": "scheduled in Meta Business Suite (by Karan, 31 Oct 2026; not verifiable from here)"
     }
   ]
 }
