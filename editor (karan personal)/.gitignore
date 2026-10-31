@@ -5,3 +5,4 @@
 *.mp3
 projects/*/*/build/
 projects/*/*/*/build/
+build_glass/

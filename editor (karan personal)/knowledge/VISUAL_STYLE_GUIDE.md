@@ -2,6 +2,14 @@
 
 Status: **Karan's personal brand = VERIFIED (Design System v2).** Reel editing pattern = from 4 reference reels. Slide decks = follow brand system until PPT refs arrive.
 
+## 0B. CAROUSEL STANDARD = DIRECTION B "GLASS" — Karan picked B, 31 Oct 2026 (wins over 0A where they differ)
+- Ground: black #0B0B0B with 3–4 soft **brand-colour blur blobs** (Claude #D97757, Canva purple #7D2AE8, WhatsApp #25D366, Meta #0467DF), blur ~30px, opacity ~.6–.75. Pick blob colours from the tools in that post.
+- Content sits on **frosted glass cards**: rgba(255,255,255,.10) fill, 1.5px rgba(255,255,255,.28) border, 36px radius, backdrop blur 18px, soft shadow.
+- Logos: official brand-colour app-icon tiles (ChatGPT = black tile). Glass tiles with white logos for cover rows.
+- Text white; red #FF0000 for the punch line, step numbers and the FREE/CTA badge only.
+- Photo covers: Karan's real photo full-bleed, glass headline card placed off the face.
+- Reference: `projects/carousel-system-preview/carousel_directions_ABCD.png` (B) + `directions_generator.py`.
+
 ## 0A. CAROUSEL LOOK v2 — Karan, 31 Oct 2026 (overrides §0 grounds/elements for carousels)
 - **Grounds: black #0B0B0B (primary) and white #FFFFFF (secondary)**, alternating. Red #FF0000 accent. Greys #F4F4F4 / #E6E6E6 / #6B6B6B only for supporting elements. Sand/espresso no longer used for carousels.
 - **Never typography-only.** Every slide carries at least one visual element: real tool logo tiles (monochrome), lucide-style line icons, phone/post mockups, flow nodes, icon cards, red highlighter marker, dot grid (white) / line grid (black).
