@@ -113,7 +113,8 @@
         "readability": 5,
         "brand_fit": 5,
         "cta_fit": 4
-      }
+      },
+      "publish_status": "scheduled in Meta Business Suite (by Karan, 31 Oct 2026; not verifiable from here)"
     },
     {
       "id": "S1",
@@ -169,7 +170,8 @@
         "readability": 5,
         "brand_fit": 5,
         "cta_fit": 5
-      }
+      },
+      "publish_status": "scheduled in Meta Business Suite (by Karan, 31 Oct 2026; not verifiable from here)"
     },
     {
       "id": "C2",
@@ -275,7 +277,8 @@
         "readability": 4,
         "brand_fit": 5,
         "cta_fit": 5
-      }
+      },
+      "publish_status": "scheduled in Meta Business Suite (by Karan, 31 Oct 2026; not verifiable from here)"
     },
     {
       "id": "S2",
@@ -324,7 +327,8 @@
         "readability": 5,
         "brand_fit": 5,
         "cta_fit": 5
-      }
+      },
+      "publish_status": "scheduled in Meta Business Suite (by Karan, 31 Oct 2026; not verifiable from here)"
     }
   ]
 }
