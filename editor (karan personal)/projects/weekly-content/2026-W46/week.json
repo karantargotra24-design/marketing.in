@@ -123,7 +123,8 @@
         "readability": 5,
         "brand_fit": 5,
         "cta_fit": 5
-      }
+      },
+      "approval_status": "approved 2026-10-31"
     },
     {
       "id": "S1",
@@ -175,7 +176,8 @@
         "readability": 5,
         "brand_fit": 5,
         "cta_fit": 5
-      }
+      },
+      "approval_status": "approved 2026-10-31"
     },
     {
       "id": "C2",
@@ -282,7 +284,8 @@
         "readability": 5,
         "brand_fit": 5,
         "cta_fit": 5
-      }
+      },
+      "approval_status": "approved 2026-10-31"
     },
     {
       "id": "S2",
@@ -342,7 +345,8 @@
         "readability": 5,
         "brand_fit": 5,
         "cta_fit": 5
-      }
+      },
+      "approval_status": "approved 2026-10-31"
     }
   ]
 }
