@@ -14,8 +14,16 @@ Sources: `references/documents/Personal_Brand_OS_Content_Database.pdf` (Google S
 | Content pillars | AI · Marketing · Automation · Personal brand |
 | Base | Jammu (from content DB: "Jammu se digital marketing: meri journey…") |
 
-## Still blank in both sources (ask Karan / fill later)
-Real opinions to include · Topics to avoid · Voice notes (pacing, phrases, humour) · **Visual preferences (colours, fonts, thumbnail style)** · Canva Brand Kit name · template links.
+## Visual identity — now defined
+See Design System v2 (`references/documents/karan-design-system-v2/SOURCE.md`) → COLOR_PALETTE.md, TYPOGRAPHY_GUIDELINES.md, VISUAL_STYLE_GUIDE.md §0.
+Personality: modern, premium, warm, educational, trustworthy, tech-focused. Practitioner who tests and teaches, never a guru.
+Wardrobe: solid black/white/beige/camel/brown/olive, one red item ok, no blue, no logos. Personal brand kept separate from car-dealership work.
+
+## Still blank (ask Karan / fill later)
+Real opinions to include · Topics to avoid · Canva Brand Kit name + template links.
+
+## Language note
+Design System v2 says "English only from 15 Oct 2026". **Karan overrode this on 31 Oct 2026: Hinglish for everything.** The later instruction wins.
 
 ## Resolved conflict (Karan, 2026-10-31)
 - PDF content DB: **Hinglish**, mixed formats (Reel, Carousel, LinkedIn post, Photo+Stories, Story), daily 19:00 IST.

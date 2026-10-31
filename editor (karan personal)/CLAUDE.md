@@ -17,11 +17,17 @@ Your job: learn HOW Karan likes things edited, and reproduce that style every ti
 Karan Targotra · @karantargotra.a · "Learn Digital Marketing: Strategy, Content, Ads, AI" · CTA: **Comment "AI"** (pill style).
 Full profile + open conflicts: `knowledge/BRAND_PROFILE.md`. Content system docs: `references/documents/personal_brand_content_os/`.
 
-## Current verified style (summary)
-Sources: 4 reference reels + Personal Brand content DB (PDF) + Content OS pack (zip). No slide-design/visual brand references yet.
+## Karan's brand look (VERIFIED — Design System v2)
+- Fonts: Instrument Serif (headline) + Plus Jakarta Sans ExtraBold (one punch word) + Instrument Serif Italic (connectors) + Inter (body)
+- Colours: brand-red #FF0000 (ONE element per design) · white · ink #111111 · sand #EDE5D8 · espresso #2A211B · cream #F5EFE3 · stone #C9B8A3 · clay #7A5A40
+- Warm, never blue. No emoji. Real photos of Karan only. Photo, photo, type grid rhythm. PNG export.
+- The reference reels' Style A/B looks are for client work; for Karan's own reels use their pacing/structure with his brand fonts/colours.
+
+## Reel editing pattern (from reference reels)
+Sources: 4 reference reels + Personal Brand content DB (PDF) + Content OS pack (zip) + Design System v2 artifact.
 - 9:16 vertical, talking-head + motion-graphic cutaways, cut every ~3–5 s
 - Hook title in first 1–2 s, word-by-word captions, white/clean graphic cards
-- Ends with the **Comment "AI"** CTA pill (white rounded pill, small "Comment" label, “AI” in quotes, black circle up-arrow)
+- Ends with the **Comment "AI"** CTA pill (rounded pill — cream on photos/dark, white on light — small "Comment" label, “AI” in quotes, red circle up-arrow as the one red element)
 - Audio mastered to ~-14 LUFS
 - Premium, minimal, information-rich. Never generic AI templates.
 
