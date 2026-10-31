@@ -1,9 +1,14 @@
-I test AI tools before I teach them. That's my rule.
+How to test an AI tool before you pay for it.
 
-Everyone online has a 'best AI tool'. My rule is simple: if I haven't tested it myself, I don't post it.
+Every week there's a new 'must-have' AI tool. Before you take out your card, run a 20-minute test:
 
-This week I tested: [ADD: which tool/workflow]. Result: [ADD: 1 real number or observation]. What worked and what didn't is all in my notes.
+1. Pick one real task from your week
+2. Run the same prompt in 2 tools
+3. Time how long it takes to get a usable result
+4. Check every fact it gives you
 
-Comment "AI" and I'll DM you my full test notes.
+The tool that wins on your own task is the one worth paying for. Not the one with the best ads.
 
-#aitools #buildinpublic #personalbranding #digitalmarketingindia
+Comment "AI" and I'll DM you my tool test sheet.
+
+#aitools #chatgpttips #digitalmarketing #marketingtips

@@ -10,5 +10,5 @@
 | 06_comment_to_dm_setup_guide.pdf | Setup guide | W45 S1 "How does commenting send a DM?" |
 | 07_whatsapp_follow_up_sheet.pdf | Follow-up sheet | W45 C2 "Got a lead but no reply?" |
 
-Still needed: W45 S2 test notes (Karan's real experiment).
+| 08_ai_tool_test_sheet.pdf | Tool test sheet | W45 S2 "Test an AI tool before you pay" |
 Upload each PDF to Drive (anyone with link can view) and paste that link into the DM automation for that post's keyword.

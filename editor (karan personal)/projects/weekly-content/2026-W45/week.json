@@ -282,39 +282,38 @@
       "format": "static",
       "day": "Sun 2026-11-08",
       "time_ist": "19:30",
-      "pillar": "BUILD IN PUBLIC",
+      "pillar": "AI TOOLS",
       "objective": "dm",
-      "topic": "Test before teach: this week's experiment",
-      "angle": "POV statement with real photo",
+      "topic": "Test an AI tool before you pay for it",
+      "angle": "4-step test framework (no personal results claimed)",
       "static": {
         "headline_options": [
-          "I test first, then I teach",
-          "A real experiment behind every post",
-          "Less theory, more testing"
+          "Test an AI tool before you pay",
+          "Don't pay for an AI tool until you do this",
+          "The 20-minute AI tool test"
         ],
-        "tag": "BUILD IN PUBLIC",
-        "headline": "I test first,",
-        "headline_red": "then I teach",
-        "support": "Every post is backed by a real experiment. This week: [ADD: tool/workflow + 1 real result].",
-        "cta": "Comment \"AI\" for my full test notes",
+        "tag": "AI TOOLS",
+        "headline": "Test an AI tool",
+        "headline_red": "before you pay",
+        "support": "1. One real task  2. Same prompt in 2 tools  3. Time it  4. Check every fact",
+        "cta": "Comment \"AI\" for my tool test sheet",
         "visual": "PhotoCover 4:5 with Karan's real rooftop sunset photo, warm grade, cream serif headline top third over sky, red punch line, sub-line lower third in stone"
       },
-      "caption": "I test AI tools before I teach them. That's my rule.\n\nEveryone online has a 'best AI tool'. My rule is simple: if I haven't tested it myself, I don't post it.\n\nThis week I tested: [ADD: which tool/workflow]. Result: [ADD: 1 real number or observation]. What worked and what didn't is all in my notes.\n\nComment \"AI\" and I'll DM you my full test notes.",
+      "caption": "How to test an AI tool before you pay for it.\n\nEvery week there's a new 'must-have' AI tool. Before you take out your card, run a 20-minute test:\n\n1. Pick one real task from your week\n2. Run the same prompt in 2 tools\n3. Time how long it takes to get a usable result\n4. Check every fact it gives you\n\nThe tool that wins on your own task is the one worth paying for. Not the one with the best ads.\n\nComment \"AI\" and I'll DM you my tool test sheet.",
       "hashtags": [
         "#aitools",
-        "#buildinpublic",
-        "#personalbranding",
-        "#digitalmarketingindia"
+        "#chatgpttips",
+        "#digitalmarketing",
+        "#marketingtips"
       ],
       "alt_text": [
-        "Karan smiling on a rooftop at sunset with headline: I test first, then teach"
+        "Karan on a rooftop at sunset with headline: test an AI tool before you pay"
       ],
-      "facebook_caption": "If I haven't tested it, I don't post it. This week's experiment: [ADD]. Comment \"AI\" for my full notes.",
-      "linkedin_post": "One rule I follow: I don't teach what I haven't tested.\n\nThis week: [ADD: tool/workflow]. Result: [ADD: real result]. What worked and what didn't is in my notes.\n\nComment \"AI\" if you want them.",
+      "facebook_caption": "Before you pay for an AI tool, run this 4-step test. Comment \"AI\" for my tool test sheet.",
+      "linkedin_post": "Before paying for any AI tool, I'd run a 20-minute test:\n\n1. One real task from your week\n2. Same prompt in 2 tools\n3. Time to a usable result\n4. Fact-check everything\n\nPay for the tool that wins on your task, not the one with the best ads.\n\nComment \"AI\" for the test sheet.",
       "sources": [],
       "placeholders": [
-        "This week's real experiment + result (support line, caption, LinkedIn)",
-        "Test notes resource"
+        "Tool test sheet resource (08_ai_tool_test_sheet.pdf)"
       ],
       "qc": {
         "accuracy": 5,

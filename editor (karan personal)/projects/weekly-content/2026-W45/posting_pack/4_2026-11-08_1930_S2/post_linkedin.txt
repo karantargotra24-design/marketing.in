@@ -1,5 +1,10 @@
-One rule I follow: I don't teach what I haven't tested.
+Before paying for any AI tool, I'd run a 20-minute test:
 
-This week: [ADD: tool/workflow]. Result: [ADD: real result]. What worked and what didn't is in my notes.
+1. One real task from your week
+2. Same prompt in 2 tools
+3. Time to a usable result
+4. Fact-check everything
 
-Comment "AI" if you want them.
+Pay for the tool that wins on your task, not the one with the best ads.
+
+Comment "AI" for the test sheet.
