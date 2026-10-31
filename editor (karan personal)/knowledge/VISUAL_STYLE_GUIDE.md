@@ -7,6 +7,8 @@ Never post the same carousel look twice in a row. Rotate 3 variants in this fixe
 1. **B+D: Glass + Sticker.** Glass base + tilted app-icon stickers, red marker circle/arrows, yellow highlighter tags. Stickers and marker on covers and flow slides; text-heavy slides stay plain glass. Sample: `projects/carousel-system-preview/carousel_direction_BD_glass-sticker.png`.
 2. **B: Glass.** See §0B.
 3. **D: Sticker Collage.** White dot-grid ground, sticker app icons, red marker, yellow highlighter, black type. Sample: `carousel_directions_ABCD.png` (D).
+**Colour rule (Karan, 31 Oct 2026): backgrounds, glows, highlighter tags, arrows, icon tiles and cards use ONLY Karan's palette (black #0B0B0B, white, red #FF0000, greys #E6E6E6/#6B6B6B).** Glows = red + white blur. Highlighter = white tag with black text (red tag for the key line), hard black drop shadow. No purple, green, blue or yellow elements. Tool logos keep official colours (per Karan's earlier ask; confirm if he wants these in brand colours too).
+Preview of all 3: `projects/carousel-system-preview/carousel_rotation_3_variants_brand-colours.png`.
 Then back to 1. Shared across all three: red punch/CTA, official-colour logos, Hinglish, Comment "AI" pill, real photos only.
 Track the last variant used in `projects/weekly-content/ROTATION_LOG.md` and pick the next one in order.
 
