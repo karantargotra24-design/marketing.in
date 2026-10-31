@@ -137,8 +137,8 @@ Comment "AI" if you want my editing checklist.
 ---
 ## CONTENT_LOG rows
 ```
-C1-2026-W46,2026-W46,2026-11-10,carousel,AI TOOLS,dm,"5 marketing tasks to hand to AI this week","Tool-per-task listicle","5 tasks to hand to AI this week","Comment AI",,,draft
-S1-2026-W46,2026-W46,2026-11-12,static,PROMPT ENGINEERING,dm,"Before and after prompt card","Bad prompt vs better prompt","Same AI. Different prompt. Better output.","Comment AI",,,draft
-C2-2026-W46,2026-W46,2026-11-14,carousel,DIGITAL MARKETING,dm,"Ads getting clicks but no leads: 4 fixes","Mistakes + fixes after the click","Getting clicks but zero leads?","Comment AI",,,draft
-S2-2026-W46,2026-W46,2026-11-15,static,AI TOOLS,dm,"Do and don't: using AI for your content","Do/Don't split card","Using AI for content? Do this, not that.","Comment AI",,,draft
+C1-2026-W46,2026-W46,2026-11-10,carousel,AI TOOLS,dm,"5 marketing tasks to hand to AI this week","Tool-per-task listicle","5 tasks to hand to AI this week","Comment AI",,,approved
+S1-2026-W46,2026-W46,2026-11-12,static,PROMPT ENGINEERING,dm,"Before and after prompt card","Bad prompt vs better prompt","Same AI. Different prompt. Better output.","Comment AI",,,approved
+C2-2026-W46,2026-W46,2026-11-14,carousel,DIGITAL MARKETING,dm,"Ads getting clicks but no leads: 4 fixes","Mistakes + fixes after the click","Getting clicks but zero leads?","Comment AI",,,approved
+S2-2026-W46,2026-W46,2026-11-15,static,AI TOOLS,dm,"Do and don't: using AI for your content","Do/Don't split card","Using AI for content? Do this, not that.","Comment AI",,,approved
 ```
