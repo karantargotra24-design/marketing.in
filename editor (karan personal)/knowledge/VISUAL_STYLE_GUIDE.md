@@ -2,6 +2,14 @@
 
 Status: **Karan's personal brand = VERIFIED (Design System v2).** Reel editing pattern = from 4 reference reels. Slide decks = follow brand system until PPT refs arrive.
 
+## 0C. CAROUSEL ROTATION — Karan, 31 Oct 2026 (wins over 0B)
+Never post the same carousel look twice in a row. Rotate 3 variants in this fixed order, one per carousel upload (a carousel goes out every 3–4 days):
+1. **B+D: Glass + Sticker.** Glass base + tilted app-icon stickers, red marker circle/arrows, yellow highlighter tags. Stickers and marker on covers and flow slides; text-heavy slides stay plain glass. Sample: `projects/carousel-system-preview/carousel_direction_BD_glass-sticker.png`.
+2. **B: Glass.** See §0B.
+3. **D: Sticker Collage.** White dot-grid ground, sticker app icons, red marker, yellow highlighter, black type. Sample: `carousel_directions_ABCD.png` (D).
+Then back to 1. Shared across all three: red punch/CTA, official-colour logos, Hinglish, Comment "AI" pill, real photos only.
+Track the last variant used in `projects/weekly-content/ROTATION_LOG.md` and pick the next one in order.
+
 ## 0B. CAROUSEL STANDARD = DIRECTION B "GLASS" — Karan picked B, 31 Oct 2026 (wins over 0A where they differ)
 - Ground: black #0B0B0B with 3–4 soft **brand-colour blur blobs** (Claude #D97757, Canva purple #7D2AE8, WhatsApp #25D366, Meta #0467DF), blur ~30px, opacity ~.6–.75. Pick blob colours from the tools in that post.
 - Content sits on **frosted glass cards**: rgba(255,255,255,.10) fill, 1.5px rgba(255,255,255,.28) border, 36px radius, backdrop blur 18px, soft shadow.
