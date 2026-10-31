@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Karan Editing Style Card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Poppins:wght@800&family=Montserrat:wght@800&family=Bebas+Neue&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Layout: one sheet, brand strip on top, two style columns, then rules row. Single light theme on purpose (it shows real colours). */
+  --paper:#F4F5F2; --ink:#14161A; --muted:#5E646B; --line:#D9DCD6; --card:#FFFFFF; --accent:#2F6B3F;
+  --display:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:1060px;margin:0 auto;padding:28px 20px 40px;display:grid;gap:18px}
+h1,h2,h3{margin:0;text-wrap:balance;font-family:var(--display)}
+h2{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:12px}
+h3{font-size:18px;font-weight:800}
+p{margin:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media (max-width:760px){.grid2,.grid3{grid-template-columns:1fr}}
+
+/* header */
+.head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:16px}
+.head h1{font-size:34px;font-weight:800;letter-spacing:-.02em}
+.head .sub{color:var(--muted);margin-top:4px}
+.facts{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:4px 12px;font-size:13px}
+.chip b{font-weight:600}
+
+/* golden rules */
+.rules{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media (max-width:760px){.rules{grid-template-columns:1fr 1fr}}
+.rule{border-left:3px solid var(--accent);padding:2px 0 2px 12px}
+.rule .k{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.rule .v{font-weight:600;font-size:16px}
+
+/* CTA pill demo */
+.pillstage{background:#3a4a3c;border-radius:12px;padding:26px 16px;display:flex;flex-direction:column;align-items:center;gap:6px}
+.pillstage .lbl{color:#fff;font-size:13px}
+.pill{display:flex;align-items:center;gap:18px;background:#fff;border-radius:999px;padding:7px 8px 7px 26px;font-weight:600;font-size:17px;color:#000}
+.pill .arrow{width:28px;height:28px;border-radius:50%;background:#000;display:grid;place-items:center}
+.pill .arrow svg{width:14px;height:14px}
+
+/* style columns */
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+.tagA{background:#E7F0E8;color:#2F6B3F}
+.tagB{background:#F6E3E3;color:#7A1F2B}
+.when{color:var(--muted);font-size:14px;margin:6px 0 14px}
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px;margin-bottom:14px}
+.s{border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:11.5px}
+.s i{display:block;height:46px}
+.s span{display:block;padding:5px 7px;line-height:1.3}
+.s em{font-style:normal;color:var(--muted);font-variant-numeric:tabular-nums}
+.typo{display:grid;gap:8px;border-top:1px dashed var(--line);padding-top:12px}
+.trow{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.trow small{color:var(--muted);font-size:12px;text-align:right}
+ul.tight{margin:12px 0 0;padding-left:18px;display:grid;gap:4px;font-size:14px}
+
+/* preview frames */
+.phone{background:#2d4a33;border-radius:10px;height:88px;position:relative;overflow:hidden;margin-bottom:12px}
+.phone.b{background:#6E1E2A;height:120px}
+.phone.b .capy{top:52px}
+.phone .t1{position:absolute;left:12px;top:10px;background:#000;color:#fff;font-size:13px;padding:3px 8px}
+.phone .cap{position:absolute;left:0;right:0;top:44px;text-align:center;color:#fff;font-weight:300;font-size:24px;text-shadow:0 1px 6px rgba(0,0,0,.35)}
+.phone .cap b{font-weight:800}
+.phone .hk{position:absolute;left:50%;transform:translateX(-50%);top:8px;background:#fff;border-radius:8px;padding:3px 10px;text-align:center;font-family:"Poppins",sans-serif;font-weight:800;font-size:12px;line-height:1.25;white-space:nowrap}
+.phone .hk .r{color:#D21F2C}
+.phone .capb{position:absolute;left:0;right:0;bottom:8px;text-align:center;color:#fff;font-family:"Montserrat",sans-serif;font-weight:800;font-size:12px;text-shadow:0 0 3px #000,0 0 3px #000}
+.phone .capy{position:absolute;left:0;right:0;top:44px;text-align:center;color:#F2C94C;font-family:"Bebas Neue",sans-serif;font-size:22px;letter-spacing:.02em}
+
+/* timeline */
+.tl{display:grid;grid-template-columns:8% 15% 52% 10% 15%;border-radius:10px;overflow:hidden;font-size:12.5px;text-align:center;font-weight:600}
+.tl div{padding:10px 4px}
+.tl small{display:block;font-weight:400;opacity:.8}
+.slides{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.slide{aspect-ratio:4/5;border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12px;display:flex;flex-direction:column;justify-content:space-between;background:#fff}
+.slide b{font-size:11px;color:var(--muted)}
+.num{font-variant-numeric:tabular-nums}
+.checks{columns:2;column-gap:24px;font-size:14px;margin:0;padding-left:18px}
+@media (max-width:560px){.checks{columns:1}}
+.gap{background:#FFF7D6;border:1px solid #EBD98A}
+.note{font-size:12.5px;color:var(--muted)}
+a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="head">
+    <div>
+      <h1>Karan Targotra · Editing Style</h1>
+      <p class="sub">Learn Digital Marketing: Strategy, Content, Ads, AI · ScapeMedia, Jammu</p>
+    </div>
+    <div class="facts">
+      <span class="chip"><b>IG</b> @karantargotra.a</span>
+      <span class="chip"><b>Pillars</b> AI · Marketing · Automation · Personal brand</span>
+      <span class="chip"><b>Post</b> 19:00 IST</span>
+    </div>
+  </header>
+
+  <section class="grid2">
+    <div class="card">
+      <h2>The 4 non-negotiables</h2>
+      <div class="rules">
+        <div class="rule"><div class="k">Language</div><div class="v">Hinglish, everything</div></div>
+        <div class="rule"><div class="k">CTA</div><div class="v">Comment "AI" pill</div></div>
+        <div class="rule"><div class="k">Format</div><div class="v">9:16 · 1080×1920</div></div>
+        <div class="rule"><div class="k">Audio</div><div class="v">−14 LUFS</div></div>
+      </div>
+      <ul class="tight">
+        <li>Never invent stories, stats or results. Use <code>[DRAFT: …]</code> for your real story.</li>
+        <li>Preserve existing design. Redesign only when asked.</li>
+        <li>Originals untouched. Outputs saved as <code>name_v1, v2…</code></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>Your end-card CTA</h2>
+      <div class="pillstage">
+        <span class="lbl">Comment</span>
+        <span class="pill">“AI” <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg></span></span>
+      </div>
+      <p class="note" style="margin-top:10px">White rounded pill, small “Comment” label above, keyword in quotes, black circle up-arrow. Used on reels (last 3–5 s), last carousel slide, and static posts.</p>
+    </div>
+  </section>
+
+  <section class="grid2">
+    <div class="card">
+      <span class="tag tagA">Style A</span>
+      <h3>Clean Tech Minimal</h3>
+      <p class="when">For AI, tools, tech news, B2B, agency explainers.</p>
+      <div class="phone"><span class="t1">ChatGPT is Creepy</span><div class="cap">yeh <b>feature</b></div></div>
+      <div class="sw">
+        <div class="s"><i style="background:#FBFBFB"></i><span>Card white<br><em>#FBFBFB ≈</em></span></div>
+        <div class="s"><i style="background:#FFFFFF"></i><span>Caption<br><em>#FFFFFF</em></span></div>
+        <div class="s"><i style="background:#000000"></i><span>Hook box<br><em>#000000</em></span></div>
+        <div class="s"><i style="background:#618350"></i><span>Green set<br><em>#618350 ≈</em></span></div>
+        <div class="s"><i style="background:#CCE1E8"></i><span>Blue wall<br><em>#CCE1E8 ≈</em></span></div>
+        <div class="s"><i style="background:linear-gradient(90deg,#3B82F6 25%,#EC4899 25% 50%,#22C55E 50% 75%,#FACC15 75%)"></i><span>List tiles<br><em>unverified</em></span></div>
+      </div>
+      <div class="typo">
+        <div class="trow"><span style="font-weight:400;font-size:16px;background:#000;color:#fff;padding:2px 8px">Hook title in black box</span><small>Inter / SF Pro Regular<br>sentence case</small></div>
+        <div class="trow"><span style="font-weight:300;font-size:24px">spoken <b style="font-weight:800">captions</b></span><small>Inter Light + Bold key word<br>1–3 words at a time</small></div>
+      </div>
+      <ul class="tight">
+        <li>White cutaway cards with real screenshots, thin cyan highlight box</li>
+        <li>Thin-line flow diagrams, rounded numbered tiles</li>
+        <li>Hard cuts, small zooms. Calm and premium.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <span class="tag tagB">Style B</span>
+      <h3>Bold Indian Creator</h3>
+      <p class="when">For local business, real estate, car dealers, sales-led reels.</p>
+      <div class="phone b"><div class="hk">Your Real Estate<br><span class="r">Content is Wrong 🚨</span></div><div class="capy">ZYADA DEALS</div><div class="capb">AUR ENQUIRY AATE</div></div>
+      <div class="sw">
+        <div class="s"><i style="background:#6E1E2A"></i><span>Maroon wall<br><em>unverified</em></span></div>
+        <div class="s"><i style="background:#D21F2C"></i><span>Hook red<br><em>unverified</em></span></div>
+        <div class="s"><i style="background:#F2C94C"></i><span>Emphasis gold<br><em>unverified</em></span></div>
+        <div class="s"><i style="background:#FFFFFF"></i><span>Label / caption<br><em>#FFFFFF</em></span></div>
+        <div class="s"><i style="background:linear-gradient(90deg,#F97316,#EF4444,#8B5CF6)"></i><span>Flash washes<br><em>orange·red·purple</em></span></div>
+      </div>
+      <div class="typo">
+        <div class="trow"><span style="font-family:'Poppins',sans-serif;font-weight:800;font-size:16px">Hook <span style="color:#D21F2C">two-line</span></span><small>Poppins-style ExtraBold<br>black + red, white label</small></div>
+        <div class="trow"><span style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:14px">ALL CAPS CAPTIONS</span><small>Montserrat-style, chest level</small></div>
+        <div class="trow"><span style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#B8901F">KEY LINE IN GOLD</span><small>Bebas-style condensed</small></div>
+      </div>
+      <ul class="tight">
+        <li>Split-screen hook with wavy white divider</li>
+        <li>Colour-flash transitions every 2–3 s</li>
+        <li>Lifestyle B-roll with thin white icon lists</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Reel structure (35–90 s, visual change every 3–5 s)</h2>
+    <div class="tl">
+      <div style="background:#14161A;color:#fff">Hook<small>0–2 s</small></div>
+      <div style="background:#3E4A40;color:#fff">Context<small>2–10 s</small></div>
+      <div style="background:#E7F0E8">Breakdown · cutaways 30–45%<small>screenshots, B-roll, numbered points</small></div>
+      <div style="background:#CFE0D2">Your take<small>“And I think…”</small></div>
+      <div style="background:#2F6B3F;color:#fff">Comment “AI”<small>last 3–5 s</small></div>
+    </div>
+  </section>
+
+  <section class="grid2">
+    <div class="card">
+      <h2>Carousel (5 slides, Hinglish)</h2>
+      <div class="slides">
+        <div class="slide"><b class="num">01</b>Hook: problem in one line</div>
+        <div class="slide"><b class="num">02</b>Galti jo log karte hain</div>
+        <div class="slide"><b class="num">03</b>Sahi tarika, step by step</div>
+        <div class="slide"><b class="num">04</b>Real example</div>
+        <div class="slide"><b class="num">05</b>Recap + Comment “AI”</div>
+      </div>
+      <p class="note" style="margin-top:10px">Weekly: 2 carousels + 2 static posts. Statics: one image, one idea, 3 headline options.</p>
+    </div>
+    <div class="card">
+      <h2>Voice</h2>
+      <p style="font-size:17px;font-weight:600">“Bhai, har hafte yeh sochna ki kya post karun, time waste hai.”</p>
+      <ul class="tight">
+        <li>Direct, peer-to-peer, practical. Short lines.</li>
+        <li>Reel script: problem → tool → steps → result</li>
+        <li>Captions for IG / FB / LinkedIn, all Hinglish, one CTA</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="grid2">
+    <div class="card">
+      <h2>Quality check before delivery</h2>
+      <ul class="checks">
+        <li>Hook visible in first second</li>
+        <li>Captions match speech exactly</li>
+        <li>Brand names spelled right</li>
+        <li>Text clear of face and IG UI</li>
+        <li>No unsourced stats</li>
+        <li>Hinglish throughout</li>
+        <li>Comment “AI” pill present</li>
+        <li>−14 LUFS, peak ≤ −1 dBTP</li>
+        <li>1080×1920, versioned filename</li>
+        <li>Score 1–5 on 8 points, fix below 4</li>
+      </ul>
+    </div>
+    <div class="card gap">
+      <h2>Still missing (send these)</h2>
+      <ul class="tight" style="margin-top:0">
+        <li><b>Your exact fonts.</b> The ones above are look-alikes.</li>
+        <li><b>Your brand hex codes / Canva Brand Kit.</b> “≈” = sampled from video, “unverified” = estimated.</li>
+        <li><b>3–5 of your own posts</b> or an IG grid screenshot to lock your personal look.</li>
+        <li>Slide / PPT references for deck style.</li>
+      </ul>
+    </div>
+  </section>
+
+  <p class="note">Source: 4 reference reels + Personal Brand content DB + Content OS pack · Updated 31 Oct 2026 · Workspace: editor (karan personal)</p>
+</div>
+</body>
+</html>
