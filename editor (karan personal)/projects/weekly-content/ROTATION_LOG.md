@@ -3,7 +3,7 @@ Order: B+D → B → D → repeat (VISUAL_STYLE_GUIDE §0C). One row per carouse
 
 | Post | Slot (IST) | Variant | Status |
 |---|---|---|---|
-| W45 C1 Profile fixes | Tue 3 Nov 19:30 | B+D | built (`2026-W45/export_C1_BD_v1/`) |
-| W45 C2 WhatsApp follow-ups | Sat 7 Nov 11:00 | B | built (`2026-W45/export_glass_v1/C2_*`) |
+| W45 C1 Profile fixes | Tue 3 Nov 19:30 | B+D | approved (`2026-W45/export_final/C1_*`) |
+| W45 C2 WhatsApp follow-ups | Sat 7 Nov 11:00 | B | approved (`2026-W45/export_final/C2_*`) |
 | next carousel (W46 C1) | — | D | — |
 | W46 C2 | — | B+D | — |
