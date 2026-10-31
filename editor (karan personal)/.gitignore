@@ -8,3 +8,4 @@ projects/*/*/*/build/
 build_glass/
 build_bd/
 projects/*/*/build_final/
+*.zip
