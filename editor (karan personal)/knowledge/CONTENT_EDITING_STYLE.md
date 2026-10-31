@@ -9,7 +9,7 @@
 
 ## Tone
 - Conversational, first person, confident, expert-friend.
-- **Language: Hinglish for all of Karan's content.**
+- **Language: English for all of Karan's content (from 31 Oct 2026).** Simple, clear, India-relevant examples, ₹ where money is mentioned.
 - Style A: calm, insight-led, tech news + practical use (refs were English; Karan's versions are Hinglish).
 - Style B: Hinglish, punchy, problem → reframe → result ("qualified leads", "zyada deals").
 - Short sentences. One idea per beat.

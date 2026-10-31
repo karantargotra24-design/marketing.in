@@ -1,0 +1,1 @@
+Card comparing a vague prompt with a detailed prompt for better AI output

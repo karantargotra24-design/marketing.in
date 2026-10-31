@@ -28,7 +28,7 @@ Design System v2 says "English only from 15 Oct 2026". **Karan overrode this on 
 ## Resolved conflict (Karan, 2026-10-31)
 - PDF content DB: **Hinglish**, mixed formats (Reel, Carousel, LinkedIn post, Photo+Stories, Story), daily 19:00 IST.
 - Setup pack: **English only**, exactly **2 carousels + 2 static posts per week**, no reels.
-**Decision: Hinglish for everything** (reels, carousels, statics, all captions incl. LinkedIn). This overrides the pack's English rule; the weekly 2 carousel + 2 static cadence from the pack is unchanged.
+**Superseded 31 Oct 2026 (later): ENGLISH for all content.** Earlier decision was Hinglish for everything (reels, carousels, statics, all captions incl. LinkedIn). This overrides the pack's English rule; the weekly 2 carousel + 2 static cadence from the pack is unchanged.
 
 ## Content rules (both sources agree)
 - Never invent personal stories, client results, testimonials, stats. Use `[DRAFT: …]` placeholders for Karan's real story.

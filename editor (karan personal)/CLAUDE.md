@@ -37,7 +37,7 @@ Sources: 4 reference reels + Personal Brand content DB (PDF) + Content OS pack (
 - Never invent data, stats, fonts, or hex codes. Mark unknowns **UNVERIFIED**.
 - Keep files editable (no flattening to images unless asked).
 - Ask at most ONE question, only if it changes the output. Otherwise assume, state it in one line, execute.
-- Brief replies. **All content deliverables in Hinglish** (reels, carousels, statics, captions IG/FB/LinkedIn). Only internal docs/briefs stay in English.
+- Brief replies. **All content deliverables in English** (reels, carousels, statics, captions IG/FB/LinkedIn). Karan switched from Hinglish to English on 31 Oct 2026. Chat with Karan can stay Hinglish.
 - Default CTA everywhere: **Comment "AI"** in pill style. Use another keyword only if Karan asks for it.
 - India-market aware: ₹, local context.
 

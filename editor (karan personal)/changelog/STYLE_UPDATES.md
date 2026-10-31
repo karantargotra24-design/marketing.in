@@ -12,3 +12,4 @@ Format: `YYYY-MM-DD — file changed — what changed — why/source`
 - 2026-10-31 — VISUAL_STYLE_GUIDE §0B — **Karan picked direction B (Glass)** as the carousel standard: black + brand-colour blur blobs, frosted glass cards, official-colour logo tiles, red for punch/numbers/CTA.
 - 2026-10-31 — VISUAL_STYLE_GUIDE §0C, projects/weekly-content/ROTATION_LOG.md — **Karan: don't repeat one carousel look; rotate B+D → B → D** per upload (every 3–4 days). Rotation tracked in ROTATION_LOG.md.
 - 2026-10-31 — VISUAL_STYLE_GUIDE §0C — **Karan: use only my brand colours, no additional colours.** Glows, tags, arrows and tiles are now black/white/red/grey only; yellow highlighter and purple/green/blue glows removed. Logos stay in official colours (pending confirmation).
+- 2026-10-31 — CLAUDE.md, BRAND_PROFILE, CONTENT_EDITING_STYLE — **Karan: all content in English.** Replaces the Hinglish rule for slides, captions and LinkedIn. Comment "AI" CTA unchanged.
