@@ -29,3 +29,12 @@ QC: 1080×1920, 24 fps, 10.1 s, −14.5 LUFS, peak −0.9 dBFS, 0 black frames.
 1. The exact words spoken (or the script), for captions, the hook box and cutaways
 2. The topic + keyword for the Comment pill
 3. OK to cover 4.2–6.0 s with a cutaway graphic (removes the stamped close-up from view; the post still gets the AI label)
+
+## v2 (rendered: R02_v2.mp4)
+| Time | Layer |
+|---|---|
+| 0–2.45 s | Black hook box "AI & marketing, made simple" (neutral; doesn't claim what is said) |
+| 4.15–5.97 s | Hard cut to a white name card (Karan Targotra · AI & Marketing · 5 tool logos · handle). Covers the side shot that carries the "GEMINI SPARK" stamp. The stamp wasn't erased; that footage simply isn't shown. |
+| 8.0–10.1 s | Comment pill "AI" slides up over the face (end on face, rule 9). DM = 10 ready prompts (PDF 02). |
+QC: 1080×1920, 24 fps, 10.1 s, 243 frames scanned, 0 frames with the red stamp, 0 black frames, −14.5 LUFS, peak −0.9 dBFS.
+Still missing: word-by-word captions (need the spoken words). Post with Instagram's "AI info" label ON (clip is AI-generated).
