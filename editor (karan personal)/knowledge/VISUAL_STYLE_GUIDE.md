@@ -14,7 +14,7 @@ Status: **Karan's personal brand = VERIFIED (Design System v2).** Reel editing p
 - **Imagery:** real photos of Karan only; real tool screenshots with sensitive data blurred. AI allowed for backgrounds/props/B-roll, never Karan's face as real, never AI-rendered text.
 - **Photo grade:** Temp +8–12, Tint +3, Contrast −10, Highlights −25, Shadows +15, Blacks +10, Sat −10, Blue sat −40, Orange lum +5, Grain 10.
 - **Export:** render 2x, downscale with Lanczos, upload **PNG** (not JPEG) for statics/carousels.
-- **Carousel layouts (saved 2026-10-31):** "Tool List" (command/prompt chips), "Source Proof" (question headline + real screenshot) and a series header row. Spec: `knowledge/CAROUSEL_STYLE_REFERENCE.md` §3–4.
+- **Carousel layouts (saved 2026-10-31):** L1 Tool List, L2 Source Proof, L3 series label row, L4 Concept Sequence, L5 Flow Demo, L6 Big-Number Photo Cover, L7 Type Cover + Rating Pill, L8 bottom takeaway line. Spec: `knowledge/CAROUSEL_STYLE_REFERENCE.md` §3–4 and §7.
 - **CTA:** Comment "AI" pill — cream pill on photos/espresso, white or sand pill on light grounds, keyword in ink, red up-arrow circle allowed as the one red element.
 - **No:** blue, emoji, icon packs, third-party logos as decoration, dealership/car settings in personal brand.
 

@@ -1,4 +1,4 @@
-# Carousel Style Reference: @zeeeljain (saved 2026-10-31)
+# Carousel Style Reference: @zeeeljain (saved 2026-10-31, batch 2 added same day)
 
 Source: 5 slides Karan shared (local only: `references/images/zeeljain-carousel-2026-10/`, git-ignored).
 Purpose: learn the **layout system**, then rebuild it in Karan's Design System v2. **Never copy her identity, handle, monogram, colours or exact layouts.**
@@ -50,3 +50,36 @@ Not observed: engagement, reach or growth. There are no public metrics in these 
 - **Marketing outcomes, not tool trivia:** turn shortcuts into workflows that save time or get leads ("Claude se 7 din ka content 20 min mein").
 - **Proof from his own tests:** BUILD IN PUBLIC screenshots of his real results. The reference shows papers, not personal experiments.
 - **Warm palette + red accent** instead of indigo/coral, so the grid is instantly his.
+
+---
+## 6. Batch 2: 5 more slides (observed)
+
+| File | Type | Observation |
+|---|---|---|
+| 06 | **Type cover, rating pill** | White ground. Giant heavy grotesk ALL CAPS "AI TOPICS". A small frosted pill "10/10" overlaps the headline top. Small sparkle glyph. Sub-line "to nerd on" with a pixel mascot. Two cut-out people below (the creator + a **real TV actor's likeness**). |
+| 07 | **Concept Sequence** | Series label row (ALL CAPS small sans left, handle right). Heavy grotesk ALL CAPS title "MODEL COLLAPSE". Question sub-line. 3 step markers v1 → v2 → v3 (dashed circles, last one filled coral) joined by hairlines over 3 grey image cards showing drift. Bottom: 2-line takeaway. |
+| 08 | **Photo cover, big number** | Real moody photo (laptop, video call). Huge serif "5 Things", small sans "You can build", bold sans "with AI". Small app icon + coral asterisk. Bottom sub-line in brackets "(Without knowing how to code.)". |
+| 09 | **Save CTA, dark** | Near-black radial vignette, mascot, bold sans "Save This", light grey sub "for your next AI deep dive". |
+| 10 | **Flow Demo** | Series label row. Serif headline "Your personal AI Assistant". Flow: user chat bubble → avatar → connector → "Reading the Documents" card → arrow → AI reply bubble → robot → "Task Complete" card. Bottom: 2-line takeaway. |
+
+**Pattern across both batches:** every inner slide = series label row → one headline → one visual (screenshot, sequence or flow) → one bottom takeaway line. Covers alternate photo / type. The last slide is a single-action CTA.
+
+## 7. Saved into Karan's design (Design System v2 rebuild)
+
+| # | Layout | Karan version |
+|---|---|---|
+| L1 | Tool List | (§4) |
+| L2 | Source Proof | (§4) |
+| L3 | **Series label row** (every inner slide) | Left: series name in Inter 600, ALL CAPS, 22 px, letter-spacing .14em, ink. Right: `@karantargotra.a` in Instrument Serif 28 px, clay |
+| L4 | **Concept Sequence** | Title in Plus Jakarta 800 caps (punch) **or** serif; Hinglish question sub-line in Inter; 3 steps with dashed clay circles + hairlines, **last step filled red (the one red element)**; 3 sand cards with real screenshots or simple wireframes; 2-line bottom takeaway in Inter 500 |
+| L5 | **Flow Demo** | Serif headline; chat bubbles (white, 1.5 px #E5E5E5 border) → process card → result card, hairline connectors and arrows; **no Memoji, robot clipart or icon packs**; use real tool UI crops; 2-line takeaway |
+| L6 | **Big-Number Photo Cover** | Karan's real photo, warm grade; huge Instrument Serif number + word ("5 Tareeke"), small Inter connector, Plus Jakarta 800 punch line; bracket sub-line at the bottom "(Coding ke bina.)"; max one ✳ |
+| L7 | **Type Cover + Rating Pill** | White or sand; Plus Jakarta 800 caps headline; small ink pill with a cream label (e.g. "10/10", "FREE", "2026") overlapping the headline corner; Hinglish sub-line; optional real photo cut-out of Karan only |
+| L8 | **Bottom takeaway line** | Every content slide ends with a ≤2-line Inter 500 takeaway, centred, 96 px above the footer |
+| CTA | Dark CTA slide | Use the existing **espresso Comment "AI" pill slide** (Karan's rule), not "Save This". A "Save kar lo" sub-line only if Karan asks for a save objective |
+
+## 8. Do not carry over
+- **Celebrity or real-person likeness** (the TV-actor cut-out on 06). It's a legal/permission risk and breaks "real photos of Karan only".
+- Her pixel mascot, "ZJ" monogram, handle and coral/indigo palette. A personal mascot for Karan is an **open decision**, not adopted.
+- Apple Memoji, 3D robot clipart, app logos as decoration (logos only inside real screenshots).
+- Blue sparkle glyphs (no blue).
