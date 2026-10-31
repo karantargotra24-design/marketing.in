@@ -7,7 +7,7 @@ Your job: learn HOW Karan likes things edited, and reproduce that style every ti
 1. `knowledge/MASTER_EDITING_GUIDELINES.md` — the rules + the 7-step workflow
 2. `knowledge/BRAND_PROFILE.md` for any personal-brand work
 3. The guide that matches the output:
-   - Reels / short video → `knowledge/VISUAL_STYLE_GUIDE.md` (Reel section) + `knowledge/CONTENT_EDITING_STYLE.md`
+   - Reels / short video → `knowledge/REEL_EDITING_GRAMMAR.md` (how to CUT) + `knowledge/VISUAL_STYLE_GUIDE.md` §0D (how it LOOKS) + `knowledge/CONTENT_EDITING_STYLE.md`
    - Carousels / static posts → `CONTENT_EDITING_STYLE.md` + `knowledge/CAROUSEL_STYLE_REFERENCE.md` (Tool List / Source Proof layouts) + `templates/CAROUSEL_BRIEF.md` / `STATIC_POST_BRIEF.md`
    - Slides / docs → `VISUAL_STYLE_GUIDE.md`, `TYPOGRAPHY_GUIDELINES.md`, `COLOR_PALETTE.md`
 4. `knowledge/REFERENCE_ANALYSIS.md` — what was actually observed in his references

@@ -50,3 +50,15 @@ files["08_caption_style_SAMPLE_OVERLAY"]=("<div style='position:absolute;left:0;
 os.makedirs(OUT,exist_ok=True)
 for n,(b,t) in files.items(): open(f"{OUT}/{n}.html","w").write(page(b,t))
 print(len(files))
+# --- grammar additions ---
+extra={}
+logos=["openai","claude","googlegemini","canva"]
+pos=[(170,700),(700,640),(150,1180),(720,1160)]
+extra["00b_map_graphic"]=("<div class='grid'></div><div style='position:absolute;left:80px;right:80px;top:420px;text-align:center'><div style='font:600 30px Inter;letter-spacing:.16em;color:#6B6B6B'>THIS WEEK</div><div class='serif' style='font-size:110px;line-height:1;margin-top:20px'>5 tasks.<br><span style=\"color:#FF0000\">0 coding.</span></div></div>"+
+ "".join(f"<div style='position:absolute;left:{x}px;top:{y}px'>{ltile(n,180)}</div>" for n,(x,y) in zip(logos,pos))+
+ "<svg style='position:absolute;inset:0' width='1080' height='1920'><g stroke='#0B0B0B' stroke-width='2' fill='none' opacity='.35'><path d='M260 790 L540 980 L790 730'/><path d='M240 1270 L540 980 L810 1250'/></g><circle cx='540' cy='980' r='14' fill='#FF0000'/></svg>",False)
+extra["09_logo_row_OVERLAY"]=("<div style='position:absolute;left:0;right:0;top:240px;display:flex;justify-content:center;gap:26px'>"+"".join(ltile(n,130) for n in logos)+f"<div style='width:130px;height:130px;border-radius:31px;background:#fff;border:3px solid #0B0B0B;display:grid;place-items:center'>{ic('message-square-reply','#0B0B0B',70,2)}</div></div>",True)
+for k,n in enumerate(logos,1):
+    extra[f"10_burst_{k}_{n}"]=(f"<div class='grid'></div><div style='position:absolute;inset:0;display:grid;place-items:center'>{ltile(n,420)}</div>",False)
+for n,(b,t) in extra.items(): open(f"{OUT}/{n}.html","w").write(page(b,t))
+print("extra",len(extra))
