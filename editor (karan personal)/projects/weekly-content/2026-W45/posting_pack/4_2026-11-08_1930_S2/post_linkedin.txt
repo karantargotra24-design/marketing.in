@@ -1,0 +1,5 @@
+Ek simple rule follow karta hoon: jo khud test nahi kiya, woh sikhata nahi.
+
+Is hafte: [ADD: tool/workflow]. Result: [ADD: real result]. Kya kaam aaya aur kya nahi — notes ready hain.
+
+Notes chahiye toh comment karo "AI".
