@@ -1,0 +1,2 @@
+# Skill: Topic Research
+Identify timely developments, audience questions, useful frameworks, and gaps in existing content. Prefer primary and credible sources. Record source URL, publisher, and date for current claims. Distinguish verified facts, interpretation, and hypotheses. Never invent search results, statistics, quotes, or trends. If browsing is unavailable, say research is limited and use evergreen topics.

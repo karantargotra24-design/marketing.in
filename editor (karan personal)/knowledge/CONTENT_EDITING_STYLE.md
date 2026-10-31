@@ -24,3 +24,23 @@ High but paced: a new visual every 3–5 s; never more than ~6 words of caption 
 
 ## Hook / CTA keyword bank (from refs)
 History · Music · Systems · Real — single word, relevant to the topic, matches DM automation.
+
+## Carousels (from Personal Brand Content OS + content DB)
+- 5–8 slides (DB example uses 5). Narrative: Hook → Problem → Reframe → Explanation → Example → Action → CTA (adapt to topic).
+- DB 5-slide pattern: S1 hook (problem in one line) · S2 the mistake people make · S3 the right way, step by step · S4 example · S5 recap + CTA.
+- Each slide: number, on-slide copy, visual direction, narrative purpose. Mobile-readable, big text, little copy per slide.
+
+## Static posts
+- One image, one idea. Give 3 headline options → pick one, short supporting copy, hierarchy, composition, typography, image direction, caption, CTA.
+
+## Reel scripts (Karan's own, Hinglish)
+- Structure for automation/case-study videos: problem → tool → steps → result. Hook must land in first 3 s.
+- Tone example: "Bhai, har hafte yeh sochna ki kya post karun, time waste hai." — direct, peer-to-peer, practical.
+- Default CTA: DM "AI" for free resources.
+
+## Captions
+- Hook first line, add value beyond the visual, one primary CTA, relevant keywords, only relevant hashtags. Separate versions for IG / FB / LinkedIn.
+- No promises of virality or guaranteed results.
+
+## Quality gate (score 1–5, revise anything below 4)
+Accuracy · audience relevance · originality · hook strength · usefulness · readability · brand fit · CTA fit.

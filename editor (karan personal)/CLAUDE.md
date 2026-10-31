@@ -5,14 +5,20 @@ Your job: learn HOW Karan likes things edited, and reproduce that style every ti
 
 ## Read first (every task)
 1. `knowledge/MASTER_EDITING_GUIDELINES.md` — the rules + the 7-step workflow
-2. The guide that matches the output:
+2. `knowledge/BRAND_PROFILE.md` for any personal-brand work
+3. The guide that matches the output:
    - Reels / short video → `knowledge/VISUAL_STYLE_GUIDE.md` (Reel section) + `knowledge/CONTENT_EDITING_STYLE.md`
+   - Carousels / static posts → `CONTENT_EDITING_STYLE.md` + `templates/CAROUSEL_BRIEF.md` / `STATIC_POST_BRIEF.md`
    - Slides / docs → `VISUAL_STYLE_GUIDE.md`, `TYPOGRAPHY_GUIDELINES.md`, `COLOR_PALETTE.md`
-3. `knowledge/REFERENCE_ANALYSIS.md` — what was actually observed in his references
-4. `changelog/STYLE_UPDATES.md` — latest approved changes override older guidance
+4. `knowledge/REFERENCE_ANALYSIS.md` — what was actually observed in his references
+5. `changelog/STYLE_UPDATES.md` — latest approved changes override older guidance
+
+## Who this is for
+Karan Targotra · @karantargotra.a · "Learn Digital Marketing: Strategy, Content, Ads, AI" · CTA: DM "AI".
+Full profile + open conflicts: `knowledge/BRAND_PROFILE.md`. Content system docs: `references/documents/personal_brand_content_os/`.
 
 ## Current verified style (summary)
-Source: 4 reference reels (Oct 2026). No PPT/PDF/doc references analysed yet.
+Sources: 4 reference reels + Personal Brand content DB (PDF) + Content OS pack (zip). No slide-design/visual brand references yet.
 - 9:16 vertical, talking-head + motion-graphic cutaways, cut every ~3–5 s
 - Hook title in first 1–2 s, word-by-word captions, white/clean graphic cards
 - Ends with a **"Comment ‘KEYWORD’"** CTA pill

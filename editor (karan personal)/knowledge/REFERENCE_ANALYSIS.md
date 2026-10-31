@@ -50,3 +50,10 @@ All four are 9:16 educational / thought-leadership reels with a single presenter
 - Music/SFX choices, voiceover script (no transcription tool run).
 - Whether these are Karan's own edits or inspiration references — **assumed: inspiration references representing the target style.**
 - No PPT / PDF / Excel / document references were provided → slide/document style is not yet defined.
+
+---
+## Reference 05 — Personal_Brand_OS_Content_Database.pdf (added 2026-10-31)
+6-page Google Sheets export (Arial, letter). Tabs: content (7 draft rows PB-2026-001…007, scheduled 12–18 Oct 2026 19:00 IST, all Pending/Draft), brand, sources, approvals, publish log, performance. Content/ops reference, not a visual design reference. Details → `BRAND_PROFILE.md`.
+
+## Reference 06 — Personal_Brand_Content_OS_Claude_Canva_Setup.zip (added 2026-10-31)
+16 text files: project instructions, automation blueprint, weekly run command, 8 skill files, empty brand profile/logs. Defines a weekly 2-carousel + 2-static English workflow with quality gate and approval rules. Brand profile and visual identity fields are **empty** → still no verified fonts/colours. Stored as-is in `references/documents/personal_brand_content_os/`.
