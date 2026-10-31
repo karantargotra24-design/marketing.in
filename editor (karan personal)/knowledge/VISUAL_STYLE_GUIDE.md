@@ -33,9 +33,10 @@ Status: Reels = VERIFIED from 4 references. Slides/documents = NOT YET DEFINED (
 - Captions: ALL CAPS bold, white with dark outline, chest level; emphasis lines in yellow/gold condensed caps.
 - Transitions: colour washes / light leaks (orange, red, purple) on beat changes.
 - B-roll: full-screen lifestyle images (can be AI-generated) with thin white icon + label bullet lists.
-- CTA: script "Comment" + textured keyword box.
+- CTA (ref only): script "Comment" + textured keyword box. **For Karan, use the Comment "AI" pill instead.**
 
-### Shared CTA pill (Style A)
+### CTA pill — Karan's default for ALL content (reels, carousel last slide, statics)
+Keyword: “AI”.
 White rounded pill · small "Comment" label above · keyword in curly quotes · black circle up-arrow icon at right · optional subline under pill (e.g. "Spotify's new music model.").
 
 ## SLIDES / DOCUMENTS

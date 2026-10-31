@@ -3,7 +3,7 @@
 - Post ID: PB-2026-___ | Day: | Pillar: AI / Marketing / Automation / Personal brand
 - Objective + audience problem:
 - Hook options (3) → selected:
-- Language: English / Hinglish
+- Language: Hinglish
 
 | Slide | Purpose | On-slide copy | Visual direction |
 |---|---|---|---|
@@ -11,7 +11,7 @@
 | 2 | Problem / mistake | | |
 | 3 | Reframe / right way | | |
 | 4 | Example | | |
-| 5 | Recap + CTA | | DM "AI" |
+| 5 | Recap + CTA | | Comment "AI" pill |
 
 - Caption IG / FB / LinkedIn:
 - Sources (URL + date):

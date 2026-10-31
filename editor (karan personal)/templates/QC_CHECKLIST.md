@@ -6,6 +6,6 @@
 - [ ] No unsourced stats
 - [ ] Cuts on beat, audio smooth
 - [ ] -14 LUFS ±1, peak ≤ -1 dBTP  (`ffmpeg -i out.mp4 -af ebur128 -f null -`)
-- [ ] CTA keyword correct
+- [ ] Hinglish throughout; Comment "AI" pill CTA present
 - [ ] 1080×1920, correct fps, versioned filename
 - [ ] Original file untouched

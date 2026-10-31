@@ -14,14 +14,14 @@ Your job: learn HOW Karan likes things edited, and reproduce that style every ti
 5. `changelog/STYLE_UPDATES.md` — latest approved changes override older guidance
 
 ## Who this is for
-Karan Targotra · @karantargotra.a · "Learn Digital Marketing: Strategy, Content, Ads, AI" · CTA: DM "AI".
+Karan Targotra · @karantargotra.a · "Learn Digital Marketing: Strategy, Content, Ads, AI" · CTA: **Comment "AI"** (pill style).
 Full profile + open conflicts: `knowledge/BRAND_PROFILE.md`. Content system docs: `references/documents/personal_brand_content_os/`.
 
 ## Current verified style (summary)
 Sources: 4 reference reels + Personal Brand content DB (PDF) + Content OS pack (zip). No slide-design/visual brand references yet.
 - 9:16 vertical, talking-head + motion-graphic cutaways, cut every ~3–5 s
 - Hook title in first 1–2 s, word-by-word captions, white/clean graphic cards
-- Ends with a **"Comment ‘KEYWORD’"** CTA pill
+- Ends with the **Comment "AI"** CTA pill (white rounded pill, small "Comment" label, “AI” in quotes, black circle up-arrow)
 - Audio mastered to ~-14 LUFS
 - Premium, minimal, information-rich. Never generic AI templates.
 
@@ -31,7 +31,8 @@ Sources: 4 reference reels + Personal Brand content DB (PDF) + Content OS pack (
 - Never invent data, stats, fonts, or hex codes. Mark unknowns **UNVERIFIED**.
 - Keep files editable (no flattening to images unless asked).
 - Ask at most ONE question, only if it changes the output. Otherwise assume, state it in one line, execute.
-- Brief replies. Hinglish OK in chat; deliverables in English unless the content itself is Hinglish (e.g. Hinglish reels).
+- Brief replies. **All content deliverables in Hinglish** (reels, carousels, statics, captions IG/FB/LinkedIn). Only internal docs/briefs stay in English.
+- Default CTA everywhere: **Comment "AI"** in pill style. Use another keyword only if Karan asks for it.
 - India-market aware: ₹, local context.
 
 ## Learning loop

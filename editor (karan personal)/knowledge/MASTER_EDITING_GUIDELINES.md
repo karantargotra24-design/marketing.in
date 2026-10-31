@@ -29,7 +29,8 @@ Learn Karan's style once. Preserve it. Apply it consistently. Improve execution 
 | Shot change | every 3–5 s (Style B: 2–3 s) |
 | Captions | 1–3 words per beat, synced to speech |
 | Cutaways | 30–45% of runtime as graphics/B-roll |
-| End | "Comment ‘KEYWORD’" CTA, last 3–5 s |
+| End | Comment "AI" pill CTA, last 3–5 s |
+| Language | Hinglish (on-screen text, captions, scripts) |
 | Loudness | -14 LUFS integrated, true peak ≤ -1 dBTP |
 | Safe zones | Keep text out of top ~12% and bottom ~20% (IG UI) — except CTA pill which sits mid-lower |
 
@@ -41,6 +42,6 @@ Learn Karan's style once. Preserve it. Apply it consistently. Improve execution 
 - [ ] Every claim/stat on screen is sourced or came from Karan
 - [ ] Cuts land on speech beats; no jump in audio
 - [ ] Audio -14 LUFS ±1, no clipping
-- [ ] CTA present and keyword matches the DM automation keyword
+- [ ] Comment "AI" pill CTA present; content is Hinglish
 - [ ] File plays, correct res/fps, filename versioned
 - [ ] Original untouched

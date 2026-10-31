@@ -5,11 +5,12 @@
 2. **Context (2–10 s):** what happened / why it matters.
 3. **Breakdown (10 s – end-8 s):** explain with visuals; numbered points when there's a list.
 4. **Opinion / payoff:** presenter's take ("And I think…").
-5. **CTA (last 3–5 s):** "Comment ‘KEYWORD’" → DM automation delivers resource.
+5. **CTA (last 3–5 s):** Comment "AI" pill → DM automation delivers resource.
 
 ## Tone
 - Conversational, first person, confident, expert-friend.
-- Style A: English, calm, insight-led, tech news + practical use.
+- **Language: Hinglish for all of Karan's content.**
+- Style A: calm, insight-led, tech news + practical use (refs were English; Karan's versions are Hinglish).
 - Style B: Hinglish, punchy, problem → reframe → result ("qualified leads", "zyada deals").
 - Short sentences. One idea per beat.
 
@@ -22,7 +23,8 @@
 ## Information density
 High but paced: a new visual every 3–5 s; never more than ~6 words of caption on screen at once.
 
-## Hook / CTA keyword bank (from refs)
+## CTA keyword
+Default: **AI**. Keyword bank seen in refs (only if Karan asks for a topic keyword):
 History · Music · Systems · Real — single word, relevant to the topic, matches DM automation.
 
 ## Carousels (from Personal Brand Content OS + content DB)
@@ -36,10 +38,10 @@ History · Music · Systems · Real — single word, relevant to the topic, matc
 ## Reel scripts (Karan's own, Hinglish)
 - Structure for automation/case-study videos: problem → tool → steps → result. Hook must land in first 3 s.
 - Tone example: "Bhai, har hafte yeh sochna ki kya post karun, time waste hai." — direct, peer-to-peer, practical.
-- Default CTA: DM "AI" for free resources.
+- Default CTA: Comment "AI" (pill).
 
 ## Captions
-- Hook first line, add value beyond the visual, one primary CTA, relevant keywords, only relevant hashtags. Separate versions for IG / FB / LinkedIn.
+- Hook first line, add value beyond the visual, one primary CTA, relevant keywords, only relevant hashtags. Separate versions for IG / FB / LinkedIn — all Hinglish. Caption CTA line: Comment "AI" ...
 - No promises of virality or guaranteed results.
 
 ## Quality gate (score 1–5, revise anything below 4)

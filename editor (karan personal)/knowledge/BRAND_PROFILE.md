@@ -9,7 +9,7 @@ Sources: `references/documents/Personal_Brand_OS_Content_Database.pdf` (Google S
 | Name | Karan Targotra |
 | Instagram | @karantargotra.a (creator account; bio: AI & Marketing) |
 | Positioning | Learn Digital Marketing: Strategy, Content, Ads, AI |
-| Lead magnet CTA | DM "AI" for free resources |
+| Lead magnet CTA | **Comment "AI"** (pill style) → DM automation sends free resources. Was "DM \"AI\"" in PDF; changed by Karan 2026-10-31 |
 | Language | Hinglish |
 | Content pillars | AI · Marketing · Automation · Personal brand |
 | Base | Jammu (from content DB: "Jammu se digital marketing: meri journey…") |
@@ -17,10 +17,10 @@ Sources: `references/documents/Personal_Brand_OS_Content_Database.pdf` (Google S
 ## Still blank in both sources (ask Karan / fill later)
 Real opinions to include · Topics to avoid · Voice notes (pacing, phrases, humour) · **Visual preferences (colours, fonts, thumbnail style)** · Canva Brand Kit name · template links.
 
-## ⚠ Conflict to resolve
+## Resolved conflict (Karan, 2026-10-31)
 - PDF content DB: **Hinglish**, mixed formats (Reel, Carousel, LinkedIn post, Photo+Stories, Story), daily 19:00 IST.
 - Setup pack: **English only**, exactly **2 carousels + 2 static posts per week**, no reels.
-Until Karan decides: personal-brand scripts/reels → Hinglish; carousels/statics → English (pack rule); LinkedIn → English.
+**Decision: Hinglish for everything** (reels, carousels, statics, all captions incl. LinkedIn). This overrides the pack's English rule; the weekly 2 carousel + 2 static cadence from the pack is unchanged.
 
 ## Content rules (both sources agree)
 - Never invent personal stories, client results, testimonials, stats. Use `[DRAFT: …]` placeholders for Karan's real story.

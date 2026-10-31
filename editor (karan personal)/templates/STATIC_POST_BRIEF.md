@@ -7,6 +7,6 @@
 - Hierarchy / composition:
 - Typography / colours: (use Canva Brand Kit — UNVERIFIED until supplied)
 - Image direction:
-- Caption + one CTA:
+- Caption (Hinglish) + CTA: Comment "AI" pill on image + caption
 - Sources:
 - Approval: Pending

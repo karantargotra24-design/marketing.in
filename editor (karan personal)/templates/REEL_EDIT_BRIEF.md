@@ -2,13 +2,13 @@
 
 - Client / topic:
 - Sub-style: A (Clean Tech Minimal) / B (Bold Indian Creator) / client brand
-- Language: English / Hinglish
+- Language: Hinglish
 - Raw footage files:
 - Target length:
 - Hook title text:
 - Key points (3–5):
 - B-roll / screenshots needed:
-- CTA keyword ("Comment ___"):
+- CTA: Comment "AI" pill (default)
 - Deliverables: 1080×1920 MP4 · SRT captions · thumbnail
 - Deadline:
 
@@ -17,4 +17,4 @@
 |---|---|---|---|
 | 0–2 s | | | Hook |
 | | | | |
-| last 4 s | Presenter + CTA pill | Comment "____" | |
+| last 4 s | Presenter + CTA pill | Comment "AI" | |

@@ -3,7 +3,7 @@
 Karan's long-term personal editing workspace (ScapeMedia).
 
 ## How to use
-Open Claude Code and say e.g. *"Use editor (karan personal) — edit this reel in Style B, keyword PRICE."*
+Open Claude Code and say e.g. *"Use editor (karan personal) — edit this reel in Style B, keyword PRICE."*  (default language Hinglish, default CTA Comment "AI" pill)
 Claude reads `CLAUDE.md` here (auto-loaded when working inside this folder) → knowledge files → follows the 7-step workflow.
 
 ## Structure
