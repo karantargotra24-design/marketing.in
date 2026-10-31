@@ -8,4 +8,4 @@ Before scaling, check what happens after the click:
 
 Fix the leak, then scale.
 
-Comment "AI" for the checklist.
+Comment "LEADS" for the checklist.

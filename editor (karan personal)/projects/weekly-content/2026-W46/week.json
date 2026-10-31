@@ -86,11 +86,11 @@
           "n": 8,
           "type": "cta",
           "cta_title": "Want the prompt for each task?",
-          "cta_body": "Comment \"AI\" and I'll DM you all 5 prompts.",
-          "visual": "white card, Comment AI pill"
+          "cta_body": "Comment \"TASKS\" and I'll DM you all 5 prompts.",
+          "visual": "white card, Comment TASKS pill"
         }
       ],
-      "caption": "AI tools for marketers: 5 tasks you can hand over this week.\n\nMost people only use AI for captions. That's the smallest part of the job. The real time savers are the boring tasks: summarising briefs, quick research, resizing designs and answering the same DMs again and again.\n\nPick one task from this carousel and try it today. One rule: AI writes the first draft, you make it yours.\n\nComment \"AI\" and I'll DM you the exact prompt for all 5 tasks.",
+      "caption": "AI tools for marketers: 5 tasks you can hand over this week.\n\nMost people only use AI for captions. That's the smallest part of the job. The real time savers are the boring tasks: summarising briefs, quick research, resizing designs and answering the same DMs again and again.\n\nPick one task from this carousel and try it today. One rule: AI writes the first draft, you make it yours.\n\nComment \"TASKS\" and I'll DM you the exact prompt for all 5 tasks.",
       "hashtags": [
         "#aitools",
         "#digitalmarketing",
@@ -106,10 +106,10 @@
         "Task 3: research with Gemini",
         "Task 4: resize designs with Canva",
         "Task 5: draft DM replies with any AI chat",
-        "Comment AI to get all 5 prompts"
+        "Comment TASKS to get all 5 prompts"
       ],
-      "facebook_caption": "5 marketing tasks you can hand to AI this week, with a tool for each. Comment \"AI\" and I'll send you the prompts.",
-      "linkedin_post": "Most marketers use AI for one thing: captions.\n\nHere are 5 tasks I'd hand over first:\n1. Caption drafts (ChatGPT)\n2. Summarising long briefs and meeting notes (Claude)\n3. Fast topic research, with sources you verify (Gemini)\n4. Resizing one design for every format (Canva)\n5. Drafting replies to the DMs you get every day\n\nAI writes the first draft. You make it yours.\n\nComment \"AI\" if you want the prompts.",
+      "facebook_caption": "5 marketing tasks you can hand to AI this week, with a tool for each. Comment \"TASKS\" and I'll send you the prompts.",
+      "linkedin_post": "Most marketers use AI for one thing: captions.\n\nHere are 5 tasks I'd hand over first:\n1. Caption drafts (ChatGPT)\n2. Summarising long briefs and meeting notes (Claude)\n3. Fast topic research, with sources you verify (Gemini)\n4. Resizing one design for every format (Canva)\n5. Drafting replies to the DMs you get every day\n\nAI writes the first draft. You make it yours.\n\nComment \"TASKS\" if you want the prompts.",
       "sources": [],
       "placeholders": [
         "5-prompt pack resource for the DM automation"
@@ -125,7 +125,8 @@
         "cta_fit": 5
       },
       "approval_status": "approved 2026-10-31",
-      "publish_status": "scheduled in Meta Business Suite (by Karan, 31 Oct 2026; not verifiable from here)"
+      "publish_status": "scheduled in Meta Business Suite (by Karan, 31 Oct 2026; not verifiable from here)",
+      "keyword": "TASKS"
     },
     {
       "id": "S1",
@@ -147,12 +148,12 @@
         "headline": "Same AI. Different prompt.",
         "headline_red": "Better output.",
         "support": "Add audience, tone, length and goal. The AI stays the same. Your instructions change.",
-        "cta": "Comment \"AI\" for 10 ready prompts",
+        "cta": "Comment \"PROMPT\" for 10 ready prompts",
         "bad": "Write an Instagram caption.",
         "good": "Write 3 captions for a café in Jammu. Friendly tone, under 30 words, end with a question.",
         "visual": "Glass: red X card with the bad prompt, check card with the better prompt, ChatGPT tile"
       },
-      "caption": "How to write better ChatGPT prompts, in one example.\n\n\"Write an Instagram caption\" gives you something generic every time. Add four things and the output changes: who it's for, the tone, the length and the goal.\n\nSave this card and use the better prompt as a template for your next post.\n\nComment \"AI\" and I'll DM you 10 ready-to-use prompts.",
+      "caption": "How to write better ChatGPT prompts, in one example.\n\n\"Write an Instagram caption\" gives you something generic every time. Add four things and the output changes: who it's for, the tone, the length and the goal.\n\nSave this card and use the better prompt as a template for your next post.\n\nComment \"PROMPT\" and I'll DM you 10 ready-to-use prompts.",
       "hashtags": [
         "#promptengineering",
         "#chatgpttips",
@@ -162,7 +163,7 @@
       "alt_text": [
         "Card comparing a vague prompt with a detailed prompt for better AI output"
       ],
-      "facebook_caption": "Same AI, different prompt, better output. Here's a before and after you can copy. Comment \"AI\" for 10 prompts.",
+      "facebook_caption": "Same AI, different prompt, better output. Here's a before and after you can copy. Comment \"PROMPT\" for 10 prompts.",
       "linkedin_post": null,
       "sources": [],
       "placeholders": [
@@ -179,7 +180,8 @@
         "cta_fit": 5
       },
       "approval_status": "approved 2026-10-31",
-      "publish_status": "scheduled in Meta Business Suite (by Karan, 31 Oct 2026; not verifiable from here)"
+      "publish_status": "scheduled in Meta Business Suite (by Karan, 31 Oct 2026; not verifiable from here)",
+      "keyword": "PROMPT"
     },
     {
       "id": "C2",
@@ -250,11 +252,11 @@
           "n": 7,
           "type": "cta",
           "cta_title": "Want my lead-leak checklist?",
-          "cta_body": "Comment \"AI\" and I'll DM you the 4-point checklist.",
-          "visual": "glass card, Comment AI pill, stickers"
+          "cta_body": "Comment \"LEADS\" and I'll DM you the 4-point checklist.",
+          "visual": "glass card, Comment LEADS pill, stickers"
         }
       ],
-      "caption": "Facebook ads getting clicks but no leads? Check these 4 things first.\n\nIt's tempting to raise the budget when leads are low. But if people are clicking and still not enquiring, more budget just buys more of the same problem. The leak is usually after the click: a confusing page, a long form, slow replies or an offer that says nothing.\n\nGo through the 4 fixes on your own ad this week.\n\nComment \"AI\" and I'll DM you my lead-leak checklist.",
+      "caption": "Facebook ads getting clicks but no leads? Check these 4 things first.\n\nIt's tempting to raise the budget when leads are low. But if people are clicking and still not enquiring, more budget just buys more of the same problem. The leak is usually after the click: a confusing page, a long form, slow replies or an offer that says nothing.\n\nGo through the 4 fixes on your own ad this week.\n\nComment \"LEADS\" and I'll DM you my lead-leak checklist.",
       "hashtags": [
         "#metaads",
         "#facebookads",
@@ -269,10 +271,10 @@
         "Fix 2: too many form fields",
         "Fix 3: slow replies to leads",
         "Fix 4: vague offer, be specific",
-        "Comment AI for the lead-leak checklist"
+        "Comment LEADS for the lead-leak checklist"
       ],
-      "facebook_caption": "Clicks but no leads? Don't raise the budget yet. Check these 4 leaks first. Comment \"AI\" for the checklist.",
-      "linkedin_post": "Clicks but no leads is rarely a budget problem.\n\nBefore scaling, check what happens after the click:\n1. Is the offer clear at first glance on mobile?\n2. Are you asking for more form fields than you need?\n3. How fast does a new lead get a reply?\n4. Does the offer say what they get, for whom, and the price range?\n\nFix the leak, then scale.\n\nComment \"AI\" for the checklist.",
+      "facebook_caption": "Clicks but no leads? Don't raise the budget yet. Check these 4 leaks first. Comment \"LEADS\" for the checklist.",
+      "linkedin_post": "Clicks but no leads is rarely a budget problem.\n\nBefore scaling, check what happens after the click:\n1. Is the offer clear at first glance on mobile?\n2. Are you asking for more form fields than you need?\n3. How fast does a new lead get a reply?\n4. Does the offer say what they get, for whom, and the price range?\n\nFix the leak, then scale.\n\nComment \"LEADS\" for the checklist.",
       "sources": [],
       "placeholders": [
         "Lead-leak checklist resource"
@@ -288,7 +290,8 @@
         "cta_fit": 5
       },
       "approval_status": "approved 2026-10-31",
-      "publish_status": "scheduled in Meta Business Suite (by Karan, 31 Oct 2026; not verifiable from here)"
+      "publish_status": "scheduled in Meta Business Suite (by Karan, 31 Oct 2026; not verifiable from here)",
+      "keyword": "LEADS"
     },
     {
       "id": "S2",
@@ -310,7 +313,7 @@
         "headline": "Using AI for content?",
         "headline_red": "Do this, not that.",
         "support": "AI is your first draft, not your final post.",
-        "cta": "Comment \"AI\" for my editing checklist",
+        "cta": "Comment \"EDIT\" for my editing checklist",
         "dos": [
           "Add your own example",
           "Edit it in your voice",
@@ -323,7 +326,7 @@
         ],
         "visual": "Glass split: Do column with check icons, Don't column with red X icons"
       },
-      "caption": "How to use AI for content without sounding like AI.\n\nThe problem isn't the tool. It's posting the first draft. Add one real example from your work, rewrite it the way you talk and check every number before you post.\n\nSave this for the next time you open ChatGPT.\n\nComment \"AI\" and I'll DM you my editing checklist.",
+      "caption": "How to use AI for content without sounding like AI.\n\nThe problem isn't the tool. It's posting the first draft. Add one real example from your work, rewrite it the way you talk and check every number before you post.\n\nSave this for the next time you open ChatGPT.\n\nComment \"EDIT\" and I'll DM you my editing checklist.",
       "hashtags": [
         "#aitools",
         "#contentcreator",
@@ -333,8 +336,8 @@
       "alt_text": [
         "Do and don't card for using AI to create content"
       ],
-      "facebook_caption": "Using AI for content? 3 dos and 3 don'ts so it doesn't sound like AI. Comment \"AI\" for my checklist.",
-      "linkedin_post": "AI is a great first draft and a bad final post.\n\nDo: add your own example, edit it in your voice, check every number.\nDon't: post the first draft, invent results, reuse the same hook.\n\nComment \"AI\" if you want my editing checklist.",
+      "facebook_caption": "Using AI for content? 3 dos and 3 don'ts so it doesn't sound like AI. Comment \"EDIT\" for my checklist.",
+      "linkedin_post": "AI is a great first draft and a bad final post.\n\nDo: add your own example, edit it in your voice, check every number.\nDon't: post the first draft, invent results, reuse the same hook.\n\nComment \"EDIT\" if you want my editing checklist.",
       "sources": [],
       "placeholders": [
         "Editing checklist resource"
@@ -350,7 +353,8 @@
         "cta_fit": 5
       },
       "approval_status": "approved 2026-10-31",
-      "publish_status": "scheduled in Meta Business Suite (by Karan, 31 Oct 2026; not verifiable from here)"
+      "publish_status": "scheduled in Meta Business Suite (by Karan, 31 Oct 2026; not verifiable from here)",
+      "keyword": "EDIT"
     }
   ]
 }

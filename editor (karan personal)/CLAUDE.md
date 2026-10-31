@@ -38,7 +38,7 @@ Sources: 4 reference reels + Personal Brand content DB (PDF) + Content OS pack (
 - Keep files editable (no flattening to images unless asked).
 - Ask at most ONE question, only if it changes the output. Otherwise assume, state it in one line, execute.
 - Brief replies. **All content deliverables in English** (reels, carousels, statics, captions IG/FB/LinkedIn). Karan switched from Hinglish to English on 31 Oct 2026. Chat with Karan can stay Hinglish.
-- Default CTA everywhere: **Comment "AI"** in pill style. Use another keyword only if Karan asks for it.
+- CTA = Comment pill, but **every post gets its own keyword** (Karan, 31 Oct 2026): short, uppercase, tied to the topic (e.g. PROFILE, LEADS, PROMPT). Never reuse a keyword in the same month. Each keyword needs its own DM automation.
 - India-market aware: ₹, local context.
 
 ## Learning loop

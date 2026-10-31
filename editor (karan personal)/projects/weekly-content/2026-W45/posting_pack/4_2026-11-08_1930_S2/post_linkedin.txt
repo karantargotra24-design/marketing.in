@@ -7,4 +7,4 @@ Before paying for any AI tool, I'd run a 20-minute test:
 
 Pay for the tool that wins on your task, not the one with the best ads.
 
-Comment "AI" for the test sheet.
+Comment "TEST" for the test sheet.

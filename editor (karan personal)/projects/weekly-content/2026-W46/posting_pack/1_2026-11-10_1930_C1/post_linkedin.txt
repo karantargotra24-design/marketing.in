@@ -9,4 +9,4 @@ Here are 5 tasks I'd hand over first:
 
 AI writes the first draft. You make it yours.
 
-Comment "AI" if you want the prompts.
+Comment "TASKS" if you want the prompts.
