@@ -1,5 +1,5 @@
-Karan on a rooftop at sunset with headline about profile visitors not following
-Slide on visitors checking name, bio and pinned posts
+Karan on a rooftop at sunset with headline: people visit your profile but don't follow
+Visitors check name, bio and pinned posts
 Before and after example of an Instagram name field
 Example bio line with one clear offer
 Three pinned post slots: value, story, proof

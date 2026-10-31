@@ -1,5 +1,5 @@
-Ek simple rule follow karta hoon: jo khud test nahi kiya, woh sikhata nahi.
+One rule I follow: I don't teach what I haven't tested.
 
-Is hafte: [ADD: tool/workflow]. Result: [ADD: real result]. Kya kaam aaya aur kya nahi — notes ready hain.
+This week: [ADD: tool/workflow]. Result: [ADD: real result]. What worked and what didn't is in my notes.
 
-Notes chahiye toh comment karo "AI".
+Comment "AI" if you want them.

@@ -1,0 +1,331 @@
+{
+  "week": "2026-W45",
+  "theme": "Attention se lead tak: profile, DM aur follow-up ko kaam pe lagao",
+  "notes": [
+    "Hinglish for all copy incl. slides and LinkedIn (Karan, 31 Oct 2026; overrides skill's English-slides default).",
+    "Design System v2: Instrument Serif + Plus Jakarta Sans 800 + Inter; one red element #FF0000; warm grounds; Comment \"AI\" pill CTA.",
+    "Research tools not used: evergreen topics only, no time-sensitive claims.",
+    "Posting slots are default assumptions, not insights data."
+  ],
+  "posts": [
+    {
+      "id": "C1",
+      "format": "carousel",
+      "day": "Tue 2026-11-03",
+      "time_ist": "19:30",
+      "pillar": "INSTAGRAM GROWTH",
+      "objective": "dm",
+      "topic": "Profile visitors who don't follow: 4 profile fixes",
+      "angle": "Mistakes + fix (profile audit)",
+      "hook_options": [
+        "Log profile pe aate hain, par follow nahi karte",
+        "Tumhara bio followers bhaga raha hai",
+        "4 profile galtiyan jo follow rokti hain"
+      ],
+      "slides": [
+        {
+          "n": 1,
+          "type": "hook",
+          "tag": "INSTAGRAM GROWTH",
+          "hook": "Log profile pe aate hain,",
+          "hook_red": "par follow nahi karte",
+          "hook_sub": "4 profile galtiyan aur unka simple fix",
+          "visual": "PhotoCover 4:5 with Karan's real rooftop photo, warm grade, headline top third in cream, red line = hook_red"
+        },
+        {
+          "n": 2,
+          "type": "content",
+          "title": "Naya visitor profile ko deta hai",
+          "title_red": "sirf kuch second",
+          "body": "Usme woh 3 cheezein dekhta hai: naam, bio aur pinned posts. Teeno clear nahi, toh scroll. Yeh slide akeli bhi kaam ki hai: abhi apna profile kholo.",
+          "visual": "White ground, red serif 02, mock profile header wireframe (no real account)"
+        },
+        {
+          "n": 3,
+          "type": "content",
+          "title": "Galti 1: Naam mein sirf naam",
+          "title_red": "kaam nahi",
+          "body": "Name field mein kaam bhi likho. 'Karan | AI & Marketing' se visitor ko turant pata chalta hai tum kya sikhate ho.",
+          "visual": "Sand ground, before/after name field in two simple boxes"
+        },
+        {
+          "n": 4,
+          "type": "content",
+          "title": "Galti 2: Bio mein sirf vibes",
+          "title_red": "offer nahi",
+          "body": "Bio ek line mein bataye: kiske liye ho, kya milega, next step kya hai. Example: 'Beginners ke liye AI + marketing workflows. Free resource →'",
+          "visual": "White ground, bio text block with red arrow only"
+        },
+        {
+          "n": 5,
+          "type": "content",
+          "title": "Galti 3: Pinned posts random",
+          "title_red": "pinned = trailer",
+          "body": "Top 3 pinned posts tumhara intro hain: 1 best value post, 1 tumhari story, 1 proof. Proof sirf real ho, banaya hua nahi.",
+          "visual": "Sand ground, 3 square placeholders labelled Value / Story / Proof"
+        },
+        {
+          "n": 6,
+          "type": "content",
+          "title": "Galti 4: Bio link mein 10 options",
+          "title_red": "ek action rakho",
+          "body": "Visitor confuse hua toh kuch click nahi karega. Ek main action: free resource, WhatsApp ya call. Baaki baad mein.",
+          "visual": "White ground, 10 tiny link pills crossed to 1 clear pill"
+        },
+        {
+          "n": 7,
+          "type": "cta",
+          "cta_title": "Apna profile check karo",
+          "cta_body": "Comment \"AI\" — 4-point profile checklist DM mein bhej dunga.",
+          "visual": "Espresso ground, cream Comment \"AI\" pill with red up-arrow, handle footer"
+        }
+      ],
+      "caption": "Instagram profile tips jo visitors ko followers banate hain 👇\n\nZyada log reels pe mehnat karte hain, par jab koi profile pe aata hai toh wahan kuch clear hi nahi hota. Naam mein sirf naam, bio mein sirf vibes, pinned posts random.\n\nIs carousel mein 4 galtiyan aur unka fix hai. Ek kaam karo: slide 2 padhte hi apna profile kholo aur khud check karo — 2 minute lagenge.\n\nComment \"AI\" — 4-point profile checklist DM mein bhej dunga.",
+      "hashtags": [
+        "#instagramgrowth",
+        "#personalbranding",
+        "#instagramtips",
+        "#digitalmarketingindia",
+        "#contentcreator"
+      ],
+      "alt_text": [
+        "Karan on a rooftop at sunset with headline about profile visitors not following",
+        "Slide on visitors checking name, bio and pinned posts",
+        "Before and after example of an Instagram name field",
+        "Example bio line with one clear offer",
+        "Three pinned post slots: value, story, proof",
+        "Many bio links reduced to one clear action",
+        "Call to action: comment AI for a profile checklist"
+      ],
+      "facebook_caption": "Instagram profile visitors follow kyun nahi karte? 4 galtiyan aur fix is post mein. Comment \"AI\" — checklist bhej dunga.",
+      "linkedin_post": null,
+      "sources": [],
+      "placeholders": [
+        "Profile checklist resource (PDF/Notion) must exist before posting",
+        "Comment-to-DM automation for keyword AI on this post"
+      ],
+      "qc": {
+        "accuracy": 5,
+        "relevance": 5,
+        "originality": 4,
+        "hook": 4,
+        "usefulness": 5,
+        "readability": 5,
+        "brand_fit": 5,
+        "cta_fit": 4
+      }
+    },
+    {
+      "id": "S1",
+      "format": "static",
+      "day": "Thu 2026-11-05",
+      "time_ist": "13:00",
+      "pillar": "AUTOMATION",
+      "objective": "dm",
+      "topic": "How comment-to-DM automation works",
+      "angle": "3-step framework card",
+      "static": {
+        "headline_options": [
+          "Comment karo, DM aaye. Kaise?",
+          "Yeh 'Comment AI' wala jaadu kaise hota hai",
+          "3 steps mein comment-to-DM setup"
+        ],
+        "tag": "AUTOMATION",
+        "headline": "Comment karte hi DM kaise aata hai?",
+        "headline_red": "3 steps",
+        "support": "1. Post pe ek keyword set karo. 2. Tool us comment ko pakadta hai. 3. Auto-DM mein resource jaata hai.",
+        "cta": "Comment \"AI\" — setup guide DM mein",
+        "visual": "Type cover on sand, serif headline, red serif numbers 1-2-3 as the one red element, Inter body, footer handle"
+      },
+      "caption": "Comment to DM automation Instagram pe kaise kaam karta hai — simple language mein 👇\n\nTumne dekha hoga: kisi post pe 'AI' comment karo aur turant DM aa jaata hai. Yeh koi jaadu nahi, ek automation hai.\n\n1. Post pe ek keyword decide karo\n2. Ek Meta-approved automation tool us keyword wale comment ko detect karta hai\n3. Tool khud DM mein tumhara resource bhej deta hai\n\nTum so rahe ho, leads DM mein aa rahi hain. Bas ek rule: jo promise kiya, wahi bhejo.\n\nComment \"AI\" — setup guide DM mein bhej dunga.",
+      "hashtags": [
+        "#marketingautomation",
+        "#instagramtips",
+        "#aiforbusiness",
+        "#digitalmarketingindia"
+      ],
+      "alt_text": [
+        "Framework card: how comment-to-DM automation works in 3 steps"
+      ],
+      "facebook_caption": "Comment karte hi DM kaise aata hai? 3 steps, simple language mein. Comment \"AI\" for the setup guide.",
+      "linkedin_post": null,
+      "sources": [
+        {
+          "claim": "Specific tool names, free plans or pricing deliberately omitted",
+          "url": "UNVERIFIED — verify before adding any tool/pricing detail",
+          "date": "2026-10-31"
+        }
+      ],
+      "placeholders": [
+        "Setup guide resource",
+        "Name the tool you actually use (only if you use it)"
+      ],
+      "qc": {
+        "accuracy": 4,
+        "relevance": 5,
+        "originality": 4,
+        "hook": 4,
+        "usefulness": 4,
+        "readability": 5,
+        "brand_fit": 5,
+        "cta_fit": 5
+      }
+    },
+    {
+      "id": "C2",
+      "format": "carousel",
+      "day": "Sat 2026-11-07",
+      "time_ist": "11:00",
+      "pillar": "DIGITAL MARKETING",
+      "objective": "dm",
+      "topic": "3 WhatsApp follow-up messages for new leads",
+      "angle": "How-to with copy-paste templates",
+      "hook_options": [
+        "Lead aaya, reply nahi aaya?",
+        "Ad chala, lead aayi, phir kya?",
+        "Yeh 3 message lead ko thanda hone se bachate hain"
+      ],
+      "slides": [
+        {
+          "n": 1,
+          "type": "hook",
+          "tag": "DIGITAL MARKETING",
+          "hook": "Lead aaya, reply nahi aaya?",
+          "hook_red": "Yeh 3 message bhejo",
+          "hook_sub": "Small business ke liye copy-paste WhatsApp follow-ups",
+          "visual": "Type cover on white, serif hook, red punch line, footer Swipe →"
+        },
+        {
+          "n": 2,
+          "type": "content",
+          "title": "Ek follow-up nahi kiya,",
+          "title_red": "lead thanda ho gaya",
+          "body": "Form bharne ke baad log 2-3 aur options bhi check karte hain. Jo pehle aur clearly reply kare, baat usi se aage badhti hai.",
+          "visual": "Sand ground, red serif 02, simple chat bubble outline"
+        },
+        {
+          "n": 3,
+          "type": "content",
+          "title": "Message 1: Turant",
+          "title_red": "thanks + 1 sawaal",
+          "body": "\"Hi [Naam], [Business] mein interest ke liye thanks! Aapko [product] kis kaam ke liye chahiye?\" Ek sawaal = reply karna aasaan.",
+          "visual": "White ground, chat bubble with template, brackets in clay"
+        },
+        {
+          "n": 4,
+          "type": "content",
+          "title": "Message 2: Agle din",
+          "title_red": "value do",
+          "body": "\"[Naam], aapke sawaal ka short answer: [1 useful tip ya price range]. Chaho toh 5 minute call kar lein?\"",
+          "visual": "Sand ground, chat bubble with template"
+        },
+        {
+          "n": 5,
+          "type": "content",
+          "title": "Message 3: Teesre din",
+          "title_red": "soft close",
+          "body": "\"Bas check kar raha tha, abhi bhi [product] dekh rahe ho? Na ho toh bhi bata dena, main list update kar dunga.\"",
+          "visual": "White ground, chat bubble with template"
+        },
+        {
+          "n": 6,
+          "type": "content",
+          "title": "3 rules jo",
+          "title_red": "spam se bachaye",
+          "body": "Naam se baat karo. Har message mein ek hi sawaal. Teen ke baad ruk jao. Sirf unhe message karo jinhone number khud diya ho.",
+          "visual": "Sand ground, three short lines, red serif numbers"
+        },
+        {
+          "n": 7,
+          "type": "cta",
+          "cta_title": "Teeno templates chahiye?",
+          "cta_body": "Comment \"AI\" — editable WhatsApp follow-up sheet DM mein bhej dunga.",
+          "visual": "Espresso ground, cream Comment \"AI\" pill with red up-arrow"
+        }
+      ],
+      "caption": "WhatsApp follow up messages for leads — copy-paste templates 👇\n\nAd pe paisa lagaya, lead bhi aayi... phir reply hi nahi kiya, ya ek 'Hi' bhej ke chhod diya. Yahi jagah hai jahan zyada small businesses leads kho dete hain.\n\nIs carousel mein 3 messages hain: turant, agle din aur teesre din. Brackets mein apni details daalo aur bhejo. Ek zaroori baat: sirf unhe message karo jinhone khud number diya hai.\n\nComment \"AI\" — editable follow-up sheet DM mein bhej dunga.",
+      "hashtags": [
+        "#digitalmarketingindia",
+        "#smallbusinessindia",
+        "#whatsappmarketing",
+        "#leadgeneration",
+        "#metaads"
+      ],
+      "alt_text": [
+        "Headline: lead came but no reply, send these 3 messages",
+        "Slide on how leads go cold without follow-up",
+        "Template for the first WhatsApp message",
+        "Template for the next-day message",
+        "Template for the third-day message",
+        "Three rules to avoid spamming leads",
+        "Call to action: comment AI for the follow-up sheet"
+      ],
+      "facebook_caption": "Lead aayi par reply nahi aaya? Yeh 3 WhatsApp follow-up messages copy-paste karo. Comment \"AI\" — editable sheet bhej dunga.",
+      "linkedin_post": "Leads aati hain, par follow-up nahi hota — small businesses ka sabse sasta leak yahi hai.\n\nMera simple 3-message system:\n1. Turant: thanks + ek sawaal\n2. Agle din: ek useful answer + call ka option\n3. Teesre din: soft close\n\nRules: naam se baat, ek message mein ek sawaal, teen ke baad stop, aur sirf opted-in leads.\n\nTemplates chahiye toh comment karo \"AI\".",
+      "sources": [],
+      "placeholders": [
+        "Editable follow-up sheet resource"
+      ],
+      "qc": {
+        "accuracy": 5,
+        "relevance": 5,
+        "originality": 4,
+        "hook": 4,
+        "usefulness": 5,
+        "readability": 4,
+        "brand_fit": 5,
+        "cta_fit": 5
+      }
+    },
+    {
+      "id": "S2",
+      "format": "static",
+      "day": "Sun 2026-11-08",
+      "time_ist": "19:30",
+      "pillar": "BUILD IN PUBLIC",
+      "objective": "dm",
+      "topic": "Test before teach: this week's experiment",
+      "angle": "POV statement with real photo",
+      "static": {
+        "headline_options": [
+          "Main pehle test karta hoon, phir sikhata hoon",
+          "Har post ke peeche ek experiment",
+          "Theory kam, test zyada"
+        ],
+        "tag": "BUILD IN PUBLIC",
+        "headline": "Main pehle test karta hoon,",
+        "headline_red": "phir sikhata hoon",
+        "support": "Har post ke peeche ek real experiment. Is hafte: [ADD: tool/workflow + 1 real result].",
+        "cta": "Comment \"AI\" — full test notes DM mein",
+        "visual": "PhotoCover 4:5 with Karan's real rooftop sunset photo, warm grade, cream serif headline top third over sky, red punch line, sub-line lower third in stone"
+      },
+      "caption": "AI tools test karke sikhata hoon — yeh mera rule hai 👇\n\nInternet pe har koi 'best AI tool' bata raha hai. Mera rule simple hai: jo khud test nahi kiya, woh post nahi karunga.\n\nIs hafte maine test kiya: [ADD: kaunsa tool/workflow]. Result: [ADD: 1 real number ya observation]. Kya kaam aaya, kya nahi — sab notes mein hai.\n\nComment \"AI\" — full test notes DM mein bhej dunga.",
+      "hashtags": [
+        "#aitools",
+        "#buildinpublic",
+        "#personalbranding",
+        "#digitalmarketingindia"
+      ],
+      "alt_text": [
+        "Karan smiling on a rooftop at sunset with headline: I test first, then teach"
+      ],
+      "facebook_caption": "Jo khud test nahi kiya, woh post nahi karta. Is hafte ka experiment: [ADD]. Comment \"AI\" for full notes.",
+      "linkedin_post": "Ek simple rule follow karta hoon: jo khud test nahi kiya, woh sikhata nahi.\n\nIs hafte: [ADD: tool/workflow]. Result: [ADD: real result]. Kya kaam aaya aur kya nahi — notes ready hain.\n\nNotes chahiye toh comment karo \"AI\".",
+      "sources": [],
+      "placeholders": [
+        "This week's real experiment + result (support line, caption, LinkedIn)",
+        "Test notes resource"
+      ],
+      "qc": {
+        "accuracy": 5,
+        "relevance": 4,
+        "originality": 5,
+        "hook": 4,
+        "usefulness": 4,
+        "readability": 5,
+        "brand_fit": 5,
+        "cta_fit": 5
+      }
+    }
+  ]
+}
