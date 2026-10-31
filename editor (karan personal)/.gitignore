@@ -3,3 +3,5 @@
 *.mov
 *.wav
 *.mp3
+projects/*/*/build/
+projects/*/*/*/build/
