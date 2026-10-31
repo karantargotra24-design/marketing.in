@@ -2,6 +2,9 @@
 
 Status: **Karan's personal brand = VERIFIED (Design System v2).** Reel editing pattern = from 4 reference reels. Slide decks = follow brand system until PPT refs arrive.
 
+## 0D. KARAN'S OWN REELS = REFERENCE STYLE A (Karan, 31 Oct 2026)
+Reels follow the reference reel format, Style A Clean Tech Minimal: black title box hook (white sentence-case text), thin white 1–3 word captions with one bold word, white/near-white app-screen cutaways (chat mock or real screenshot) with a red highlight outline, thin-line diagrams, white rounded "Comment" pill with black circle arrow overlaid on the talking head at the end, cut every 3–5 s, −14 LUFS. Colours: black/white + red accent only; tool logos in official colours. Unique keyword per reel. Generator: `projects/reels/R01_5-tasks-to-AI/cutaways_generator_styleA.py`.
+
 ## 0C. CAROUSEL ROTATION — Karan, 31 Oct 2026 (wins over 0B)
 Never post the same carousel look twice in a row. Rotate 3 variants in this fixed order, one per carousel upload (a carousel goes out every 3–4 days):
 1. **B+D: Glass + Sticker.** Glass base + tilted app-icon stickers, red marker circle/arrows, yellow highlighter tags. Stickers and marker on covers and flow slides; text-heavy slides stay plain glass. Sample: `projects/carousel-system-preview/carousel_direction_BD_glass-sticker.png`.

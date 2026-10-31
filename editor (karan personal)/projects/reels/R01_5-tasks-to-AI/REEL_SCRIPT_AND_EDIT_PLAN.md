@@ -1,6 +1,6 @@
 # Reel R01: "5 tasks to hand to AI" · ~45 s · 9:16 · English
 Keyword: **TOOLS** → DM: prompt pack (PDF 01, already public)
-Format: your reference reel pattern. Hook in the first 2 s, a visual change every 3–5 s, 1–3 word captions, cutaways about 40% of runtime, comment-pill end card, −14 LUFS. Looks: your brand (black/white/red, glass cards, official tool logos).
+Format: your reference reels, **Style A (Clean Tech Minimal)**. Black title box for the hook, thin white 1–3 word captions, white app-screen cutaways with thin-line diagrams, white rounded "Comment" pill (black arrow) over you at the end. A visual change every 3–5 s, cutaways about 40% of runtime, −14 LUFS. Colours: black/white + red accent only; tool logos in official colours.
 
 ## 1. What you record (one take, talking head)
 - Phone at eye level, window light in front, plain wall, 1080×1920 at 30 fps, no beauty filter.
@@ -17,17 +17,17 @@ Format: your reference reel pattern. Hook in the first 2 s, a visual change ever
 | 16–21 s | "Three: research a topic fast with Gemini. But always check the sources." | Card | `03_task3_gemini.png` |
 | 21–26 s | "Four: design one post in Canva, then resize it for Story and Reel cover." | Card | `04_task4_canva.png` |
 | 26–31 s | "Five: list your 10 most asked DM questions and let AI draft quick replies." | Card | `05_task5_any.png` |
-| 31–37 s | "One rule: AI writes the first draft. You make it yours." | Rule card on "one rule" | `06_rule_card.png` (≈3 s) |
-| 37–45 s | "Want the exact prompt for each task? Comment TOOLS and I'll DM you all five." | End card | `07_cta_endcard.png` (last 4–5 s) |
+| 31–37 s | "One rule: AI writes the first draft. You make it yours." | Rule card on "one rule" | `06_rule_diagram.png` (≈3 s) |
+| 37–45 s | "Want the exact prompt for each task? Comment TOOLS and I'll DM you all five." | Stay on you, pill overlay | `07_cta_pill_OVERLAY.png` (last 4–5 s, transparent) |
 
 ## 3. Edit steps (CapCut or InShot)
 1. Import your clip. Cut out pauses and mistakes (jump cuts are fine, keep each shot 3–5 s).
 2. Put `00_hook_title_OVERLAY.png` on an overlay track for 0–3 s (it's transparent).
 3. Drop cards 01–07 as full-screen cutaways at the times above, keeping your voice underneath.
-4. Auto-captions: white text, 1–3 words, centre-lower, one key word in red per screen.
+4. Auto-captions (Style A): Inter Light, white, large (~110 px on 1080 wide), soft shadow, 1–3 words, placed mid-frame above your head line; one key word in Bold. See `08_caption_style_SAMPLE_OVERLAY.png`.
 5. Light zoom-in (105%) on every other A-roll cut. Soft whoosh SFX on each card, low volume.
 6. Audio: normalise to around −14 LUFS. No loud music; a quiet beat at −25 dB is enough.
-7. Cover: use `01_task1_chatgpt.png` or a frame of you with the hook overlay.
+7. Cover: a frame of you with the black hook box (`00_hook_title_OVERLAY.png`).
 8. Export 1080×1920, 30 fps, high bitrate.
 
 ## 4. Caption (Instagram)
