@@ -77,5 +77,9 @@ Per agent: instructions, permitted knowledge bases, tool allow-list, zod output 
 - BLOCKED on you: private repo, Supabase project, AI budget/key, OAuth credentials for each platform.
 - Not claimed: no integration is connected; no agent has made a real AI call.
 
+## 7b. Progress log
+- Phase A (security/CI): DONE, tested locally (CI workflow not yet run on GitHub).
+- Phase B (persistence): DONE and tested: 21 Postgres tests (real Postgres engine) + live isolation test on the new project. Data import and Vercel deploy await `DATABASE_URL` from you (see docs/DEPLOYMENT.md).
+
 ## 8. Reviewable diff in this PR
 Plan + proposal docs, `StorePort` interface and usage ledger on the file store (type-only refactor; 58 tests still pass).

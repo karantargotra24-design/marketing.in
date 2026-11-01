@@ -175,3 +175,6 @@ grant select, insert on hq.activity_log, hq.usage to authenticated;
 grant usage on all sequences in schema hq to authenticated;
 revoke all on all tables in schema hq from anon;
 revoke usage on schema hq from anon;
+
+-- trigger functions are not callable as RPC by anyone
+revoke all on all functions in schema hq from public, anon, authenticated;
