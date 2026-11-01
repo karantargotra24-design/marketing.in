@@ -62,13 +62,13 @@ export async function buildPlan(store: StorePort, client: Client, instruction: s
   const estCostUsd = tasks.reduce((a, t) => a + t.estCostUsd, 0);
   const ctx = makeContext(client.name, facts);
   const agentsUsed = [...new Set(tasks.map((t) => t.agent).filter((a): a is AgentId => a !== "orchestrator"))];
-  const missing = new Set<string>();
-  for (const a of agentsUsed) for (const n of AGENTS[a].needs) if (!ctx.has(n.kb, n.key)) missing.add(`${n.kb}.${n.key}: ${n.why}`);
+  const missing = new Map<string, string>();
+  for (const a of agentsUsed) for (const n of AGENTS[a].needs) if (!ctx.has(n.kb, n.key) && !missing.has(`${n.kb}.${n.key}`)) missing.set(`${n.kb}.${n.key}`, `${n.kb}.${n.key}: ${n.why}`);
   const policy = await loadPolicy(store);
   const highImpact = policy.highImpact.includes(intent.objective);
   const needsPlanApproval = !policy.enabled || highImpact || estCostUsd > policy.maxEstUsd;
   const reason = !policy.enabled ? "auto-run is switched off" : highImpact ? `"${intent.objective}" is a high-impact objective` : estCostUsd > policy.maxEstUsd ? `estimated cost $${estCostUsd.toFixed(2)} is above your auto-run limit $${policy.maxEstUsd.toFixed(2)}` : "routine internal work, within your auto-run policy";
-  return { ok: true, plan: { objective: intent.objective, days: intent.days, platform: intent.platform, summary: `${intent.objective.replace("_", " ")} for ${client.name}: ${tasks.length} tasks across ${agentsUsed.length} agents`, language: intent.language, tasks, missingInfo: [...missing], assumptions: intent.assumptions, highImpact, estCostUsd, needsPlanApproval, reason } };
+  return { ok: true, plan: { objective: intent.objective, days: intent.days, platform: intent.platform, summary: `${intent.objective.replace("_", " ")} for ${client.name}: ${tasks.length} tasks across ${agentsUsed.length} agents`, language: intent.language, tasks, missingInfo: [...missing.values()], assumptions: intent.assumptions, highImpact, estCostUsd, needsPlanApproval, reason } };
 }
 
 /** Peak parallel width of a plan (tasks whose dependencies resolve in the same wave). Useful for UI and tests. */

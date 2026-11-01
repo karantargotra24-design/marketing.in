@@ -1,0 +1,20 @@
+name: Worker tick
+# Runs queued jobs and due schedules by calling the deployed app. INERT until you set repository variable WORKER_URL
+# (e.g. https://your-app.vercel.app) and secret HQ_WORKER_SECRET (same value as the app's HQ_WORKER_SECRET).
+on:
+  schedule: [{ cron: "*/10 * * * *" }]
+  workflow_dispatch:
+permissions: {}
+jobs:
+  tick:
+    if: ${{ vars.WORKER_URL != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - name: Call worker endpoint
+        env:
+          URL: ${{ vars.WORKER_URL }}
+          SECRET: ${{ secrets.HQ_WORKER_SECRET }}
+        run: |
+          code=$(curl -sS -o /tmp/out -w '%{http_code}' -X POST -H "Authorization: Bearer $SECRET" "$URL/api/worker")
+          echo "HTTP $code"; cat /tmp/out; test "$code" = "200"

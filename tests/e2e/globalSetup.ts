@@ -4,7 +4,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { SAMPLE_CLIENTS } from "../../src/hq/fixtures";
 
-export const OPEN_PORT = 3111, LOCKED_PORT = 3112;
+export const OPEN_PORT = 3111, LOCKED_PORT = 3112, OS_PORT = 3113;
 const procs: ChildProcess[] = [];
 
 async function waitFor(url: string, ms = 60_000) {
@@ -27,7 +27,8 @@ export default async function setup() {
   writeFileSync(seed, JSON.stringify(SAMPLE_CLIENTS));
   const noSecrets = { NEXT_PUBLIC_SUPABASE_URL: "", NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: "", NEXT_PUBLIC_SUPABASE_ANON_KEY: "", DATABASE_URL: "", ANTHROPIC_API_KEY: "" };
   await start(OPEN_PORT, { ...noSecrets, HQ_DATA_DIR: path.join(dir, "data"), HQ_SEED_FILE: seed, HQ_ALLOW_OPEN: "1", HQ_ALLOW_FILE_STORE: "1", HQ_AI: "mock", HQ_MOCK_LATENCY_MS: "400" });
+  await start(OS_PORT, { ...noSecrets, HQ_DATA_DIR: path.join(dir, "os-data"), HQ_SEED_FILE: seed, HQ_ALLOW_OPEN: "1", HQ_ALLOW_FILE_STORE: "1", HQ_AI: "mock", HQ_MOCK_LATENCY_MS: "120" });
   await start(LOCKED_PORT, { ...noSecrets, HQ_DATA_DIR: path.join(dir, "locked-data"), HQ_AI: "off" });
-  await Promise.all([waitFor(`http://localhost:${OPEN_PORT}/hq/locked`), waitFor(`http://localhost:${LOCKED_PORT}/hq/locked`)]);
+  await Promise.all([OPEN_PORT, OS_PORT, LOCKED_PORT].map((p) => waitFor(`http://localhost:${p}/hq/locked`)));
   return async () => { for (const p of procs) { try { process.kill(-p.pid!, "SIGTERM"); } catch { /* already gone */ } } };
 }

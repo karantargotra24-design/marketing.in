@@ -13,6 +13,9 @@ export default function Home() {
           ? "Nothing is connected yet. All data is fake."
           : "Real mode is on. Connections are configured in the server environment."}
       </p>
+      <Link href="/os" className="rounded-lg bg-indigo-600 p-3 text-center font-semibold text-white">
+        Open Marketing OS
+      </Link>
       <Link href="/dashboard" className="rounded-lg bg-slate-900 p-3 text-center font-semibold text-white">
         Open dashboard
       </Link>

@@ -1,14 +1,16 @@
 import { z } from "zod";
 
 const refs = z.array(z.string()).default([]);
+/** Non-critical lists (gaps, risks, assumptions) are truncated, not rejected: a verbose model must never sink a whole deliverable. */
+const soft = (max: number, n = 300) => z.preprocess((v) => (Array.isArray(v) ? v.slice(0, max).map((x) => (typeof x === "string" ? x.slice(0, n) : x)) : v), z.array(z.string().min(1)).max(max)).default([]);
 const text = (n = 1200) => z.string().min(2).max(n);
 
 /** research_* and audit_* deliverables */
 export const sectionsSchema = z.object({
   summary: text(1500),
   sections: z.array(z.object({ heading: text(120), bullets: z.array(z.object({ text: text(600), factIds: refs, sourceUrls: z.array(z.string()).default([]) })).max(12) })).min(1).max(8),
-  missingInfo: z.array(text(300)).max(15).default([]),
-  risks: z.array(text(300)).max(10).default([]),
+  missingInfo: soft(15),
+  risks: soft(10),
 });
 export type SectionsBody = z.infer<typeof sectionsSchema>;
 
@@ -18,8 +20,8 @@ export const strategySchema = z.object({
   pillars: z.array(z.object({ name: text(80), description: text(400), example: text(300) })).min(2).max(6),
   campaignTheme: text(300),
   growth: z.array(z.object({ text: text(400), factIds: refs })).max(8).default([]),
-  assumptions: z.array(text(300)).max(10).default([]),
-  missingInfo: z.array(text(300)).max(15).default([]),
+  assumptions: soft(10),
+  missingInfo: soft(15),
 });
 export type StrategyBody = z.infer<typeof strategySchema>;
 
@@ -54,7 +56,7 @@ export const adPlanSchema = z.object({
   objective: text(300), budget: z.object({ amountInr: z.number().nullable().default(null), note: text(400) }),
   audiences: z.array(z.object({ name: text(100), targeting: text(400), rationale: text(400), validated: z.boolean().default(false) })).min(1).max(5),
   adCopy: z.array(z.object({ headline: text(80), text: text(500), cta: text(80), language: z.enum(["english", "hindi", "hinglish"]), claimsUsed: refs })).min(1).max(8),
-  creativeRefs: z.array(z.string()).default([]), risks: z.array(text(300)).max(10).default([]),
+  creativeRefs: z.array(z.string()).default([]), risks: soft(10),
   launchChecklist: z.array(z.object({ item: text(200), done: z.boolean() })).max(12),
   performanceAnalysis: z.object({ status: z.enum(["NO DATA", "ANALYSED"]), note: text(400) }),
 });

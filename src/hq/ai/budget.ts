@@ -5,8 +5,7 @@ export type Caps = { runUsd: number; dailyUsd: number; monthlyUsd: number };
 export const DEFAULT_CAPS: Caps = { runUsd: 0.25, dailyUsd: 1, monthlyUsd: 17 }; // ≈ ₹1,500/month at ₹88/$
 
 /**
- * Spend limits. `reserve()` checks (ledger + in-flight reservations + this call's worst case) against the run/day/month caps
- * BEFORE a call is made; the check-and-reserve is synchronous after the ledger read, so parallel calls cannot jointly overshoot.
+ * Spend limits (run / day / month). See reserve().
  * Scope: per process (overshoot is bounded by in-flight reservations if several server instances run).
  */
 export class BudgetGuard {
@@ -24,18 +23,33 @@ export class BudgetGuard {
     return { day: sum(rows.filter((u) => u.at >= dayStart)), month: sum(rows) };
   }
 
+  private waiters: (() => void)[] = [];
+  private wake() { const w = this.waiters; this.waiters = []; w.forEach((f) => f()); }
+
+  /**
+   * Reserve worst-case spend before a call.
+   *  - HARD limit: actual spend so far + this call's worst case must fit under every cap, otherwise BudgetExceededError (no waiting).
+   *  - SOFT limit: it fits, but other in-flight calls hold reservations: wait for them to finish instead of failing.
+   * The check-and-reserve is synchronous after the ledger read, so parallel calls can never jointly overshoot a cap.
+   */
   async reserve(runId: string, estUsd: number): Promise<() => void> {
-    const { day, month } = await this.ledger();
-    // ---- synchronous from here: no awaits between the checks and the reservation ----
-    const run = (this.runSpent.get(runId) ?? 0) + (this.runPending.get(runId) ?? 0);
-    const fmt = (n: number) => `$${n.toFixed(4)}`;
-    if (run + estUsd > this.caps.runUsd) throw new BudgetExceededError("run", `Run budget ${fmt(this.caps.runUsd)} would be exceeded (spent ${fmt(run)}, this call up to ${fmt(estUsd)}).`);
-    if (day + this.pending + estUsd > this.caps.dailyUsd) throw new BudgetExceededError("daily", `Daily budget ${fmt(this.caps.dailyUsd)} would be exceeded (spent ${fmt(day)}).`);
-    if (month + this.pending + estUsd > this.caps.monthlyUsd) throw new BudgetExceededError("monthly", `Monthly budget ${fmt(this.caps.monthlyUsd)} would be exceeded (spent ${fmt(month)}).`);
-    this.pending += estUsd;
-    this.runPending.set(runId, (this.runPending.get(runId) ?? 0) + estUsd);
-    let released = false;
-    return () => { if (!released) { released = true; this.pending -= estUsd; this.runPending.set(runId, (this.runPending.get(runId) ?? 0) - estUsd); } };
+    for (;;) {
+      const { day, month } = await this.ledger();
+      // ---- synchronous from here: no awaits between the checks and the reservation ----
+      const spentRun = this.runSpent.get(runId) ?? 0, pendRun = this.runPending.get(runId) ?? 0;
+      const fmt = (n: number) => `$${n.toFixed(4)}`;
+      if (spentRun + estUsd > this.caps.runUsd) throw new BudgetExceededError("run", `Run budget ${fmt(this.caps.runUsd)} would be exceeded (spent ${fmt(spentRun)}, this call up to ${fmt(estUsd)}).`);
+      if (day + estUsd > this.caps.dailyUsd) throw new BudgetExceededError("daily", `Daily budget ${fmt(this.caps.dailyUsd)} would be exceeded (spent ${fmt(day)}).`);
+      if (month + estUsd > this.caps.monthlyUsd) throw new BudgetExceededError("monthly", `Monthly budget ${fmt(this.caps.monthlyUsd)} would be exceeded (spent ${fmt(month)}).`);
+      if (spentRun + pendRun + estUsd > this.caps.runUsd || day + this.pending + estUsd > this.caps.dailyUsd || month + this.pending + estUsd > this.caps.monthlyUsd) {
+        await new Promise<void>((r) => this.waiters.push(r));   // others hold reservations; retry when one is released
+        continue;
+      }
+      this.pending += estUsd;
+      this.runPending.set(runId, pendRun + estUsd);
+      let released = false;
+      return () => { if (!released) { released = true; this.pending -= estUsd; this.runPending.set(runId, (this.runPending.get(runId) ?? 0) - estUsd); this.wake(); } };
+    }
   }
 
   addRunSpend(runId: string, usd: number) { this.runSpent.set(runId, (this.runSpent.get(runId) ?? 0) + usd); }

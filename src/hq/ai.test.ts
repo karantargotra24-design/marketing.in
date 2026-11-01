@@ -220,14 +220,14 @@ describe("spend limits", () => {
     expect(r.tasks.find((t) => t.step === "consolidate")!.status).not.toBe("PENDING"); // run still finishes and reports
     expect((await store.listExecutions({ runId: r.runId })).some((h) => h.outcome === "waiting_approval")).toBe(true);
   });
-  it("parallel reservations cannot jointly exceed the daily cap", async () => {
+  it("parallel calls queue behind each other's reservations instead of failing, and never jointly exceed the cap", async () => {
     const mock = new MockProvider({ latencyMs: 30 });
-    const ai = engine(mock, { runUsd: 100, dailyUsd: 0.03, monthlyUsd: 100 }); // each call reserves ~$0.0206 worst case
-    await orch(ai).runWorkflow("propedia", "full_review");
-    const r = (await store.listTasks()).filter((t) => t.step === "agent");
-    expect(mock.calls.length).toBeLessThanOrEqual(2);             // 7 started at once; only what fits under the cap was allowed
-    expect(r.filter((t) => t.status === "WAITING FOR APPROVAL").length).toBeGreaterThanOrEqual(5);
+    const ai = engine(mock, { runUsd: 100, dailyUsd: 0.03, monthlyUsd: 100 });     // each call reserves ~$0.021 worst case; real cost is far lower
+    const r = await orch(ai).runWorkflow("propedia", "full_review");
+    expect(mock.maxInFlight).toBe(1);                                              // only one reservation fits at a time
+    expect(mock.calls.length).toBeGreaterThanOrEqual(2);                           // …but work still progresses, up to the real cap
     expect((await store.listUsage()).reduce((a, u) => a + u.costUsd, 0)).toBeLessThanOrEqual(0.03);
+    expect(r.tasks.find((t) => t.step === "deliver")!.status).toBe("COMPLETED");
   });
   it("counts spend already in the ledger (monthly cap)", async () => {
     await store.recordUsage({ clientId: "propedia", taskId: null, agent: "x", provider: "mock", model: "mock-sonnet", inputTokens: 1, outputTokens: 1, cacheReadTokens: 0, costUsd: 9.99, at: new Date().toISOString() });

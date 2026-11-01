@@ -88,7 +88,7 @@ export function stripClaims(text: string): string {
     if (r.id === "health" || r.id === "purity") t = t.split(/(?<=[.!?।])\s+/).filter((s) => !new RegExp(r.re.source, r.re.flags.replace("g", "")).test(s)).join(" ");
     else t = t.replace(re, "");
   }
-  return t.replace(/\s+([.!?,])/g, "$1").replace(/[!]{2,}/g, "!").replace(/\s{2,}/g, " ").replace(/^[\s.!,-]+/, "").trim();
+  return t.replace(/\s+([.!?,])/g, "$1").replace(/([.!?])[.!?]+/g, "$1").replace(/\s{2,}/g, " ").replace(/^[\s.!,-]+/, "").trim();
 }
 export function stripDeep<T>(v: T): T {
   if (typeof v === "string") return stripClaims(v) as unknown as T;

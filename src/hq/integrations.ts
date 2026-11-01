@@ -68,4 +68,5 @@ export async function isIntegrationOperational(store: StorePort, id: string, env
   return integrationStatus(d, env, await store.getSetting<TestRecord>(`integration_test:${id}`)) === "tested_ok";
 }
 export const INTEGRATIONS = INTEGRATION_DEFS.map((d) => ({ id: d.id, purpose: d.purpose, status: "NOT_CONFIGURED" as const, writes: d.writes, note: d.howTo }));
-export const isOperational = (_id: string) => false; // legacy sync helper: never true; use isIntegrationOperational
+/** Legacy sync helper: never true. Use isIntegrationOperational (it checks the recorded live test). */
+export const isOperational = (id: string) => id === "" && false;

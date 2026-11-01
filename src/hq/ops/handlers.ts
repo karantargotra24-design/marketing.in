@@ -91,7 +91,7 @@ async function sectionsTask(c: OpsCtx, kind: string): Promise<OpsResult> {
     const d = await save(c, kind.startsWith("research") ? "research" : "audit", TITLES[kind], agent, { ...base, sections: [...base.sections, ...web.sections], missingInfo: [...base.missingInfo, ...web.missing] });
     return { status: rules.insufficientData ? "WAITING FOR INPUT" : "COMPLETED", note: c.ai ? "Not enough stored data for AI to add anything (no cost)" : "AI is off: rule-based findings only", meta: null, deliverableIds: [d.id] };
   }
-  const { value, meta } = await c.ai.generate({ task: c.task, client: c.client, agent, kind, schemaHint: HINT_SECTIONS, schema: sectionsSchema, facts, payload: { language: c.run.plan.language, platform: c.run.plan.platform, ruleBasedGaps: rules.missingInfo } });
+  const { value, meta } = await c.ai.generate({ task: c.task, client: c.client, agent, kind, schemaHint: HINT_SECTIONS, schema: sectionsSchema, facts, maxTokens: 1800, payload: { language: c.run.plan.language, platform: c.run.plan.platform, ruleBasedGaps: rules.missingInfo } });
   const valid = new Set(facts.map((f) => f.id));
   const body = { ...value, sections: [...value.sections.map((s) => ({ ...s, bullets: ground(s.bullets, valid) })), ...web.sections], missingInfo: [...new Set([...rules.missingInfo, ...value.missingInfo, ...web.missing])] };
   const d = await save(c, kind.startsWith("research") ? "research" : "audit", TITLES[kind], agent, body);
@@ -106,7 +106,7 @@ const needAi = (c: OpsCtx) => { if (!c.ai) throw new NeedsAiError("This step nee
 
 async function strategyTask(c: OpsCtx): Promise<OpsResult> {
   const ai = needAi(c); const facts = await scopeFacts(c, "audit_strategy");
-  const { value, meta } = await ai.generate({ task: c.task, client: c.client, agent: "audit_strategy", kind: "strategy", schema: strategySchema, facts, maxTokens: 3000, schemaHint: `JSON: {"objectives":[{"text","metric":string|null,"factIds"}],"personas":[{"name","description","factIds"}],"pillars":[{"name","description","example"}],"campaignTheme":string,"growth":[{"text","factIds"}],"assumptions":[string],"missingInfo":[string]}. Label unvalidated personas "Hypothesis". No invented metrics or targets.`, payload: { language: c.run.plan.language, platform: c.run.plan.platform, days: c.run.plan.days, missing: c.run.plan.missingInfo, upstream: await upstream(c) } });
+  const { value, meta } = await ai.generate({ task: c.task, client: c.client, agent: "audit_strategy", kind: "strategy", schema: strategySchema, facts, maxTokens: 3000, schemaHint: `JSON: {"objectives":[{"text","metric":string|null,"factIds"}],"personas":[{"name","description","factIds"}],"pillars":[{"name","description","example"}],"campaignTheme":string,"growth":[{"text","factIds"}],"assumptions":[string],"missingInfo":[string]}. Label unvalidated personas "Hypothesis". No invented metrics or targets.`, payload: { language: c.run.plan.language, platform: c.run.plan.platform, days: c.run.plan.days, missing: c.run.plan.missingInfo.slice(0, 12), upstream: await upstream(c) } });
   const valid = new Set(facts.map((f) => f.id));
   const body: StrategyBody = { ...value, objectives: ground(value.objectives, valid), personas: ground(value.personas, valid), growth: ground(value.growth, valid) };
   const d = await save(c, "strategy", `Marketing strategy: ${c.client.name}`, "audit_strategy", body);
@@ -166,13 +166,13 @@ async function adPlanTask(c: OpsCtx): Promise<OpsResult> {
 }
 
 /* ---- quality assurance ---- */
-export async function qaDeliverables(c: OpsCtx): Promise<{ checked: number; blocked: number; warned: number; lines: string[] }> {
+export async function qaDeliverables(c: OpsCtx, only?: string[]): Promise<{ checked: number; blocked: number; warned: number; lines: string[] }> {
   const facts = await scopeFacts(c, "qa");
   const all = await c.store.listFacts(c.client.id, { includeSuperseded: true });
   const corpus = all.map((f) => `${f.value} ${f.source} ${f.key}`).join(" ");
   const hasPalette = all.some((f) => f.key.split("@")[0] === "colors" && f.status !== "NEEDS VERIFICATION");
   const others = (await c.store.listClients()).filter((x) => x.id !== c.client.id).map((x) => x.name.replace(/\s*\(.*\)/, ""));
-  const ds = (await runDeliverables(c)).filter((d) => ["content_item", "creative_brief", "ad_plan", "strategy", "research", "audit"].includes(d.kind));
+  const ds = (await runDeliverables(c)).filter((d) => ["content_item", "creative_brief", "ad_plan", "strategy", "research", "audit"].includes(d.kind) && (!only || only.includes(d.id)));
   let blocked = 0, warned = 0; const lines: string[] = [];
   for (const d of ds) {
     const body = await latestBody<unknown>(c, d);
@@ -229,7 +229,7 @@ async function packageTask(c: OpsCtx): Promise<OpsResult> {
   sb?.missingInfo.forEach((m) => missing.add(m));
   const pending = tasks.filter((t) => t.status === "WAITING FOR INPUT").map((t) => `${t.description}: ${t.error ?? "needs input"}`);
   const body = { title: `${c.run.objective.replace("_", " ")} package · ${c.client.name}`, objective: c.run.instruction, summary: c.run.plan.summary,
-    deliverables: ds.map((d) => ({ id: d.id, kind: d.kind, title: d.title, status: d.status, qa: d.qa ? (d.qa.pass ? `pass (${d.qa.issues.length} notes)` : `blocked: ${d.qa.issues.filter((i) => i.severity === "blocker").length}`) : "not checked" })),
+    deliverables: ds.map((d) => ({ id: d.id, kind: d.kind, title: d.title, status: d.status, qa: d.qa ? (d.qa.pass ? `pass (${d.qa.issues.length} notes)` : `blocked: ${d.qa.issues.filter((i) => i.severity === "blocker").length}`) : ["qa_report", "content_calendar"].includes(d.kind) ? "n/a (index)" : "not checked" })),
     missingInfo: [...missing, ...pending], assumptions: [...c.run.plan.assumptions, ...(sb?.assumptions ?? [])],
     usage: { calls: usage.length, costUsd: usage.reduce((a, u) => a + u.costUsd, 0), mock: usage.some((u) => u.provider === "mock") },
     nextSteps: ["Review each deliverable in the Content Calendar, Creative Studio, Strategy and Campaign screens", "Approve what is ready; request changes on the rest (agents revise automatically)", "Provide the missing information listed above", "Execution preparation starts only after approval and needs a connected, tested integration"],

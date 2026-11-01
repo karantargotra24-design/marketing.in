@@ -180,6 +180,21 @@ describe("autonomous campaign run (mock AI) — one instruction, everything coor
   });
 });
 
+describe("sparse workspaces (regression: long gap lists must not break deliverables)", () => {
+  it("a nearly empty client still gets a complete, honest package; nothing FAILS", async () => {
+    const { onboardClient } = await import("./seed");
+    await onboardClient(store, { id: "sparse-co", name: "Sparse Co" });
+    const { run } = await runAll("sparse-co", "Prepare a complete seven-day Instagram growth campaign for Sparse Co.");
+    expect(run.status).toBe("COMPLETED");
+    const tasks = await store.listTasks({ runId: run.id });
+    expect(tasks.filter((t) => t.status === "FAILED")).toEqual([]);
+    const kinds = (await store.listDeliverables({ clientId: "sparse-co", runId: run.id })).map((d) => d.kind);
+    for (const k of ["strategy", "content_calendar", "creative_brief", "ad_plan", "campaign_package"]) expect(kinds, k).toContain(k);
+    const pkg = (await bodies("sparse-co", "campaign_package", run.id))[0].last as { missingInfo: string[] };
+    expect(pkg.missingInfo.length).toBeGreaterThan(10);                  // the gaps are reported, not hidden
+  });
+});
+
 describe("autonomy edge cases", () => {
   it("with AI off, rule-based research/audit still run and generation steps wait for input (no fake content)", async () => {
     const sub = await submitInstruction(store, "pahadi-origin", CAMPAIGN, "human:karan");
@@ -287,6 +302,51 @@ describe("schedules", () => {
     await createSchedule(store, { clientId: "pahadi-origin", name: "Weekly campaign", instruction: CAMPAIGN, cadence: "daily@09:00" }, new Date("2026-11-01T00:00:00Z"));
     const r = await tickSchedules(store, new Date("2026-11-02T04:00:00Z"));
     expect((await store.getRun("pahadi-origin", r.started[0]))!.status).toBe("AWAITING_PLAN_APPROVAL");
+  });
+});
+
+describe("decisions on deliverables", () => {
+  const firstOf = async (run: string, kind: string) => (await store.listDeliverables({ clientId: "pahadi-origin", runId: run, kind }))[0];
+  it("approving the package also settles its approval request (one decision, not two)", async () => {
+    const { run } = await runAll("pahadi-origin", CAMPAIGN);
+    const pkg = await firstOf(run.id, "campaign_package");
+    expect((await store.listApprovals("pahadi-origin")).filter((a) => a.ref === `deliverable:${pkg.id}` && a.status === "PENDING")).toHaveLength(1);
+    const { decideDeliverable } = await import("./ops/review");
+    expect((await decideDeliverable(store, "pahadi-origin", pkg.id, "approve", "human:karan")).ok).toBe(true);
+    expect((await store.listApprovals("pahadi-origin")).find((a) => a.ref === `deliverable:${pkg.id}`)!.status).toBe("APPROVED");
+    expect((await store.getDeliverable("pahadi-origin", pkg.id))!.deliverable.status).toBe("approved");
+  });
+  it("agents cannot decide; another client cannot decide; QA-blocked items cannot be approved", async () => {
+    const { run } = await runAll("pahadi-origin", CAMPAIGN);
+    const item = await firstOf(run.id, "content_item");
+    const { decideDeliverable } = await import("./ops/review");
+    expect(await decideDeliverable(store, "pahadi-origin", item.id, "approve", "content")).toMatchObject({ ok: false, error: expect.stringMatching(/human/) });
+    expect(await decideDeliverable(store, "propedia", item.id, "approve", "human:karan")).toMatchObject({ ok: false, error: expect.stringMatching(/not found/) });
+    await store.patchDeliverable("pahadi-origin", item.id, { qa: { pass: false, issues: [{ severity: "blocker", rule: "claim:discount", detail: "x" }] }, status: "changes_requested" });
+    expect(await decideDeliverable(store, "pahadi-origin", item.id, "approve", "human:karan")).toMatchObject({ ok: false, error: expect.stringMatching(/blocking/) });
+  });
+  it("request changes needs a note; with AI it creates a new version and re-runs QA; without AI it records the request", async () => {
+    const { run, ai } = await runAll("pahadi-origin", CAMPAIGN);
+    const item = await firstOf(run.id, "content_item"); const v = item.currentVersion;
+    const { decideDeliverable } = await import("./ops/review");
+    expect(await decideDeliverable(store, "pahadi-origin", item.id, "request_changes", "human:karan", " ", ai.ai)).toMatchObject({ ok: false });
+    const r = await decideDeliverable(store, "pahadi-origin", item.id, "request_changes", "human:karan", "shorter hook please", ai.ai);
+    expect(r.ok && r.deliverable.currentVersion).toBe(v + 1);
+    expect((await store.getDeliverable("pahadi-origin", item.id))!.versions.at(-1)!.note).toMatch(/Revised from owner feedback/);
+    expect((await store.getDeliverable("pahadi-origin", item.id))!.deliverable.qa).not.toBeNull();     // QA re-ran
+    const r2 = await decideDeliverable(store, "pahadi-origin", item.id, "request_changes", "human:karan", "again", undefined);
+    expect(r2.ok && r2.note).toMatch(/AI is off/);
+  });
+  it("execution preparation packages ONLY approved items and executes nothing", async () => {
+    const { run } = await runAll("pahadi-origin", CAMPAIGN);
+    const { decideDeliverable, prepareExecution } = await import("./ops/review");
+    expect((await prepareExecution(store, "pahadi-origin", run.id, "human:karan")).ok).toBe(false);       // nothing approved yet
+    const items = await store.listDeliverables({ clientId: "pahadi-origin", runId: run.id, kind: "content_item" });
+    for (const i of items.slice(0, 2)) await decideDeliverable(store, "pahadi-origin", i.id, "approve", "human:karan");
+    const r = await prepareExecution(store, "pahadi-origin", run.id, "human:karan");
+    if (!r.ok) throw new Error(r.error);
+    const body = (await store.getDeliverable("pahadi-origin", r.deliverable.id))!.versions[0].body as { items: unknown[]; executed: boolean; requires: string[] };
+    expect(body.items).toHaveLength(2); expect(body.executed).toBe(false); expect(body.requires.join(" ")).toMatch(/TESTED publishing integration/);
   });
 });
 

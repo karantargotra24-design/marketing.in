@@ -41,7 +41,7 @@ function item(p: P, i: number) {
   const revising = Boolean(p.previous);
   if (!revising) { // a naive writer copies whatever the store page says
     if (i === 1 && hasKey(p.facts, "scarcity_claims")) { caption += " Only few left!"; naive.push("scarcity line copied from store page"); }
-    if (i === 4 && hasKey(p.facts, "discount_claims")) { caption += " 40% OFF today!"; naive.push("discount copied from store page"); }
+    if (i === 4 && hasKey(p.facts, "discount_claims")) { caption += " 40% OFF!"; naive.push("discount copied from store page"); }
     if (i === 2 && /shilajit|honey/i.test(pr.name)) { caption += " Great health benefits."; naive.push("health claim"); }
   }
   const tag = "#" + p.client.name.replace(/[^A-Za-z0-9]/g, "");
@@ -71,7 +71,7 @@ export function mockRespond(user: string): string {
         pillars: PILLARS.map((n) => ({ name: n, description: n === "Education" ? "What to check, how to use: no medical claims" : n === "Trust & process" ? "Packing, ordering, delivery: only proven policies" : n === "Product showcase" ? "One product, one reason, real price" : "Sourcing and seasons told honestly", example: n === "Education" ? "3 things to check before buying" : "How an order reaches you" })),
         campaignTheme: pos ? cut(pos.value, 200) : `${p.client.name}: ${p.days}-day ${p.platform} push`,
         growth: [{ text: "Review results after the first week and double down on the best-performing pillar", factIds: [] }],
-        assumptions: ["No numeric goal or budget is stored; strategy is directional until provided", "Audience is a hypothesis until data exists"], missingInfo: p.missing ?? [],
+        assumptions: ["No numeric goal or budget is stored; strategy is directional until provided", "Audience is a hypothesis until data exists"], missingInfo: (p.missing ?? []).slice(0, 15).map((m) => m.slice(0, 300)),
       });
     }
     case "content_calendar": {
