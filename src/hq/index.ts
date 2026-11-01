@@ -1,5 +1,8 @@
 import path from "node:path";
 import { HqStore } from "./store";
+import { PgStore } from "./pgStore";
+import { pgPoolDb } from "./pgDb";
+import type { StorePort } from "./port";
 
 export * from "./types";
 export { HqStore } from "./store";
@@ -10,6 +13,13 @@ export { requestApproval, decideApproval, performExternalAction } from "./approv
 export { INTEGRATIONS } from "./integrations";
 export { seedWorkspaces, onboardClient } from "./seed";
 
-/** Data lives in <repo>/data/hq (override with HQ_DATA_DIR). File storage works locally and in cloud dev; Vercel needs the Supabase adapter (not built). */
-export function defaultStore() { return new HqStore(process.env.HQ_DATA_DIR ?? path.join(process.cwd(), "data", "hq")); }
+/** Postgres when DATABASE_URL + HQ_AGENCY_ID are set; otherwise local file storage (dev only; refused in production). */
+export function defaultStore(): StorePort {
+  if (process.env.DATABASE_URL && process.env.HQ_AGENCY_ID) return new PgStore(pgPoolDb(process.env.DATABASE_URL), process.env.HQ_AGENCY_ID);
+  if (process.env.NODE_ENV === "production" && process.env.HQ_ALLOW_FILE_STORE !== "1") throw new Error("No database configured: set DATABASE_URL and HQ_AGENCY_ID (file storage is disabled in production)");
+  return fileStore();
+}
+export function fileStore() { return new HqStore(process.env.HQ_DATA_DIR ?? path.join(process.cwd(), "data", "hq")); }
 export { anthropicProvider, providerFromEnv } from "./provider";
+export { PgStore } from "./pgStore";
+export { exportAll, importAll } from "./backup";

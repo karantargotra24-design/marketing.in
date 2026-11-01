@@ -1,4 +1,5 @@
-import { defaultStore, Orchestrator, seedWorkspaces, onboardClient, AGENT_LIST, WORKFLOWS, providerFromEnv } from "../src/hq";
+import { writeFileSync, readFileSync } from "node:fs";
+import { defaultStore, fileStore, exportAll, importAll, Orchestrator, seedWorkspaces, onboardClient, AGENT_LIST, WORKFLOWS, providerFromEnv } from "../src/hq";
 
 const [cmd, ...args] = process.argv.slice(2);
 const store = defaultStore();
@@ -19,6 +20,9 @@ async function main() {
     }
     return;
   }
+  if (cmd === "export") { const out = args[0] ?? `hq-backup-${new Date().toISOString().slice(0, 10)}.json`; writeFileSync(out, JSON.stringify(await exportAll(store))); console.log("exported to", out, "(contains client data: keep it private)"); return; }
+  if (cmd === "import") { console.log(await importAll(store, JSON.parse(readFileSync(args[0], "utf8")))); return; }
+  if (cmd === "copy-files-to-db") { console.log("copied (nothing overwritten):", await importAll(store, await exportAll(fileStore()))); return; }
   if (cmd === "onboard") { const [id, ...name] = args; await onboardClient(store, { id, name: name.join(" ") }); console.log("onboarded", id); return; }
   if (cmd === "status") {
     const tasks = await store.listTasks();
@@ -26,6 +30,6 @@ async function main() {
     console.log({ clients: (await store.listClients()).length, agents: AGENT_LIST.length, tasks: tasks.length, completed: by("COMPLETED"), waitingForInput: by("WAITING FOR INPUT"), underReview: by("UNDER REVIEW"), failed: by("FAILED"), workflows: Object.keys(WORKFLOWS) });
     return;
   }
-  console.log("usage: npm run hq -- seed | audit [clientId|all] | run <clientId> <workflow> | onboard <id> <name> | status");
+  console.log("usage: npm run hq -- export [file] | import <file> | copy-files-to-db | seed | audit [clientId|all] | run <clientId> <workflow> | onboard <id> <name> | status");
 }
 main().catch((e) => { console.error(e); process.exit(1); });

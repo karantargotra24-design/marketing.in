@@ -21,7 +21,10 @@ export interface StorePort {
   patchApproval(id: string, patch: Partial<Approval>): Promise<Approval>;
   saveOutput(clientId: string, name: string, body: string): Promise<string>;
   readOutput(clientId: string, name: string): Promise<string | null>;
-  listOutputs(clientId: string): Promise<string[]>;
+  /** Report names (.md). With all:true also machine sidecars (.json) for backup. */
+  listOutputs(clientId: string, opts?: { all?: boolean }): Promise<string[]>;
+  /** Restore only: inserts facts with their original ids/versions/history; skips ids that already exist. */
+  importFacts(clientId: string, facts: Fact[]): Promise<number>;
   log(e: Omit<LogEntry, "at">): Promise<void>;
   readLog(limit?: number): Promise<LogEntry[]>;
   recordUsage(u: UsageRecord): Promise<void>;

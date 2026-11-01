@@ -133,8 +133,18 @@ export class HqStore implements StorePort {
     if (!/^[\w.-]+$/.test(name)) throw new Error("Invalid output name");
     try { return await fs.readFile(path.join(this.clientDir(clientId), "outputs", name), "utf8"); } catch { return null; }
   }
-  async listOutputs(clientId: string): Promise<string[]> {
-    try { return (await fs.readdir(path.join(this.clientDir(clientId), "outputs"))).filter((f) => f.endsWith(".md")).sort(); } catch { return []; }
+  async listOutputs(clientId: string, opts: { all?: boolean } = {}): Promise<string[]> {
+    try { return (await fs.readdir(path.join(this.clientDir(clientId), "outputs"))).filter((f) => opts.all ? /^[\w.-]+$/.test(f) && !f.endsWith(".tmp") : f.endsWith(".md")).sort(); } catch { return []; }
+  }
+  async importFacts(clientId: string, facts: Fact[]): Promise<number> {
+    let added = 0;
+    await this.update<Fact[]>(this.factsFile(clientId), [], (cur) => {
+      const have = new Set(cur.map((f) => f.id));
+      const fresh = facts.filter((f) => f.clientId === clientId && !have.has(f.id)).map((f) => factSchema.parse(f));
+      added = fresh.length;
+      return [...cur, ...fresh];
+    });
+    return added;
   }
 
   // ---- AI usage ledger (append-only JSONL) ----
