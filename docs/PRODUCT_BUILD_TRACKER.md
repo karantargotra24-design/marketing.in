@@ -33,4 +33,4 @@ Wait for blueprint feedback. Then P2 step 1: app shell (sidebar + client switche
 | Phase | Commit |
 |---|---|
 | Phase C AI engine | `e6fd1b8` |
-| P1 Blueprint | *(this phase — see final message)* |
+| P1 Blueprint | `7ff71db` |
