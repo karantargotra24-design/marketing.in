@@ -1,6 +1,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { randomBytes } from "node:crypto";
+import type { StorePort, UsageRecord } from "./port";
 import { approvalSchema, clientSchema, factSchema, taskSchema, type Approval, type Client, type Fact, type LogEntry, type Task } from "./types";
 
 /**
@@ -8,7 +9,7 @@ import { approvalSchema, clientSchema, factSchema, taskSchema, type Approval, ty
  * are physical, not just a column. Writes are serialized per file and atomic (tmp + rename).
  * Swap for a Supabase adapter later; callers only use this class.
  */
-export class HqStore {
+export class HqStore implements StorePort {
   private locks = new Map<string, Promise<unknown>>();
   constructor(public readonly root: string) {}
 
@@ -134,6 +135,18 @@ export class HqStore {
   }
   async listOutputs(clientId: string): Promise<string[]> {
     try { return (await fs.readdir(path.join(this.clientDir(clientId), "outputs"))).filter((f) => f.endsWith(".md")).sort(); } catch { return []; }
+  }
+
+  // ---- AI usage ledger (append-only JSONL) ----
+  async recordUsage(u: UsageRecord) {
+    const file = path.join(this.root, "usage.jsonl");
+    await this.serial(file, async () => { await fs.mkdir(this.root, { recursive: true }); await fs.appendFile(file, JSON.stringify(u) + "\n"); });
+  }
+  async listUsage(filter: { clientId?: string; since?: string } = {}): Promise<UsageRecord[]> {
+    try {
+      const rows = (await fs.readFile(path.join(this.root, "usage.jsonl"), "utf8")).trim().split("\n").filter(Boolean).map((l) => JSON.parse(l) as UsageRecord);
+      return rows.filter((r) => (!filter.clientId || r.clientId === filter.clientId) && (!filter.since || r.at >= filter.since));
+    } catch { return []; }
   }
 
   // ---- activity log (append-only JSONL) ----

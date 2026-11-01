@@ -1,11 +1,11 @@
-import type { HqStore } from "./store";
+import type { StorePort } from "./port";
 import type { Approval } from "./types";
 import { agentIds } from "./types";
 import { isOperational } from "./integrations";
 
 const AGENT_ACTORS = new Set<string>([...agentIds, "orchestrator", "system"]);
 
-export async function requestApproval(store: HqStore, a: Pick<Approval, "clientId" | "kind" | "summary" | "requestedBy">): Promise<Approval> {
+export async function requestApproval(store: StorePort, a: Pick<Approval, "clientId" | "kind" | "summary" | "requestedBy">): Promise<Approval> {
   const approval: Approval = { id: store.newId("appr"), ...a, status: "PENDING", decidedAt: null, decidedBy: null, executedAt: null, createdAt: new Date().toISOString() };
   await store.insertApproval(approval);
   await store.log({ clientId: a.clientId, actor: a.requestedBy, action: "approval.requested", detail: `${a.kind}: ${a.summary}` });
@@ -13,7 +13,7 @@ export async function requestApproval(store: HqStore, a: Pick<Approval, "clientI
 }
 
 /** Only a human actor ("human:<name>") may decide. Agents can never approve their own requests. */
-export async function decideApproval(store: HqStore, id: string, decision: "APPROVED" | "REJECTED", decidedBy: string): Promise<Approval> {
+export async function decideApproval(store: StorePort, id: string, decision: "APPROVED" | "REJECTED", decidedBy: string): Promise<Approval> {
   if (!decidedBy.startsWith("human:") || AGENT_ACTORS.has(decidedBy)) throw new Error("Only a human can decide an approval");
   const cur = (await store.listApprovals()).find((x) => x.id === id);
   if (!cur) throw new Error("Approval not found");
@@ -29,7 +29,7 @@ export type ExternalResult = { ok: true; result: unknown } | { ok: false; reason
  * The only code path that may perform an external action (publish, ad launch, spend, message).
  * Requires: approved + same client + not already executed + integration connected AND tested. Otherwise nothing runs.
  */
-export async function performExternalAction(store: HqStore, p: { approvalId: string; clientId: string; integrationId: string; execute: () => Promise<unknown> }): Promise<ExternalResult> {
+export async function performExternalAction(store: StorePort, p: { approvalId: string; clientId: string; integrationId: string; execute: () => Promise<unknown> }): Promise<ExternalResult> {
   const a = (await store.listApprovals()).find((x) => x.id === p.approvalId);
   if (!a) return { ok: false, reason: "No such approval" };
   if (a.clientId !== p.clientId) return { ok: false, reason: "Approval belongs to a different client workspace" };

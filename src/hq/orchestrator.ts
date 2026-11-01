@@ -3,7 +3,7 @@ import { makeContext } from "./agents/base";
 import { qaReview, renderQaReport, type QaResult } from "./qa";
 import { renderAgentOutput } from "./render";
 import { aiRecommendations, type LlmProvider } from "./provider";
-import type { HqStore } from "./store";
+import type { StorePort } from "./port";
 import { WorkspaceScope } from "./workspace";
 import type { AgentId, AgentOutput, Client, Fact, Task } from "./types";
 
@@ -48,7 +48,7 @@ export type RunSummary = { runId: string; clientId: string; tasks: Task[]; maxOb
 
 export class Orchestrator {
   private opts: Required<Omit<Options, "runner" | "llm">> & { runner?: RunnerFn; llm?: LlmProvider };
-  constructor(private store: HqStore, opts: Options = {}) {
+  constructor(private store: StorePort, opts: Options = {}) {
     this.opts = { maxConcurrency: opts.maxConcurrency ?? 6, maxAttempts: opts.maxAttempts ?? 3, retryDelayMs: opts.retryDelayMs ?? 250, runner: opts.runner, llm: opts.llm };
   }
 

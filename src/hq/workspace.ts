@@ -1,4 +1,4 @@
-import type { HqStore } from "./store";
+import type { StorePort } from "./port";
 import type { AgentId, Fact, KnowledgeBase } from "./types";
 
 /**
@@ -7,7 +7,7 @@ import type { AgentId, Fact, KnowledgeBase } from "./types";
  * agent cannot read or write another workspace (Part 7 / Part 11 rule 2).
  */
 export class WorkspaceScope {
-  constructor(private store: HqStore, readonly clientId: string, readonly agent: AgentId | "orchestrator", private allowedKbs: readonly KnowledgeBase[]) {}
+  constructor(private store: StorePort, readonly clientId: string, readonly agent: AgentId | "orchestrator", private allowedKbs: readonly KnowledgeBase[]) {}
 
   async facts(kb?: KnowledgeBase): Promise<Fact[]> {
     if (kb && !this.allowedKbs.includes(kb)) throw new Error(`Agent ${this.agent} has no permission for knowledge base "${kb}"`);
