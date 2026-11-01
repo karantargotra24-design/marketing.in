@@ -2,6 +2,8 @@ import Link from "next/link";
 import { AGENT_LIST, defaultStore, INTEGRATIONS, WORKFLOWS } from "@/hq";
 import { addClientAction, createTaskAction, decideApprovalAction, requestApprovalAction, runWorkflowAction, seedAction } from "./actions";
 
+import { requireHuman } from "@/app/hq/guard";
+
 export const dynamic = "force-dynamic";
 const badge = (s: string) => ({ COMPLETED: "bg-green-100 text-green-800", FAILED: "bg-red-100 text-red-800", "IN PROGRESS": "bg-blue-100 text-blue-800", "WAITING FOR INPUT": "bg-amber-100 text-amber-800", "UNDER REVIEW": "bg-purple-100 text-purple-800", PENDING: "bg-slate-200 text-slate-700", "WAITING FOR APPROVAL": "bg-orange-100 text-orange-800" } as Record<string, string>)[s] ?? "bg-slate-100";
 const card = "rounded-lg border border-slate-200 bg-white p-4";
@@ -9,6 +11,7 @@ const input = "w-full rounded border border-slate-300 px-2 py-1.5 text-sm";
 const btn = "rounded bg-slate-900 px-3 py-1.5 text-sm font-medium text-white";
 
 export default async function HqPage({ searchParams }: { searchParams: Promise<{ error?: string; ok?: string }> }) {
+  await requireHuman();
   const { error, ok } = await searchParams;
   const store = defaultStore();
   const loaded = await Promise.all([store.listClients(), store.listTasks(), store.listApprovals(), store.readLog(25)]).catch(() => null);

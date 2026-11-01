@@ -5,6 +5,7 @@ import path from "node:path";
 import { HqStore } from "./store";
 import { Orchestrator, RecoverableError, type RunnerFn } from "./orchestrator";
 import { seedWorkspaces, onboardClient } from "./seed";
+import { SAMPLE_CLIENTS } from "./fixtures";
 import { WorkspaceScope } from "./workspace";
 import { requestApproval, decideApproval, performExternalAction } from "./approvals";
 import { AGENTS, AGENT_LIST } from "./agents/registry";
@@ -15,7 +16,7 @@ import { anthropicProvider, providerFromEnv } from "./provider";
 let store: HqStore;
 beforeEach(async () => {
   store = new HqStore(await mkdtemp(path.join(tmpdir(), "hq-")));
-  await seedWorkspaces(store, true);
+  await seedWorkspaces(store, true, SAMPLE_CLIENTS);
 });
 
 const out = (over: Partial<AgentOutput> = {}): AgentOutput => ({ title: "T", summary: "ok", findings: [], missingInfo: [], recommendations: [], handoffs: [], insufficientData: false, ...over });
@@ -194,7 +195,7 @@ describe("knowledge versioning and persistence", () => {
   });
   it("seeding twice does not duplicate or overwrite", async () => {
     const before = (await store.listFacts("propedia", { includeSuperseded: true })).length;
-    await seedWorkspaces(store, true);
+    await seedWorkspaces(store, true, SAMPLE_CLIENTS);
     expect((await store.listFacts("propedia", { includeSuperseded: true })).length).toBe(before);
   });
   it("a fresh store instance on the same folder sees earlier tasks and logs", async () => {

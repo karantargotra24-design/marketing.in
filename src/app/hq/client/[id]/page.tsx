@@ -4,10 +4,13 @@ import { defaultStore, factStatuses, knowledgeBases } from "@/hq";
 import { clientIdSchema } from "@/hq/types";
 import { addFactAction } from "../../actions";
 
+import { requireHuman } from "@/app/hq/guard";
+
 export const dynamic = "force-dynamic";
 const input = "w-full rounded border border-slate-300 px-2 py-1.5 text-sm";
 
 export default async function ClientPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ ok?: string }> }) {
+  await requireHuman();
   const { id } = await params;
   const { ok } = await searchParams;
   if (!clientIdSchema.safeParse(id).success) notFound();

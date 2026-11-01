@@ -45,7 +45,7 @@ No scheduled jobs, no external calls. `approvals.ts` makes execution impossible 
 
 ## 9. Known limitations
 - File storage: works locally/in cloud dev, **not** on read-only hosting (Vercel). Needs the Supabase adapter (the repo's existing schema is a starting point) before deploying HQ.
-- `data/hq` holds client business info and is committed to this repo; keep the repo private.
+- `data/` (client info) is no longer tracked by git; see docs/SECURITY.md. Evidence logs from the first run are kept locally, not in the repo.
 - Pahadi data comes from the storefront preview, not a client questionnaire; "CLIENT-PROVIDED" there means "from your artifact".
 - QA is rules (structure, sources, banned phrases, number provenance, isolation), not a fact-checker.
 - No concurrency across multiple server processes (in-process locks).

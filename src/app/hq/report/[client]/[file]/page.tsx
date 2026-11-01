@@ -3,9 +3,12 @@ import { notFound } from "next/navigation";
 import { defaultStore } from "@/hq";
 import { clientIdSchema } from "@/hq/types";
 
+import { requireHuman } from "@/app/hq/guard";
+
 export const dynamic = "force-dynamic";
 
 export default async function Report({ params }: { params: Promise<{ client: string; file: string }> }) {
+  await requireHuman();
   const { client, file } = await params;
   if (!clientIdSchema.safeParse(client).success || !/^[\w.-]+\.md$/.test(file)) notFound();
   const body = await defaultStore().readOutput(client, file);
