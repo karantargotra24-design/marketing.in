@@ -1,5 +1,6 @@
 import { RecoverableError } from "../errors";
 import { estimateTokens } from "./pricing";
+import { mockRespond } from "../ops/mockBrain";
 import type { LlmProvider, LlmRequest, LlmResponse } from "./types";
 
 /** The engine puts the JSON payload on one line starting with {"agent"; retries append text after it, so never assume it is last. */
@@ -29,7 +30,7 @@ export class MockProvider implements LlmProvider {
       const fault = this.opts.faults?.(n, req) ?? null;
       if (fault === "recoverable") throw new RecoverableError("mock: rate limited (429)");
       if (fault === "fatal") throw new Error("mock: provider error 400");
-      const text = fault === "invalid-json" ? "Sure! here is my analysis (not JSON)" : fault === "refusal-text" ? "{}" : (this.opts.responder ?? defaultResponder)(req);
+      const text = fault === "invalid-json" ? "Sure! here is my analysis (not JSON)" : fault === "refusal-text" ? "{}" : (this.opts.responder ?? ((r: LlmRequest) => (r.user.includes('"kind":') ? mockRespond(r.user) : defaultResponder(r))))(req);
       return { text, usage: { inputTokens: estimateTokens(req.system + req.user), outputTokens: estimateTokens(text), cacheReadTokens: 0 }, model: req.model, stopReason: "end_turn" };
     } finally {
       this.inFlight--;

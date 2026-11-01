@@ -12,6 +12,11 @@ import { SAMPLE_CLIENTS } from "./fixtures";
 import { exportAll, importAll } from "./backup";
 import { requestApproval, decideApproval } from "./approvals";
 import { freshDatabase, makeAgency, makeStaff } from "./testing/pglite";
+import { AiEngine } from "./ai/engine";
+import { BudgetGuard } from "./ai/budget";
+import { MockProvider } from "./ai/mock";
+import { approvePlan, processJobs, submitInstruction } from "./ops/runs";
+import { AGENT_LIST } from "./agents/registry";
 
 let pg: PGlite; let db: Db; let agencyA: string; let agencyB: string;
 beforeAll(async () => { ({ pg, db } = await freshDatabase()); agencyA = await makeAgency(pg, "Agency A"); agencyB = await makeAgency(pg, "Agency B"); });
@@ -59,6 +64,28 @@ describe.each(factories)("storage contract: %s", (_n, make) => {
     const hist = await s.listExecutions({ runId: r.runId });
     expect(hist.some((h) => h.id === ex.id && h.costUsd === 0.001 && h.mode === "ai")).toBe(true);
     expect(await s.listExecutions({ clientId: "pahadi-origin", runId: r.runId })).toEqual([]);
+  });
+  it("stores runs, versioned deliverables, jobs, schedules and settings; isolates them per client", async () => {
+    const plan = { objective: "audit", days: 7, platform: "instagram" as const, summary: "s", language: "english" as const, tasks: [], missingInfo: [], assumptions: [], highImpact: false, estCostUsd: 0, needsPlanApproval: false, reason: "r" };
+    const run = { id: s.newId("run"), clientId: "propedia", instruction: "audit", objective: "audit", status: "QUEUED" as const, plan, estCostUsd: 0.1, autoApproved: true, createdBy: "human:k", scheduleId: null, createdAt: new Date().toISOString(), startedAt: null, completedAt: null };
+    await s.createRun(run);
+    expect((await s.getRun("propedia", run.id))?.plan.objective).toBe("audit");
+    expect(await s.getRun("pahadi-origin", run.id)).toBeNull();
+    const d = await s.createDeliverable({ id: s.newId("dlv"), clientId: "propedia", runId: run.id, taskId: null, kind: "content_item", title: "T", agent: "content", status: "draft", qa: null }, { v: 1 }, "content");
+    const d2 = await s.reviseDeliverable("propedia", d.id, { v: 2 }, "qa", "fix");
+    expect(d2.currentVersion).toBe(2);
+    const got = await s.getDeliverable("propedia", d.id);
+    expect(got!.versions.map((v) => v.body)).toEqual([{ v: 1 }, { v: 2 }]);
+    expect(await s.getDeliverable("pahadi-origin", d.id)).toBeNull();
+    expect(await s.listDeliverables({ clientId: "pahadi-origin" })).toEqual([]);
+    await s.patchDeliverable("propedia", d.id, { status: "approved", qa: { pass: true, issues: [] } });
+    expect((await s.getDeliverable("propedia", d.id))!.deliverable).toMatchObject({ status: "approved", qa: { pass: true } });
+    await s.enqueueJob({ id: s.newId("job"), kind: "run", runId: run.id, status: "queued", runAfter: new Date().toISOString(), attempts: 0, leaseUntil: null, error: null });
+    const [a, b] = await Promise.all([s.leaseJobs(3, 60_000), s.leaseJobs(3, 60_000)]);
+    expect(a.length + b.length).toBe(1);
+    await s.saveSchedule({ id: "sch1", clientId: "propedia", name: "n", instruction: "audit", cadence: "daily@09:00", enabled: true, nextRunAt: new Date().toISOString(), lastRunAt: null, lastRunId: null, createdAt: new Date().toISOString() });
+    expect((await s.listSchedules("propedia")).length).toBe(1); expect(await s.listSchedules("pahadi-origin")).toEqual([]);
+    await s.setSetting("autoRunPolicy", { enabled: false }); expect(await s.getSetting("autoRunPolicy")).toEqual({ enabled: false });
   });
   it("rejects invalid output names", async () => {
     await expect(s.saveOutput("propedia", "../x.md", "x")).rejects.toThrow();
@@ -146,5 +173,30 @@ describe("postgres: row level security", () => {
     const del = await as(memberA, "authenticated", "delete from hq.clients where id='propedia' returning id");
     expect(del.rows).toHaveLength(0); // RLS hides the row from the delete: nothing deleted
     expect((await new PgStore(db, agencyA).listClients()).length).toBe(3);
+  });
+});
+
+describe("postgres: the whole autonomous run executes on the database store", () => {
+  it("one instruction → plan → approval → parallel agents → QA/revision → package → approval, all persisted in Postgres", async () => {
+    const agencyId = await makeAgency(pg, "Run-test agency");
+    const s = new PgStore(db, agencyId);
+    await seedWorkspaces(s, true, SAMPLE_CLIENTS);
+    for (const a of AGENT_LIST) for (const n of a.needs) if (!(await s.listFacts("pahadi-origin")).some((f) => f.kb === n.kb && f.key === n.key)) await s.putFact({ clientId: "pahadi-origin", kb: n.kb, key: n.key, value: `[test] ${n.key}`, status: "CLIENT-PROVIDED", source: "test" });
+    const mock = new MockProvider({ latencyMs: 10 });
+    const ai = new AiEngine({ provider: mock, budget: new BudgetGuard(s, { runUsd: 50, dailyUsd: 500, monthlyUsd: 5000 }, true), store: s, modelFor: () => "mock-sonnet" });
+    const sub = await submitInstruction(s, "pahadi-origin", "Prepare a complete seven-day Instagram growth campaign for Pahadi Origin.", "human:karan");
+    if (!sub.ok) throw new Error(sub.error);
+    await approvePlan(s, "pahadi-origin", sub.run.id, "human:karan");
+    await processJobs(s, { ai, max: 3 });
+    const run = (await s.getRun("pahadi-origin", sub.run.id))!;
+    expect(run.status).toBe("COMPLETED");
+    const kinds = (await s.listDeliverables({ clientId: "pahadi-origin", runId: run.id })).map((d) => d.kind);
+    for (const k of ["research", "audit", "strategy", "content_calendar", "content_item", "creative_brief", "ad_plan", "qa_report", "campaign_package"]) expect(kinds).toContain(k);
+    expect((await s.listExecutions({ runId: run.id })).length).toBe(18);           // one record per task in a campaign plan
+    expect((await s.listUsage({ clientId: "pahadi-origin" })).length).toBeGreaterThan(10);
+    expect((await s.listApprovals("pahadi-origin")).some((a) => a.ref?.startsWith("deliverable:"))).toBe(true);
+    // another agency using the same client ids sees none of it
+    const other = new PgStore(db, await makeAgency(pg, "Other agency"));
+    expect(await other.listRuns()).toEqual([]);
   });
 });

@@ -54,7 +54,7 @@ export const agentIds = [
 export type AgentId = (typeof agentIds)[number];
 
 export const taskAgents = [...agentIds, "orchestrator"] as const;
-export const taskSteps = ["agent", "consolidate", "qa", "deliver"] as const;
+export const taskSteps = ["agent", "consolidate", "qa", "deliver", "ops"] as const;
 
 export const taskSchema = z.object({
   id: z.string(),
@@ -73,6 +73,9 @@ export const taskSchema = z.object({
   reviewStatus: z.enum(["NOT_REVIEWED", "APPROVED", "REVISION_REQUESTED"]).default("NOT_REVIEWED"),
   attempts: z.number().int().default(0),
   error: z.string().nullable().default(null),
+  /** Production step type (research, strategy, content_calendar, ...). null = legacy analyzer task. */
+  kind: z.string().nullable().default(null),
+  params: z.record(z.string(), z.unknown()).nullable().default(null),
   createdAt: z.string(),
 });
 export type Task = z.infer<typeof taskSchema>;
@@ -86,6 +89,8 @@ export const approvalSchema = z.object({
   status: z.enum(["PENDING", "APPROVED", "REJECTED"]),
   decidedAt: z.string().nullable().default(null),
   decidedBy: z.string().nullable().default(null),
+  /** What the approval is about, e.g. "deliverable:<id>" or "run:<id>". */
+  ref: z.string().nullable().default(null),
   executedAt: z.string().nullable().default(null),
   createdAt: z.string(),
 });
@@ -115,3 +120,19 @@ export type ExecutionRecord = {
   startedAt: string; endedAt: string; outcome: "ok" | "failed" | "retrying" | "waiting_approval";
   mode: string | null; model: string | null; calls: number; inputTokens: number; outputTokens: number; costUsd: number; error: string | null;
 };
+
+// ---------- runs, deliverables, jobs, schedules ----------
+export const runStatuses = ["PLANNED", "AWAITING_PLAN_APPROVAL", "QUEUED", "RUNNING", "COMPLETED", "FAILED", "CANCELLED"] as const;
+export type RunStatus = (typeof runStatuses)[number];
+export type PlanTask = { key: string; kind: string; agent: string; title: string; dependsOn: string[]; estCostUsd: number };
+export type Plan = { objective: string; days: number; platform: "instagram" | "facebook" | "youtube"; summary: string; language: "english" | "hindi" | "hinglish"; tasks: PlanTask[]; missingInfo: string[]; assumptions: string[]; highImpact: boolean; estCostUsd: number; needsPlanApproval: boolean; reason: string };
+export type Run = { id: string; clientId: string; instruction: string; objective: string; status: RunStatus; plan: Plan; estCostUsd: number; autoApproved: boolean; createdBy: string; scheduleId: string | null; createdAt: string; startedAt: string | null; completedAt: string | null };
+
+export const deliverableStatuses = ["draft", "in_review", "approved", "changes_requested", "rejected"] as const;
+export type DeliverableStatus = (typeof deliverableStatuses)[number];
+export type QaIssueRec = { severity: "blocker" | "warn"; rule: string; detail: string };
+export type Deliverable = { id: string; clientId: string; runId: string | null; taskId: string | null; kind: string; title: string; agent: string; status: DeliverableStatus; currentVersion: number; qa: { pass: boolean; issues: QaIssueRec[] } | null; createdAt: string; updatedAt: string };
+export type DeliverableVersion = { deliverableId: string; version: number; body: unknown; note: string; createdBy: string; createdAt: string };
+
+export type Job = { id: string; kind: "run"; runId: string; status: "queued" | "leased" | "done" | "failed"; runAfter: string; attempts: number; leaseUntil: string | null; error: string | null };
+export type Schedule = { id: string; clientId: string; name: string; instruction: string; cadence: string; enabled: boolean; nextRunAt: string; lastRunAt: string | null; lastRunId: string | null; createdAt: string };

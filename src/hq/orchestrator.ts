@@ -4,6 +4,7 @@ import { qaReview, renderQaReport, type QaResult } from "./qa";
 import { renderAgentOutput } from "./render";
 import type { AiEngine } from "./ai/engine";
 import { BudgetExceededError } from "./ai/types";
+import { handleOps, NeedsAiError } from "./ops/handlers";
 import type { StorePort } from "./port";
 import { WorkspaceScope } from "./workspace";
 import type { AgentId, AgentOutput, Client, Fact, Task, ExecutionRecord } from "./types";
@@ -77,7 +78,7 @@ export class Orchestrator {
     const tasks: Task[] = steps.map((s) => ({
       id: ids.get(s.key)!, clientId, runId, description: s.description, agent: s.agent, step: s.step, allowPartial: !!s.allowPartial,
       priority: s.priority ?? "normal", status: "PENDING", dependsOn: s.dependsOn.map((k) => ids.get(k)!), startedAt: null, completedAt: null,
-      outputPath: null, reviewStatus: "NOT_REVIEWED", attempts: 0, error: null, createdAt: now,
+      outputPath: null, reviewStatus: "NOT_REVIEWED", attempts: 0, error: null, kind: null, params: null, createdAt: now,
     }));
     await this.store.insertTasks(tasks);
     await this.store.log({ clientId, actor: "orchestrator", action: "run.planned", detail: `${workflow} → ${tasks.length} tasks (${runId})` });
@@ -88,7 +89,7 @@ export class Orchestrator {
   async planSingle(clientId: string, agent: AgentId, description: string, priority: Task["priority"] = "normal") {
     if (!(await this.store.getClient(clientId))) throw new Error(`Unknown client "${clientId}"`);
     const runId = this.store.newId("run");
-    const t: Task = { id: this.store.newId("task"), clientId, runId, description, agent, step: "agent", allowPartial: false, priority, status: "PENDING", dependsOn: [], startedAt: null, completedAt: null, outputPath: null, reviewStatus: "NOT_REVIEWED", attempts: 0, error: null, createdAt: new Date().toISOString() };
+    const t: Task = { id: this.store.newId("task"), clientId, runId, description, agent, step: "agent", allowPartial: false, priority, status: "PENDING", dependsOn: [], startedAt: null, completedAt: null, outputPath: null, reviewStatus: "NOT_REVIEWED", attempts: 0, error: null, kind: null, params: null, createdAt: new Date().toISOString() };
     await this.store.insertTasks([t]);
     return { runId, tasks: [t] };
   }
@@ -99,11 +100,16 @@ export class Orchestrator {
   }
 
   /** DAG scheduler: starts every ready task up to maxConcurrency, waits for any to finish, repeats. */
-  async execute(runId: string): Promise<RunSummary> {
-    const initial = await this.store.listTasks({ runId });
+  async execute(runId: string, opts: { recover?: boolean } = {}): Promise<RunSummary> {
+    let initial = await this.store.listTasks({ runId });
     if (!initial.length) throw new Error("Unknown run");
     const clientId = initial[0].clientId;
     const client = (await this.store.getClient(clientId))!;
+    // Crash recovery: a previous worker died mid-task. Its IN PROGRESS tasks go back to PENDING (outputs are re-created; deliverable versions keep history).
+    if (opts.recover) for (const t of initial.filter((x) => x.status === "IN PROGRESS")) { await this.store.patchTask(t.id, { status: "PENDING", error: null }); await this.store.log({ clientId, actor: "orchestrator", action: "task.recovered", detail: t.id }); }
+    initial = await this.store.listTasks({ runId });
+    const runRow = await this.store.getRun(clientId, runId);
+    if (runRow && runRow.status !== "RUNNING") await this.store.patchRun(clientId, runId, { status: "RUNNING", startedAt: runRow.startedAt ?? new Date().toISOString() });
     const running = new Map<string, Promise<void>>();
     let maxObserved = 0;
     const outputs = new Map<string, AgentOutput>();
@@ -141,6 +147,10 @@ export class Orchestrator {
       await Promise.race(running.values());
     }
     const final = await this.store.listTasks({ runId });
+    if (runRow) {
+      const pkg = final.find((t) => t.kind === "package");
+      await this.store.patchRun(clientId, runId, { status: pkg?.status === "COMPLETED" ? "COMPLETED" : "FAILED", completedAt: new Date().toISOString() });
+    }
     const report = final.find((t) => t.step === "deliver")?.outputPath ?? final.find((t) => t.step === "qa")?.outputPath ?? null;
     await this.store.log({ clientId, actor: "orchestrator", action: "run.finished", detail: `${runId}: ${final.map((t) => t.status).join(",")}` });
     return { runId, clientId, tasks: final, maxObservedConcurrency: maxObserved, finalReport: report };
@@ -159,7 +169,8 @@ export class Orchestrator {
           mode: m?.mode ?? (t.step === "agent" ? "rules" : t.step), model: m && m.calls ? m.model ?? null : null, calls: m?.calls ?? 0, inputTokens: m?.inputTokens ?? 0, outputTokens: m?.outputTokens ?? 0, costUsd: m?.costUsd ?? 0, error });
       };
       try {
-        if (t.step === "agent") await this.runAgent(t, client, outputs);
+        if (t.kind) await this.runOps(t, client, outputs);
+        else if (t.step === "agent") await this.runAgent(t, client, outputs);
         else if (t.step === "consolidate") await this.consolidate(t, client, outputs);
         else if (t.step === "qa") await this.qa(t, client);
         else await this.deliver(t, client);
@@ -185,6 +196,25 @@ export class Orchestrator {
         await rec("failed", msg);
         return;
       }
+    }
+  }
+
+  private async runOps(t: Task, client: Client, outputs: Map<string, AgentOutput>) {
+    const run = await this.store.getRun(client.id, t.runId);
+    if (!run) throw new Error(`Run ${t.runId} not found for task ${t.id}`);
+    try {
+      const r = await handleOps({ store: this.store, ai: this.opts.ai, client, run, task: t });
+      const m = r.meta;
+      outputs.set(t.id, { title: t.description, summary: r.note ?? "", findings: [], missingInfo: [], recommendations: [], handoffs: [], insufficientData: false, meta: m ? { mode: "ai", provider: m.provider, model: m.model, calls: m.calls, inputTokens: m.inputTokens, outputTokens: m.outputTokens, costUsd: m.costUsd } : { mode: "rules", note: r.note } });
+      await this.store.patchTask(t.id, { status: r.status, outputPath: r.deliverableIds[0] ? `deliverable:${r.deliverableIds[0]}` : null, error: r.status === "WAITING FOR INPUT" ? r.note ?? "Needs input" : null, completedAt: new Date().toISOString() });
+      await this.store.log({ clientId: client.id, actor: t.agent, action: "task.output", detail: `${t.id} ${t.kind} → ${r.status}${r.deliverableIds.length ? ` (${r.deliverableIds.length} deliverable(s))` : ""}` });
+    } catch (e) {
+      if (e instanceof NeedsAiError) {
+        await this.store.patchTask(t.id, { status: "WAITING FOR INPUT", error: e.message, completedAt: new Date().toISOString() });
+        await this.store.log({ clientId: client.id, actor: t.agent, action: "task.needs_ai", detail: t.id });
+        return;
+      }
+      throw e;
     }
   }
 

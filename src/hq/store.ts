@@ -2,7 +2,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import { randomBytes } from "node:crypto";
 import type { StorePort, UsageRecord } from "./port";
-import type { ExecutionRecord } from "./types";
+import type { ExecutionRecord, Deliverable, DeliverableStatus, DeliverableVersion, Job, Run, Schedule } from "./types";
 import { approvalSchema, clientSchema, factSchema, taskSchema, type Approval, type Client, type Fact, type LogEntry, type Task } from "./types";
 
 /**
@@ -159,6 +159,71 @@ export class HqStore implements StorePort {
       return rows.filter((r) => (!filter.clientId || r.clientId === filter.clientId) && (!filter.since || r.at >= filter.since));
     } catch { return []; }
   }
+
+  // ---- runs / deliverables / jobs / schedules / settings (file-backed; Postgres is the production store) ----
+  private col(name: string) { return path.join(this.root, `${name}.json`); }
+  async createRun(r: Run) { await this.update<Run[]>(this.col("runs"), [], (c) => [...c, r]); }
+  async getRun(clientId: string, id: string) { return (await this.readJson<Run[]>(this.col("runs"), [])).find((r) => r.id === id && r.clientId === clientId) ?? null; }
+  async listRuns(f: { clientId?: string; limit?: number } = {}) {
+    const rows = (await this.readJson<Run[]>(this.col("runs"), [])).filter((r) => !f.clientId || r.clientId === f.clientId);
+    return f.limit ? rows.slice(-f.limit) : rows;
+  }
+  async patchRun(clientId: string, id: string, patch: Partial<Run>) {
+    let out: Run | undefined;
+    await this.update<Run[]>(this.col("runs"), [], (c) => c.map((r) => (r.id === id && r.clientId === clientId ? (out = { ...r, ...patch }) : r)));
+    if (!out) throw new Error(`Run ${id} not found`);
+    return out;
+  }
+  private dfile() { return this.col("deliverables"); }
+  async createDeliverable(d: Omit<Deliverable, "currentVersion" | "createdAt" | "updatedAt">, body: unknown, by: string, note = "") {
+    const now = new Date().toISOString();
+    const full: Deliverable = { ...d, currentVersion: 1, createdAt: now, updatedAt: now };
+    await this.update<{ d: Deliverable; v: DeliverableVersion[] }[]>(this.dfile(), [], (c) => [...c, { d: full, v: [{ deliverableId: d.id, version: 1, body, note, createdBy: by, createdAt: now }] }]);
+    return full;
+  }
+  async reviseDeliverable(clientId: string, id: string, body: unknown, by: string, note = "") {
+    let out: Deliverable | undefined;
+    await this.update<{ d: Deliverable; v: DeliverableVersion[] }[]>(this.dfile(), [], (c) => c.map((x) => {
+      if (x.d.id !== id || x.d.clientId !== clientId) return x;
+      const now = new Date().toISOString(); const version = x.d.currentVersion + 1;
+      out = { ...x.d, currentVersion: version, status: "draft", qa: null, updatedAt: now };
+      return { d: out, v: [...x.v, { deliverableId: id, version, body, note, createdBy: by, createdAt: now }] };
+    }));
+    if (!out) throw new Error(`Deliverable ${id} not found`);
+    return out;
+  }
+  async patchDeliverable(clientId: string, id: string, patch: { status?: DeliverableStatus; qa?: Deliverable["qa"] }) {
+    let out: Deliverable | undefined;
+    await this.update<{ d: Deliverable; v: DeliverableVersion[] }[]>(this.dfile(), [], (c) => c.map((x) => (x.d.id === id && x.d.clientId === clientId ? { ...x, d: (out = { ...x.d, ...patch, updatedAt: new Date().toISOString() }) } : x)));
+    if (!out) throw new Error(`Deliverable ${id} not found`);
+    return out;
+  }
+  async getDeliverable(clientId: string, id: string) {
+    const x = (await this.readJson<{ d: Deliverable; v: DeliverableVersion[] }[]>(this.dfile(), [])).find((y) => y.d.id === id && y.d.clientId === clientId);
+    return x ? { deliverable: x.d, versions: x.v } : null;
+  }
+  async listDeliverables(f: { clientId: string; runId?: string; kind?: string }) {
+    return (await this.readJson<{ d: Deliverable }[]>(this.dfile(), [])).map((x) => x.d).filter((d) => d.clientId === f.clientId && (!f.runId || d.runId === f.runId) && (!f.kind || d.kind === f.kind));
+  }
+  async enqueueJob(j: Job) { await this.update<Job[]>(this.col("jobs"), [], (c) => [...c, j]); }
+  async leaseJobs(max: number, leaseMs: number, now = new Date()) {
+    const leased: Job[] = [];
+    await this.update<Job[]>(this.col("jobs"), [], (c) => c.map((j) => {
+      const due = j.runAfter <= now.toISOString() && (j.status === "queued" || (j.status === "leased" && (j.leaseUntil ?? "") < now.toISOString()));
+      if (!due || leased.length >= max) return j;
+      const n = { ...j, status: "leased" as const, attempts: j.attempts + 1, leaseUntil: new Date(now.getTime() + leaseMs).toISOString() };
+      leased.push(n); return n;
+    }));
+    return leased;
+  }
+  async finishJob(id: string, o: { ok: true } | { ok: false; error: string; retryAt?: string }) {
+    await this.update<Job[]>(this.col("jobs"), [], (c) => c.map((j) => (j.id !== id ? j : o.ok ? { ...j, status: "done", leaseUntil: null } : o.retryAt ? { ...j, status: "queued", runAfter: o.retryAt, leaseUntil: null, error: o.error } : { ...j, status: "failed", leaseUntil: null, error: o.error })));
+  }
+  async listJobs(f: { status?: Job["status"] } = {}) { return (await this.readJson<Job[]>(this.col("jobs"), [])).filter((j) => !f.status || j.status === f.status); }
+  async listSchedules(clientId?: string) { return (await this.readJson<Schedule[]>(this.col("schedules"), [])).filter((s) => !clientId || s.clientId === clientId); }
+  async saveSchedule(s: Schedule) { await this.update<Schedule[]>(this.col("schedules"), [], (c) => (c.some((x) => x.id === s.id) ? c.map((x) => (x.id === s.id ? s : x)) : [...c, s])); }
+  async getSetting<T = unknown>(key: string) { const m = await this.readJson<Record<string, unknown>>(this.col("settings"), {}); return (m[key] as T) ?? null; }
+  async setSetting(key: string, value: unknown) { await this.update<Record<string, unknown>>(this.col("settings"), {}, (m) => ({ ...m, [key]: value })); }
 
   // ---- execution history (append-only JSONL) ----
   async recordExecution(e: ExecutionRecord) {

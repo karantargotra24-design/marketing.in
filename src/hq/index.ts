@@ -29,3 +29,6 @@ export { BudgetGuard, DEFAULT_CAPS } from "./ai/budget";
 export * from "./ai/types";
 export { PgStore } from "./pgStore";
 export { exportAll, importAll } from "./backup";
+export { submitInstruction, approvePlan, cancelRun, processJobs, createSchedule, tickSchedules, nextRun, validCadence } from "./ops/runs";
+export { buildPlan, planWaves, loadPolicy, DEFAULT_POLICY } from "./ops/planner";
+export { parseIntent } from "./ops/intent";

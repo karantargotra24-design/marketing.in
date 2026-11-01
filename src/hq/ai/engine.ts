@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { makeContext, type AgentDefinition } from "../agents/base";
+import { AGENTS } from "../agents/registry";
 import { agentIds, type AgentId, type AgentOutput, type Client, type Fact, type FactStatus, type Task } from "../types";
 import type { StorePort } from "../port";
 import { BudgetGuard } from "./budget";
@@ -30,10 +31,50 @@ const RULES = `Rules: use ONLY the facts provided for this client. Every finding
 type Meta = { provider: string; model: string; calls: number; inputTokens: number; outputTokens: number; costUsd: number };
 export type EngineOptions = { provider: LlmProvider; budget: BudgetGuard; store: StorePort; modelFor: (a: AgentId) => string; maxTokens?: number; repairAttempts?: number };
 
+export type GenMeta = { provider: string; model: string; calls: number; inputTokens: number; outputTokens: number; costUsd: number };
+export type GenInput<T> = { task: Task; client: Client; agent: AgentId; kind: string; schemaHint: string; payload: Record<string, unknown>; facts: Fact[]; schema: z.ZodType<T>; maxTokens?: number };
+
 export class AiEngine {
   constructor(private o: EngineOptions) {}
   get provider() { return this.o.provider; }
   get mode() { return this.o.provider.isMock ? "mock" : "live"; }
+
+
+  modelOf(a: AgentId) { return this.o.modelFor(a); }
+
+  /** Structured generation for production deliverables: same budget, usage ledger, retry and validation path as enhance(). */
+  async generate<T>(i: GenInput<T>): Promise<{ value: T; meta: GenMeta }> {
+    const def = AGENTS[i.agent];
+    const model = this.o.modelFor(i.agent);
+    const price = priceFor(model);
+    const maxTokens = i.maxTokens ?? 3500;
+    const { chosen } = this.select(def, i.facts);
+    const factList = chosen.map((f) => ({ id: f.id, kb: f.kb, key: f.key, status: f.status, value: f.value, source: f.source }));
+    const system = `${def.instructions}\n\n${RULES}\nYou are producing a "${i.kind}" deliverable. Output language must follow payload.language (english | hindi in Devanagari | hinglish in Latin script). Never put unverified claims (discounts, stock levels, ratings, health benefits, purity guarantees) in customer-facing text. Every price must come from the facts.\n${i.schemaHint}\nReply with ONLY one JSON object.`;
+    let user = `Produce the deliverable.\n${JSON.stringify({ agent: i.agent, kind: i.kind, client: { name: i.client.name, doNotSay: i.client.doNotSay }, ...i.payload, facts: factList })}`;
+    const meta: GenMeta = { provider: this.o.provider.id, model, calls: 0, inputTokens: 0, outputTokens: 0, costUsd: 0 };
+    let lastError = "";
+    for (let attempt = 0; attempt <= (this.o.repairAttempts ?? 1); attempt++) {
+      const release = await this.o.budget.reserve(i.task.runId, worstCaseUsd(price, system.length + user.length, maxTokens));
+      let usage: Usage = { inputTokens: 0, outputTokens: 0, cacheReadTokens: 0 }; let text = ""; let used = model;
+      try { const r = await this.o.provider.complete({ model, system, user, maxTokens }); usage = r.usage; text = r.text; used = r.model; }
+      finally {
+        const cost = costUsd(price, usage);
+        meta.calls++; meta.inputTokens += usage.inputTokens; meta.outputTokens += usage.outputTokens; meta.costUsd += cost;
+        this.o.budget.addRunSpend(i.task.runId, cost);
+        if (usage.inputTokens + usage.outputTokens > 0) await this.o.store.recordUsage({ clientId: i.client.id, taskId: i.task.id, agent: i.agent, provider: this.o.provider.id, model: used, ...usage, costUsd: cost, at: new Date().toISOString() });
+        release();
+      }
+      const m = text.match(/\{[\s\S]*\}/);
+      let raw: unknown; try { raw = m ? JSON.parse(m[0]) : undefined; } catch { raw = undefined; }
+      const v = i.schema.safeParse(raw);
+      if (v.success) return { value: v.data, meta };
+      lastError = raw === undefined ? "no valid JSON object" : v.error.issues.slice(0, 3).map((x) => `${x.path.join(".")}: ${x.message}`).join("; ");
+      user = `${user}\n\nYour previous reply was rejected: ${lastError}. Reply again with ONLY the corrected JSON object.`;
+    }
+    await this.o.store.log({ clientId: i.client.id, actor: i.agent, action: "ai.invalid_output", detail: `${i.task.id} ${i.kind}: ${lastError}`.slice(0, 300) });
+    throw new Error(`AI output for "${i.kind}" failed validation after ${meta.calls} call(s): ${lastError.slice(0, 160)}`);
+  }
 
   /** Retrieval: this client's permitted facts only, agent-relevant keys first, size-capped. */
   select(def: AgentDefinition, facts: Fact[]) {

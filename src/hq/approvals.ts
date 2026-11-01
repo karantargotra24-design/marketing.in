@@ -5,8 +5,8 @@ import { isOperational } from "./integrations";
 
 const AGENT_ACTORS = new Set<string>([...agentIds, "orchestrator", "system"]);
 
-export async function requestApproval(store: StorePort, a: Pick<Approval, "clientId" | "kind" | "summary" | "requestedBy">): Promise<Approval> {
-  const approval: Approval = { id: store.newId("appr"), ...a, status: "PENDING", decidedAt: null, decidedBy: null, executedAt: null, createdAt: new Date().toISOString() };
+export async function requestApproval(store: StorePort, a: Pick<Approval, "clientId" | "kind" | "summary" | "requestedBy"> & { ref?: string | null }): Promise<Approval> {
+  const approval: Approval = { id: store.newId("appr"), ref: null, ...a, status: "PENDING", decidedAt: null, decidedBy: null, executedAt: null, createdAt: new Date().toISOString() };
   await store.insertApproval(approval);
   await store.log({ clientId: a.clientId, actor: a.requestedBy, action: "approval.requested", detail: `${a.kind}: ${a.summary}` });
   return approval;

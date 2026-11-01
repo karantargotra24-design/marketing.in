@@ -1,4 +1,4 @@
-import type { Approval, Client, ExecutionRecord, Fact, LogEntry, Task } from "./types";
+import type { Approval, Client, Deliverable, DeliverableStatus, DeliverableVersion, ExecutionRecord, Fact, Job, LogEntry, Run, Schedule, Task } from "./types";
 
 export type UsageRecord = {
   clientId: string | null; taskId: string | null; agent: string; provider: string; model: string;
@@ -28,6 +28,27 @@ export interface StorePort {
   log(e: Omit<LogEntry, "at">): Promise<void>;
   readLog(limit?: number): Promise<LogEntry[]>;
   recordUsage(u: UsageRecord): Promise<void>;
+  // ---- runs (one instruction = one run) ----
+  createRun(r: Run): Promise<void>;
+  getRun(clientId: string, id: string): Promise<Run | null>;
+  listRuns(filter?: { clientId?: string; limit?: number }): Promise<Run[]>;
+  patchRun(clientId: string, id: string, patch: Partial<Pick<Run, "status" | "startedAt" | "completedAt" | "plan" | "estCostUsd">>): Promise<Run>;
+  // ---- deliverables (append-only version history) ----
+  createDeliverable(d: Omit<Deliverable, "currentVersion" | "createdAt" | "updatedAt">, body: unknown, by: string, note?: string): Promise<Deliverable>;
+  reviseDeliverable(clientId: string, id: string, body: unknown, by: string, note?: string): Promise<Deliverable>;
+  patchDeliverable(clientId: string, id: string, patch: { status?: DeliverableStatus; qa?: Deliverable["qa"] }): Promise<Deliverable>;
+  getDeliverable(clientId: string, id: string): Promise<{ deliverable: Deliverable; versions: DeliverableVersion[] } | null>;
+  listDeliverables(filter: { clientId: string; runId?: string; kind?: string }): Promise<Deliverable[]>;
+  // ---- durable job queue ----
+  enqueueJob(j: Job): Promise<void>;
+  leaseJobs(max: number, leaseMs: number, now?: Date): Promise<Job[]>;
+  finishJob(id: string, outcome: { ok: true } | { ok: false; error: string; retryAt?: string }): Promise<void>;
+  listJobs(filter?: { status?: Job["status"] }): Promise<Job[]>;
+  // ---- schedules & settings ----
+  listSchedules(clientId?: string): Promise<Schedule[]>;
+  saveSchedule(s: Schedule): Promise<void>;
+  getSetting<T = unknown>(key: string): Promise<T | null>;
+  setSetting(key: string, value: unknown): Promise<void>;
   recordExecution(e: ExecutionRecord): Promise<void>;
   listExecutions(filter?: { clientId?: string; runId?: string; limit?: number }): Promise<ExecutionRecord[]>;
   listUsage(filter?: { clientId?: string; since?: string }): Promise<UsageRecord[]>;
