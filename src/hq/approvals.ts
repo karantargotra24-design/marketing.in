@@ -1,7 +1,7 @@
 import type { StorePort } from "./port";
 import type { Approval } from "./types";
 import { agentIds } from "./types";
-import { isOperational } from "./integrations";
+import { isIntegrationOperational } from "./integrations";
 
 const AGENT_ACTORS = new Set<string>([...agentIds, "orchestrator", "system"]);
 
@@ -35,7 +35,7 @@ export async function performExternalAction(store: StorePort, p: { approvalId: s
   if (a.clientId !== p.clientId) return { ok: false, reason: "Approval belongs to a different client workspace" };
   if (a.status !== "APPROVED") return { ok: false, reason: `Approval is ${a.status}, not APPROVED` };
   if (a.executedAt) return { ok: false, reason: "Approval already used" };
-  if (!isOperational(p.integrationId)) return { ok: false, reason: `Integration "${p.integrationId}" is not connected and tested; action not performed` };
+  if (!(await isIntegrationOperational(store, p.integrationId))) return { ok: false, reason: `Integration "${p.integrationId}" is not connected and tested; action not performed` };
   await store.patchApproval(a.id, { executedAt: new Date().toISOString() });
   await store.log({ clientId: a.clientId, actor: "system", action: "external.executed", detail: `${p.integrationId}: ${a.summary}` });
   return { ok: true, result: await p.execute() };

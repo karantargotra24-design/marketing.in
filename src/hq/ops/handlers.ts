@@ -5,13 +5,14 @@ import type { AiEngine, GenMeta } from "../ai/engine";
 import type { StorePort } from "../port";
 import { WorkspaceScope } from "../workspace";
 import type { AgentId, AgentOutput, Client, Deliverable, Fact, QaIssueRec, Run, Task } from "../types";
+import { braveSearch, fetchPage, pageObservations, type Resolver } from "../tools/web";
 import { qaAdPlan, qaContentItem, qaCreativeBrief } from "./claims";
 import { adPlanSchema, contentItemSchema, creativeBatchSchema, creativeBriefSchema, reelScriptsSchema, sectionsSchema, strategySchema, type AdPlanBody, type ContentItemBody, type CreativeBriefBody, type SectionsBody, type StrategyBody } from "./schemas";
 
 /** Thrown when a step needs generation but AI is off. The task waits for input instead of faking output. */
 export class NeedsAiError extends Error {}
 export type OpsResult = { status: "COMPLETED" | "WAITING FOR INPUT"; note?: string; meta: GenMeta | null; deliverableIds: string[] };
-export type OpsCtx = { store: StorePort; ai?: AiEngine; client: Client; run: Run; task: Task };
+export type OpsCtx = { store: StorePort; ai?: AiEngine; client: Client; run: Run; task: Task; tools?: { fetchImpl?: typeof fetch; resolver?: Resolver; env?: Record<string, string | undefined> } };
 
 const sumMeta = (ms: GenMeta[]): GenMeta | null => (ms.length ? ms.reduce((a, m) => ({ ...a, calls: a.calls + m.calls, inputTokens: a.inputTokens + m.inputTokens, outputTokens: a.outputTokens + m.outputTokens, costUsd: a.costUsd + m.costUsd })) : null);
 const scopeFacts = (c: OpsCtx, agent: AgentId) => new WorkspaceScope(c.store, c.client.id, agent, AGENTS[agent].knowledgePermissions).allowedFacts();
@@ -53,18 +54,46 @@ export async function handleOps(c: OpsCtx): Promise<OpsResult> {
   throw new Error(`Unknown task kind "${kind}"`);
 }
 
+
+/** Live evidence (only when a source exists): website analysis from a stored URL; search results when a search key is configured. Every bullet carries its URL; the date is in the heading. */
+async function webSections(c: OpsCtx, kind: string, facts: Fact[]): Promise<{ sections: SectionsBody["sections"]; missing: string[] }> {
+  const out: SectionsBody["sections"] = []; const missing: string[] = []; const env = c.tools?.env ?? process.env;
+  if (["research_brand_product", "audit_business", "audit_positioning"].includes(kind)) {
+    const urls = facts.filter((f) => f.key.split("@")[0] === "website_url").map((f) => f.value.match(/https?:\/\/\S+/)?.[0]).filter((u): u is string => Boolean(u));
+    if (!urls.length) missing.push("No website URL is stored, so no live website analysis was possible");
+    for (const u of urls.slice(0, 2)) {
+      const r = await fetchPage(u, { fetchImpl: c.tools?.fetchImpl, resolver: c.tools?.resolver });
+      if (!r.ok) { missing.push(`Website ${u} could not be analysed: ${r.error}`); continue; }
+      out.push({ heading: `Live website analysis (fetched ${r.page.fetchedAt.slice(0, 10)}, status ${r.page.status})`, bullets: pageObservations(r.page).map((t) => ({ text: t, factIds: [], sourceUrls: [r.page.finalUrl] })) });
+    }
+  }
+  if (kind === "research_competitors" || kind === "research_market") {
+    const key = env.BRAVE_SEARCH_API_KEY;
+    if (!key) missing.push("Live web search is awaiting credentials (BRAVE_SEARCH_API_KEY), so no external market/competitor sources were gathered");
+    else {
+      const prod = facts.find((f) => f.key === "offer_products")?.value.slice(0, 60) ?? c.client.name; const loc = facts.find((f) => f.key === "location")?.value.slice(0, 40) ?? "";
+      const r = await braveSearch(kind === "research_competitors" ? `${prod} sellers ${loc}` : `${prod} market ${loc}`, key, 5, c.tools?.fetchImpl);
+      if (r.ok) out.push({ heading: `Web search results (retrieved ${r.at.slice(0, 10)})`, bullets: r.hits.map((h) => ({ text: `${h.title}: ${h.snippet}`.slice(0, 280), factIds: [], sourceUrls: [h.url] })) });
+      else missing.push(`Web search failed: ${r.error}`);
+    }
+  }
+  return { sections: out, missing };
+}
+
 /* ---- research & audit: rules when AI is off, grounded AI when on ---- */
 async function sectionsTask(c: OpsCtx, kind: string): Promise<OpsResult> {
   const agent = c.task.agent as AgentId;
   const facts = await scopeFacts(c, agent);
   const rules = AGENTS[agent].analyze(makeContext(c.client.name, facts));
+  const web = await webSections(c, kind, facts);
   if (!c.ai || rules.insufficientData && kind !== "audit_performance") {
-    const d = await save(c, kind.startsWith("research") ? "research" : "audit", TITLES[kind], agent, outputToSections(rules));
+    const base = outputToSections(rules);
+    const d = await save(c, kind.startsWith("research") ? "research" : "audit", TITLES[kind], agent, { ...base, sections: [...base.sections, ...web.sections], missingInfo: [...base.missingInfo, ...web.missing] });
     return { status: rules.insufficientData ? "WAITING FOR INPUT" : "COMPLETED", note: c.ai ? "Not enough stored data for AI to add anything (no cost)" : "AI is off: rule-based findings only", meta: null, deliverableIds: [d.id] };
   }
   const { value, meta } = await c.ai.generate({ task: c.task, client: c.client, agent, kind, schemaHint: HINT_SECTIONS, schema: sectionsSchema, facts, payload: { language: c.run.plan.language, platform: c.run.plan.platform, ruleBasedGaps: rules.missingInfo } });
   const valid = new Set(facts.map((f) => f.id));
-  const body = { ...value, sections: value.sections.map((s) => ({ ...s, bullets: ground(s.bullets, valid) })), missingInfo: [...new Set([...rules.missingInfo, ...value.missingInfo])] };
+  const body = { ...value, sections: [...value.sections.map((s) => ({ ...s, bullets: ground(s.bullets, valid) })), ...web.sections], missingInfo: [...new Set([...rules.missingInfo, ...value.missingInfo, ...web.missing])] };
   const d = await save(c, kind.startsWith("research") ? "research" : "audit", TITLES[kind], agent, body);
   return { status: "COMPLETED", meta, deliverableIds: [d.id] };
 }
