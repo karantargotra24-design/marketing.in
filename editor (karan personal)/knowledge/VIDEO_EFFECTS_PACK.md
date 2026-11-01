@@ -1,6 +1,6 @@
 # Video effects pack: "45 Video Effects for Claude" (by @vibha.in.progress, MIT)
 
-Source: claude-video-effects-main.zip (Karan, 1 Nov 2026). **Not installed yet.** Installing it as a skill and running its setup (a Python venv with numpy, opencv, pillow, mediapipe) was blocked by this session's permission rules for external code. Karan has to allow it.
+Source: claude-video-effects-main.zip (Karan, 1 Nov 2026). **Installed 1 Nov 2026** (Karan allowed it) as a project skill at `.claude/skills/effects/` (use `/effects`). Setup: Python venv (git-ignored) + system lib `libegl1` added for mediapipe. Run: `.claude/skills/effects/.venv/bin/python .claude/skills/effects/scripts/fx.py --plan plan.json in.mp4 out.mp4`. Plan options go as top-level keys, e.g. `{"fx":"headline-box","zoom":"1.0",...}`.
 Reviewed: SKILL.md, README, setup.sh, fx.py (2,245 lines), words.py. No network calls in the effect code. It runs locally with ffmpeg and two bundled face/segmentation models (YuNet MIT, MediaPipe Apache-2.0). Optional `fx_private.py` hook: not present in the zip.
 Limit: `words.py` (word timings) downloads a Whisper model from Hugging Face, which this environment blocks. Timings must come from Karan or a transcript.
 
@@ -38,3 +38,9 @@ Plan JSON → check stills → render. Effects track the face and can sit behind
 ## Where it fits in the reel grammar
 Rule 1 hook → `headline-box` · Rule 3 → `lean-in` / `slow-push` · Rule 6 overlays → `todo`, `checklist`, `messages`, `apple-toggles` · Rule 9 end → `comment-box` with the post's keyword (or our white pill).
 Max 2–3 effects per reel, 1.5–4 s each, never over the face.
+
+## Field notes (first test, R02, 1 Nov 2026)
+- `lean-in` ✅ works well (face-tracked punch-in). Used in R02_v3 at 6.0–7.1 s.
+- `headline-box` ❌ on tight framing: it puts text above the face and partly behind the head; with the face high in frame the second line gets hidden. Needs real footage with headroom (top 30% empty).
+- `comment-box` (`look=bar`) ⚠️ sits low and goes behind a mic in the foreground (segmentation treats the mic as the person); its avatar dot is pink (off-palette). Our own white Comment pill overlay stays the default.
+- After every render: re-run QC (stamp/black frames, −14 LUFS).
