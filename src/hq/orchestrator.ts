@@ -2,6 +2,7 @@ import { AGENTS } from "./agents/registry";
 import { makeContext } from "./agents/base";
 import { qaReview, renderQaReport, type QaResult } from "./qa";
 import { renderAgentOutput } from "./render";
+import { aiRecommendations, type LlmProvider } from "./provider";
 import type { HqStore } from "./store";
 import { WorkspaceScope } from "./workspace";
 import type { AgentId, AgentOutput, Client, Fact, Task } from "./types";
@@ -10,7 +11,7 @@ import type { AgentId, AgentOutput, Client, Fact, Task } from "./types";
 export class RecoverableError extends Error { readonly recoverable = true; }
 
 export type RunnerFn = (task: Task, scope: WorkspaceScope, client: Client) => Promise<AgentOutput>;
-export type Options = { maxConcurrency?: number; maxAttempts?: number; retryDelayMs?: number; runner?: RunnerFn };
+export type Options = { llm?: LlmProvider; maxConcurrency?: number; maxAttempts?: number; retryDelayMs?: number; runner?: RunnerFn };
 
 type Step = { key: string; agent: Task["agent"]; step: Task["step"]; description: string; dependsOn: string[]; allowPartial?: boolean; priority?: Task["priority"] };
 
@@ -46,9 +47,9 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 export type RunSummary = { runId: string; clientId: string; tasks: Task[]; maxObservedConcurrency: number; finalReport: string | null };
 
 export class Orchestrator {
-  private opts: Required<Omit<Options, "runner">> & { runner?: RunnerFn };
+  private opts: Required<Omit<Options, "runner" | "llm">> & { runner?: RunnerFn; llm?: LlmProvider };
   constructor(private store: HqStore, opts: Options = {}) {
-    this.opts = { maxConcurrency: opts.maxConcurrency ?? 6, maxAttempts: opts.maxAttempts ?? 3, retryDelayMs: opts.retryDelayMs ?? 250, runner: opts.runner };
+    this.opts = { maxConcurrency: opts.maxConcurrency ?? 6, maxAttempts: opts.maxAttempts ?? 3, retryDelayMs: opts.retryDelayMs ?? 250, runner: opts.runner, llm: opts.llm };
   }
 
   /** Creates tasks (with ids, deps, client id) without running them. */
@@ -167,6 +168,10 @@ export class Orchestrator {
     const out = this.opts.runner
       ? await this.opts.runner(t, scope, client)
       : def.analyze(makeContext(client.name, await scope.allowedFacts()));
+    if (this.opts.llm && !this.opts.runner && !out.insufficientData) {
+      const facts = await scope.allowedFacts();
+      out.recommendations.push(...(await aiRecommendations(this.opts.llm, def.instructions, client.name, facts.map((f) => `${f.id} | ${f.kb}.${f.key} | ${f.status} | ${f.value}`))));
+    }
     outputs.set(t.id, out);
     const md = renderAgentOutput(out, { clientId: client.id, clientName: client.name, taskId: t.id, agent, at: new Date().toISOString() });
     const outputPath = await scope.saveOutput(`${agent}-${t.id}.md`, md);

@@ -1,7 +1,7 @@
 # AI Marketing Agency HQ — implementation report (2026-11-01)
 
 Status key: **CAT** = completed and tested · **INT** = implemented, not fully tested · **PART** = partially implemented · **BLOCKED** · **NS** = not started.
-Tests: `npm test` → 55 passing (27 in `src/hq/hq.test.ts`). Two guards were deliberately broken to confirm the tests fail when they should (QA isolation check, approval gate).
+Tests: `npm test` → 58 passing (30 in `src/hq/hq.test.ts`). Two guards were deliberately broken to confirm the tests fail when they should (QA isolation check, approval gate).
 
 ## 1. Cloud environment audit
 | Resource | Result |
@@ -22,7 +22,7 @@ Tests: `npm test` → 55 passing (27 in `src/hq/hq.test.ts`). Two guards were de
 
 ## 3. Agents
 **12/12 defined (CAT for structure & behaviour):** identity, system instructions, responsibilities, inputs, outputs, tools, knowledge permissions, quality standards, protocol. Orchestrator is a scheduler/consolidator that delegates; it does not do specialist work.
-**Important limitation (PART):** agents are **rule-based workspace analysts**. They ground findings in stored facts, flag risks, list gaps and give next actions. They do **not** browse the web, call ad platforms or write creative copy from this app. An LLM provider adapter (e.g. Anthropic) is not written; `instructions` are ready to be used as system prompts. Live research, calendars, scripts and ad copy therefore still happen in the Claude chat, not in the app.
+**Important limitation (PART):** agents are **rule-based workspace analysts**. They ground findings in stored facts, flag risks, list gaps and give next actions. They do **not** browse the web, call ad platforms or write creative copy from this app. An Anthropic adapter exists (`src/hq/provider.ts`, **INT**: tested only against a mocked API, never live). It is OFF unless `HQ_AI=on` and `ANTHROPIC_API_KEY` are set, capped by `HQ_AI_MAX_CALLS` (default 20), and adds only "AI-drafted" recommendations that QA still checks (invented numbers are blocked). Live research, calendars, scripts and ad copy therefore still happen in the Claude chat, not in the app.
 
 ## 4. Parallel execution (CAT)
 DAG scheduler with `maxConcurrency`, dependency waiting, retry of `RecoverableError` (max attempts), non-recoverable failure → `FAILED`, dependents fail with "Upstream task failed" unless `allowPartial` (consolidation/QA, which then name the failure). Tests prove: 6 audit tasks run at once (6×150 ms tasks finish in <900 ms), `maxConcurrency=2` respected, consolidation starts only after all six finish, QA after consolidation, content_plan fans out creative+video in parallel, different clients run simultaneously. Note: in the real CLI run the rule-based agents finish in milliseconds, so observed overlap there is only 3.
@@ -52,7 +52,7 @@ No scheduled jobs, no external calls. `approvals.ts` makes execution impossible 
 
 ## 10. Remaining work (suggested order)
 1. Answer the gap lists (Pahadi: website/URL, goals, budget, FSSAI, real reviews; Propedia: palette, JKRERA, handles; Personal: import W44 stats, confirm brand colours).
-2. Add an LLM provider adapter so Research/Content/Creative/Video/Ads agents produce real drafts (needs API key + cost cap → your approval).
+2. Add your Anthropic API key (server env only), run one capped live test, then extend the AI step beyond recommendations to full drafts.
 3. Supabase store adapter + deploy.
 4. Connect and live-test one read-only integration at a time (Instagram insights via Windsor, then Meta Ads).
 5. Scheduled weekly content/reporting workflows; CSV import for performance data.

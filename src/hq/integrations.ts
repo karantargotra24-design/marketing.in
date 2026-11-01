@@ -7,7 +7,7 @@ export type IntegrationStatus = "NOT_CONFIGURED" | "CLAUDE_SESSION_ONLY" | "CONN
 export type Integration = { id: string; purpose: string; status: IntegrationStatus; writes: boolean; note: string };
 
 export const INTEGRATIONS: Integration[] = [
-  { id: "ai_provider", purpose: "LLM for live research and copy (Anthropic API)", status: "NOT_CONFIGURED", writes: false, note: "Set ANTHROPIC_API_KEY; provider adapter not yet written. Agents currently run the rule-based workspace analyst." },
+  { id: "ai_provider", purpose: "LLM for live research and copy (Anthropic API)", status: "NOT_CONFIGURED", writes: false, note: "Adapter written (provider.ts), tested only against a mocked API. Enable with HQ_AI=on + ANTHROPIC_API_KEY; capped by HQ_AI_MAX_CALLS. Not live-tested." },
   { id: "meta_ads", purpose: "Meta Ads reporting / campaign changes", status: "CLAUDE_SESSION_ONLY", writes: true, note: "Windsor.ai / Supermetrics connectors exist in the Claude session; account linking unverified. Writes need approval." },
   { id: "google_ads", purpose: "Google Ads reporting", status: "CLAUDE_SESSION_ONLY", writes: true, note: "Via Windsor.ai in Claude session; not wired to app." },
   { id: "instagram_publish", purpose: "Instagram insights/publishing", status: "CLAUDE_SESSION_ONLY", writes: true, note: "Windsor/Metricool listed; @karantargotra.a link unconfirmed. Publishing is approval-gated." },

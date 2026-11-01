@@ -1,4 +1,4 @@
-import { defaultStore, Orchestrator, seedWorkspaces, onboardClient, AGENT_LIST, WORKFLOWS } from "../src/hq";
+import { defaultStore, Orchestrator, seedWorkspaces, onboardClient, AGENT_LIST, WORKFLOWS, providerFromEnv } from "../src/hq";
 
 const [cmd, ...args] = process.argv.slice(2);
 const store = defaultStore();
@@ -11,7 +11,7 @@ async function main() {
     const target = args[0] ?? "all";
     const ids = target === "all" ? (await store.listClients()).map((c) => c.id) : [target];
     // Different clients also run concurrently: separate workspaces, shared task engine.
-    const results = await Promise.all(ids.map((id) => new Orchestrator(store).runWorkflow(id, workflow)));
+    const results = await Promise.all(ids.map((id) => new Orchestrator(store, { llm: providerFromEnv() }).runWorkflow(id, workflow)));
     for (const r of results) {
       console.log(`\n== ${r.clientId} run ${r.runId} (max concurrent tasks: ${r.maxObservedConcurrency}) ==`);
       for (const t of r.tasks) console.log(`${t.id}  ${t.agent.padEnd(14)} ${t.status.padEnd(18)} review=${t.reviewStatus.padEnd(18)} ${t.startedAt?.slice(11, 23)} → ${t.completedAt?.slice(11, 23)}  ${t.outputPath ?? ""}${t.error ? "  ERROR: " + t.error : ""}`);
