@@ -1,4 +1,4 @@
-import type { Approval, Client, Fact, LogEntry, Task } from "./types";
+import type { Approval, Client, ExecutionRecord, Fact, LogEntry, Task } from "./types";
 
 export type UsageRecord = {
   clientId: string | null; taskId: string | null; agent: string; provider: string; model: string;
@@ -28,6 +28,8 @@ export interface StorePort {
   log(e: Omit<LogEntry, "at">): Promise<void>;
   readLog(limit?: number): Promise<LogEntry[]>;
   recordUsage(u: UsageRecord): Promise<void>;
+  recordExecution(e: ExecutionRecord): Promise<void>;
+  listExecutions(filter?: { clientId?: string; runId?: string; limit?: number }): Promise<ExecutionRecord[]>;
   listUsage(filter?: { clientId?: string; since?: string }): Promise<UsageRecord[]>;
 }
 

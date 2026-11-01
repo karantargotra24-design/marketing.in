@@ -1,5 +1,5 @@
 # Marketing OS — feature-by-feature implementation report
-Snapshot **before Phase C** (commit `00aaf97`). Section 18 is rewritten at the end of Phase C.
+Sections 1–17 are the pre-Phase C snapshot (commit `00aaf97`). **Sections 18–19 and the Phase C addendum below are current.**
 Test run used for this report: `vitest run` → **87 / 87 passed** (src/hq/hq.test.ts 30, pg.test.ts 21, security.test.ts 8, legacy 28). Typecheck, lint and production build pass.
 
 **Vocabulary used below**
@@ -7,6 +7,13 @@ Test run used for this report: `vitest run` → **87 / 87 passed** (src/hq/hq.te
 - *Rule-based agent* = code that reads stored facts and produces a gap/risk report. No AI. Real and tested, but not "intelligent".
 - *Working AI agent* = an LLM actually reasons and its output passes validation. **None exists yet.**
 - *Tested production integration* = tested against the real external service with real credentials. **None exists yet.**
+
+## Phase C addendum (what changed since the snapshot)
+- Dashboard: now has AI mode banner, real vs simulated spend, caps, parallel timeline drawn from recorded timestamps, execution history, per-task mode (RULES / MOCK AI / AI). **10 committed browser tests** replace the temporary script.
+- Orchestrator: AI-aware, `full_review` workflow, WAITING FOR APPROVAL on spend limits, execution history.
+- Agents: all 12 rule-based analyzers now executed by tests. Still **no real AI agent**.
+- CI: `e2e` job added (not yet run on GitHub).
+- Still pending (yours): Supabase owner login, `DATABASE_URL`, import of 3 workspaces, repo privacy, Vercel deploy, file/creative asset storage, **applying `hq_executions` migration** (declined), AI key + `HQ_AI_SPEND_APPROVED=1`.
 
 ## 1. Agency HQ dashboard (`/hq`)
 | | |
@@ -122,10 +129,40 @@ Code `qa.ts`. COMPLETED AND TESTED for rules: structure, isolation, banned phras
 ## 17. External integrations
 All **NOT STARTED / not connected**: Meta/Instagram, Google Ads/GA4/Search Console, WhatsApp, CRM, email, Drive. The registry (`integrations.ts`) lists them with honest statuses. Connectors exist only in the Claude chat session.
 
-## 18. AI execution capabilities (pre-Phase C)
-- `provider.ts`: Anthropic Messages adapter, off unless `HQ_AI=on` + key, call cap. **Tested against a mocked HTTP response only. Never called the real API.**
-- Appends up to 5 "AI-drafted" recommendation strings after the rule-based result; invalid output is silently ignored.
-- **Not present:** structured/validated agent outputs, grounding checks, cost ledger, spend caps, per-agent models, execution history, real parallel AI calls.
+## 18. AI execution capabilities (rewritten after Phase C)
+| Capability | Status | Evidence |
+|---|---|---|
+| Provider abstraction (`LlmProvider`): Anthropic, OpenAI-compatible, Mock | IMPLEMENTED. Mock **TESTED**. Anthropic/OpenAI adapters **TESTED ONLY against a fake HTTP layer; never called a real service** | ai.test.ts "real-provider adapters..." (6) |
+| Structured output (zod) + one repair retry + visible fallback to rules | COMPLETED AND TESTED (mock) | grounding, repair, fallback tests |
+| Grounding: AI findings must cite fact ids from this client's context or are dropped | COMPLETED AND TESTED | "drops findings that cite facts not in context" |
+| Cost tracking (tokens → USD, cached input, per model) + usage ledger (file + Postgres) | COMPLETED AND TESTED | pricing (2), end-to-end cost from reported usage, contract test |
+| Spend limits: per run / day / month; pre-call worst-case reservation; mock and real tracked separately | COMPLETED AND TESTED | 4 tests incl. parallel reservations; found + fixed a real overshoot bug |
+| Over-limit behaviour: task → WAITING FOR APPROVAL, run still finishes and reports | COMPLETED AND TESTED | |
+| Live AI tripwire: needs key AND `HQ_AI_SPEND_APPROVED=1`; keys never logged/echoed | COMPLETED AND TESTED | config + secrets tests |
+| Orchestrator integration + 7-agent `full_review` workflow | COMPLETED AND TESTED | |
+| Genuine parallel execution (mock provider in-flight counter = 7; timestamps overlap; wall < 70% of sequential; provider concurrency limit honoured) | COMPLETED AND TESTED | "runs the 7 named agents concurrently" |
+| Execution history (every attempt: outcome, mode, model, tokens, cost) | COMPLETED AND TESTED (file + Postgres in tests). **Postgres migration `hq_executions` NOT applied to the live project: you declined the tool call.** | contract + append-only tests |
+| AI-skip when data is insufficient (no cost, nothing invented) | COMPLETED AND TESTED | |
+| Context isolation for prompts (no other client's facts/ids in any call; only permitted KBs) | COMPLETED AND TESTED | 2 tests |
+| **Real model reasoning** | **NOT DONE: no paid call has ever been made** | blocked on your key + `HQ_AI_SPEND_APPROVED=1` |
+| Agent outputs beyond summary/findings/recommendations/gaps/handoffs (calendars, scripts, ad copy, prompts) | NOT STARTED (Phase E) | |
+| Web/search tools for Research | NOT STARTED | |
+
+### Agents after Phase C (definition vs rules vs mock-AI vs real)
+| Agent | Rule-based analyzer run in tests | Mock-AI path exercised | Real model |
+|---|---|---|---|
+| research, audit_strategy, content, creative, seo_web | yes | yes (full_review; e2e) | no |
+| social, analytics | yes | yes in unit tests (skipped for sparse data) | no |
+| client_ops | yes | yes (onboarding) | no |
+| paid_ads, lead_crm, video | yes (12/12 analyzers now executed) | **not exercised under AI** (same generic engine, untested for these three) | no |
+| qa | rule engine only (by design) | n/a | no |
+
+## 19. Phase C test totals
+- Unit/integration: **132 passed** (11 files): hq 30, ai 48, pg 22, security 8, legacy 24.
+- Browser e2e (committed, production build, synthetic data, MOCK AI): **10 passed** `npm run test:e2e` — parallel run, spend panel, history, report provenance, client separation in UI, approvals execute nothing, add client/fact, empty client waits for input, **fail-closed lock** in production without auth, forged server-action POST rejected.
+- Screenshots: `docs/screenshots/*.png` (synthetic data).
+- Mutation checks earlier: removing QA isolation or the approval gate fails tests.
+- Bugs found by the tests during Phase C (all fixed): per-run budget ignored in-flight parallel calls; mock crashed on its own repair prompt; concurrency metric overcounted (replaced with sweep line); stale e2e server (harness now refuses busy ports).
 
 ## Pending items from earlier phases (still open)
 Supabase owner account · `DATABASE_URL` · import of the three workspaces · repo privacy · Vercel deployment · file/creative asset storage.

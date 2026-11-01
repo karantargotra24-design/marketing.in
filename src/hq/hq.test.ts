@@ -11,7 +11,6 @@ import { requestApproval, decideApproval, performExternalAction } from "./approv
 import { AGENTS, AGENT_LIST } from "./agents/registry";
 import { makeContext } from "./agents/base";
 import type { AgentOutput } from "./types";
-import { anthropicProvider, providerFromEnv } from "./provider";
 
 let store: HqStore;
 beforeEach(async () => {
@@ -226,29 +225,5 @@ describe("approval gate", () => {
     expect(await performExternalAction(store, { approvalId: a.id, clientId: "pahadi-origin", integrationId: "instagram_publish", execute: exec })).toMatchObject({ ok: false, reason: expect.stringMatching(/different client/) });
     expect(await performExternalAction(store, { approvalId: a.id, clientId: "propedia", integrationId: "instagram_publish", execute: exec })).toMatchObject({ ok: false, reason: expect.stringMatching(/not connected and tested/) });
     expect(ran).toBe(0);
-  });
-});
-
-describe("AI provider (mocked API, no real calls)", () => {
-  const ok = (text: string) => (async () => new Response(JSON.stringify({ content: [{ type: "text", text }] }), { status: 200 })) as unknown as typeof fetch;
-  it("adds AI-drafted recommendations and QA still blocks invented numbers", async () => {
-    const good = anthropicProvider({ apiKey: "k", fetchImpl: ok('["Ask for the FSSAI licence number"]') });
-    const r = await new Orchestrator(store, { llm: good }).runWorkflow("pahadi-origin", "onboarding");
-    const md = await readFile(path.join(store.clientDir("pahadi-origin"), "outputs", r.tasks[0].outputPath!.split("/").pop()!), "utf8");
-    expect(md).toContain("AI-drafted: Ask for the FSSAI licence number");
-    const bad = anthropicProvider({ apiKey: "k", fetchImpl: ok('["This will give 450% ROAS"]') });
-    const r2 = await new Orchestrator(store, { llm: bad }).runWorkflow("pahadi-origin", "onboarding");
-    expect(r2.tasks.find((t) => t.agent === "audit_strategy")!.reviewStatus).toBe("REVISION_REQUESTED");
-  });
-  it("enforces the call cap and retries 429s as recoverable", async () => {
-    const p = anthropicProvider({ apiKey: "k", maxCalls: 1, fetchImpl: ok("[]") });
-    await p.complete("s", "u");
-    await expect(p.complete("s", "u")).rejects.toThrow(/cap/);
-    const limited = anthropicProvider({ apiKey: "k", fetchImpl: (async () => new Response("", { status: 429 })) as unknown as typeof fetch });
-    await expect(limited.complete("s", "u")).rejects.toMatchObject({ recoverable: true });
-  });
-  it("is off unless explicitly enabled", () => {
-    expect(providerFromEnv({ ANTHROPIC_API_KEY: "k" } as never)).toBeUndefined();
-    expect(providerFromEnv({ HQ_AI: "on" } as never)).toBeUndefined();
   });
 });

@@ -3,9 +3,10 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { agentIds, clientIdSchema, defaultStore, factStatuses, knowledgeBases, onboardClient, Orchestrator, WORKFLOWS, decideApproval, requestApproval, seedWorkspaces } from "@/hq";
+import { aiEngineFromEnv, agentIds, clientIdSchema, defaultStore, factStatuses, knowledgeBases, onboardClient, Orchestrator, WORKFLOWS, decideApproval, requestApproval, seedWorkspaces } from "@/hq";
 import { requireHuman } from "./guard";
 
+const orchestrator = (store: ReturnType<typeof defaultStore>) => new Orchestrator(store, { ai: aiEngineFromEnv(store) });
 const back = (msg: string, kind: "error" | "ok" = "error") => redirect(`/hq?${kind}=${encodeURIComponent(msg)}`);
 const fail = (e: unknown): never => back(e instanceof Error ? e.message : "Something went wrong");
 
@@ -27,7 +28,7 @@ export async function runWorkflowAction(fd: FormData) {
   await requireHuman();
   const p = z.object({ clientId: clientIdSchema, workflow: z.enum(Object.keys(WORKFLOWS) as [string, ...string[]]) }).safeParse({ clientId: fd.get("clientId"), workflow: fd.get("workflow") });
   if (!p.success) return back(p.error.issues[0].message);
-  try { await new Orchestrator(defaultStore()).runWorkflow(p.data.clientId, p.data.workflow); } catch (e) { fail(e); }
+  try { const store = defaultStore(); await orchestrator(store).runWorkflow(p.data.clientId, p.data.workflow); } catch (e) { fail(e); }
   revalidatePath("/hq"); back(`Workflow ${p.data.workflow} finished for ${p.data.clientId}`, "ok");
 }
 
@@ -36,7 +37,7 @@ export async function createTaskAction(fd: FormData) {
   const p = z.object({ clientId: clientIdSchema, agent: z.enum(agentIds), description: z.string().trim().min(3).max(300), priority: z.enum(["high", "normal", "low"]) })
     .safeParse({ clientId: fd.get("clientId"), agent: fd.get("agent"), description: fd.get("description"), priority: fd.get("priority") ?? "normal" });
   if (!p.success) return back(p.error.issues[0].message);
-  try { const o = new Orchestrator(defaultStore()); const { runId } = await o.planSingle(p.data.clientId, p.data.agent, p.data.description, p.data.priority); await o.execute(runId); } catch (e) { fail(e); }
+  try { const o = orchestrator(defaultStore()); const { runId } = await o.planSingle(p.data.clientId, p.data.agent, p.data.description, p.data.priority); await o.execute(runId); } catch (e) { fail(e); }
   revalidatePath("/hq"); back("Task created and run", "ok");
 }
 

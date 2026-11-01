@@ -4,6 +4,7 @@ export function renderAgentOutput(o: AgentOutput, meta: { clientId: string; clie
   const L: string[] = [];
   L.push(`# ${o.title} — ${meta.clientName}`, "");
   L.push(`Client ID: ${meta.clientId} · Task: ${meta.taskId} · Agent: ${meta.agent} · Generated: ${meta.at}`, "");
+  if (o.meta) L.push(`Produced by: ${o.meta.mode === "ai" ? `AI (${o.meta.provider} · ${o.meta.model} · ${o.meta.calls} call(s))` : o.meta.mode === "rules-fallback" ? "RULES (AI output failed validation)" : "RULES (no AI call)"}${o.meta.note ? ` — ${o.meta.note}` : ""}`, "");
   L.push("## Summary", "", o.summary, "");
   L.push("## Findings", "");
   if (o.findings.length === 0) L.push("_No findings: no stored facts for this area._");

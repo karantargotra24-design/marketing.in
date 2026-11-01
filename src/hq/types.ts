@@ -106,4 +106,12 @@ export type AgentOutput = {
   handoffs: { toAgent: AgentId; note: string }[];
   /** True when the agent could not do its job for lack of data. Never faked as success. */
   insufficientData: boolean;
+  /** How this output was produced. Never omitted for AI-capable runs, so the UI can never mislabel rule-based output as AI. */
+  meta?: { mode: "rules" | "ai" | "rules-fallback"; provider?: string; model?: string; calls?: number; inputTokens?: number; outputTokens?: number; costUsd?: number; note?: string; droppedFindings?: number };
+};
+
+export type ExecutionRecord = {
+  id: string; taskId: string; runId: string; clientId: string; agent: string; attempt: number;
+  startedAt: string; endedAt: string; outcome: "ok" | "failed" | "retrying" | "waiting_approval";
+  mode: string | null; model: string | null; calls: number; inputTokens: number; outputTokens: number; costUsd: number; error: string | null;
 };

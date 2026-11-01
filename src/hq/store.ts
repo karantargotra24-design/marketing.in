@@ -2,6 +2,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import { randomBytes } from "node:crypto";
 import type { StorePort, UsageRecord } from "./port";
+import type { ExecutionRecord } from "./types";
 import { approvalSchema, clientSchema, factSchema, taskSchema, type Approval, type Client, type Fact, type LogEntry, type Task } from "./types";
 
 /**
@@ -156,6 +157,19 @@ export class HqStore implements StorePort {
     try {
       const rows = (await fs.readFile(path.join(this.root, "usage.jsonl"), "utf8")).trim().split("\n").filter(Boolean).map((l) => JSON.parse(l) as UsageRecord);
       return rows.filter((r) => (!filter.clientId || r.clientId === filter.clientId) && (!filter.since || r.at >= filter.since));
+    } catch { return []; }
+  }
+
+  // ---- execution history (append-only JSONL) ----
+  async recordExecution(e: ExecutionRecord) {
+    const file = path.join(this.root, "executions.jsonl");
+    await this.serial(file, async () => { await fs.mkdir(this.root, { recursive: true }); await fs.appendFile(file, JSON.stringify(e) + "\n"); });
+  }
+  async listExecutions(filter: { clientId?: string; runId?: string; limit?: number } = {}): Promise<ExecutionRecord[]> {
+    try {
+      const rows = (await fs.readFile(path.join(this.root, "executions.jsonl"), "utf8")).trim().split("\n").filter(Boolean).map((l) => JSON.parse(l) as ExecutionRecord)
+        .filter((r) => (!filter.clientId || r.clientId === filter.clientId) && (!filter.runId || r.runId === filter.runId));
+      return filter.limit ? rows.slice(-filter.limit) : rows;
     } catch { return []; }
   }
 

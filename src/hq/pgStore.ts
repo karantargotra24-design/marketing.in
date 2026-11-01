@@ -1,6 +1,7 @@
 import { randomBytes } from "node:crypto";
 import type { StorePort, UsageRecord } from "./port";
 import { OUTPUT_NAME_RE } from "./port";
+import type { ExecutionRecord } from "./types";
 import { approvalSchema, clientSchema, factSchema, taskSchema, type Approval, type Client, type Fact, type LogEntry, type Task } from "./types";
 
 /** Minimal Postgres interface so production (`pg` pool) and tests (PGlite) share one implementation. */
@@ -158,6 +159,15 @@ export class PgStore implements StorePort {
   async recordUsage(u: UsageRecord) {
     await this.db.query("insert into hq.usage (agency_id, client_id, task_id, agent, provider, model, input_tokens, output_tokens, cache_read_tokens, cost_usd, at) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)",
       [this.agencyId, u.clientId, u.taskId, u.agent, u.provider, u.model, u.inputTokens, u.outputTokens, u.cacheReadTokens, u.costUsd, u.at]);
+  }
+  async recordExecution(e: ExecutionRecord) {
+    await this.db.query("insert into hq.executions (id, agency_id, task_id, run_id, client_id, agent, attempt, started_at, ended_at, outcome, mode, model, calls, input_tokens, output_tokens, cost_usd, error) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17)",
+      [e.id, this.agencyId, e.taskId, e.runId, e.clientId, e.agent, e.attempt, e.startedAt, e.endedAt, e.outcome, e.mode, e.model, e.calls, e.inputTokens, e.outputTokens, e.costUsd, e.error]);
+  }
+  async listExecutions(filter: { clientId?: string; runId?: string; limit?: number } = {}): Promise<ExecutionRecord[]> {
+    const { rows } = await this.db.query("select * from (select * from hq.executions where agency_id=$1 and ($2::text is null or client_id=$2) and ($3::text is null or run_id=$3) order by started_at desc, id desc limit $4) s order by started_at, id", [this.agencyId, filter.clientId ?? null, filter.runId ?? null, filter.limit ?? 1000]);
+    return rows.map((r) => ({ id: r.id as string, taskId: r.task_id as string, runId: r.run_id as string, clientId: r.client_id as string, agent: r.agent as string, attempt: Number(r.attempt), startedAt: iso(r.started_at)!, endedAt: iso(r.ended_at)!,
+      outcome: r.outcome as ExecutionRecord["outcome"], mode: (r.mode as string) ?? null, model: (r.model as string) ?? null, calls: Number(r.calls), inputTokens: Number(r.input_tokens), outputTokens: Number(r.output_tokens), costUsd: Number(r.cost_usd), error: (r.error as string) ?? null }));
   }
   async listUsage(filter: { clientId?: string; since?: string } = {}): Promise<UsageRecord[]> {
     const { rows } = await this.db.query("select * from hq.usage where agency_id=$1 and ($2::text is null or client_id=$2) and ($3::timestamptz is null or at >= $3) order by id", [this.agencyId, filter.clientId ?? null, filter.since ?? null]);

@@ -9,7 +9,9 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "hq": "tsx scripts/hq.ts"
+    "hq": "tsx scripts/hq.ts",
+    "test:e2e": "npm run build && vitest run -c vitest.e2e.config.ts",
+    "hq:e2e": "vitest run -c vitest.e2e.config.ts"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.14",
@@ -29,6 +31,7 @@
     "@types/react-dom": "^19.3.0",
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.4.3",
+    "playwright": "^1.63.0",
     "postcss": "^8.5.31",
     "tailwindcss": "^4.3.3",
     "tsx": "^4.23.15",

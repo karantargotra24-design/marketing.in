@@ -54,6 +54,11 @@ describe.each(factories)("storage contract: %s", (_n, make) => {
     await s.recordUsage({ clientId: "propedia", taskId: null, agent: "research", provider: "mock", model: "m", inputTokens: 10, outputTokens: 5, cacheReadTokens: 0, costUsd: 0.0123, at: new Date().toISOString() });
     expect((await s.listUsage({ clientId: "propedia" }))[0].costUsd).toBeCloseTo(0.0123);
     expect((await s.readLog(500)).length).toBeGreaterThan(5);
+    const ex = { id: s.newId("exec"), taskId: r.tasks[0].id, runId: r.runId, clientId: "propedia", agent: "research", attempt: 1, startedAt: new Date().toISOString(), endedAt: new Date().toISOString(), outcome: "ok" as const, mode: "ai", model: "mock-sonnet", calls: 1, inputTokens: 10, outputTokens: 5, costUsd: 0.001, error: null };
+    await s.recordExecution(ex);
+    const hist = await s.listExecutions({ runId: r.runId });
+    expect(hist.some((h) => h.id === ex.id && h.costUsd === 0.001 && h.mode === "ai")).toBe(true);
+    expect(await s.listExecutions({ clientId: "pahadi-origin", runId: r.runId })).toEqual([]);
   });
   it("rejects invalid output names", async () => {
     await expect(s.saveOutput("propedia", "../x.md", "x")).rejects.toThrow();
@@ -99,6 +104,12 @@ describe("postgres: agency isolation and database rules", () => {
     await expect(db.query("delete from hq.activity_log")).rejects.toThrow(/append-only/);
     await a.recordUsage({ clientId: null, taskId: null, agent: "x", provider: "p", model: "m", inputTokens: 1, outputTokens: 1, cacheReadTokens: 0, costUsd: 0.01, at: new Date().toISOString() });
     await expect(db.query("update hq.usage set cost_usd = 0")).rejects.toThrow(/append-only/);
+  });
+  it("execution history is append-only", async () => {
+    const a = new PgStore(db, agencyA);
+    await a.recordExecution({ id: "e-ap-1", taskId: "t", runId: "r", clientId: "propedia", agent: "research", attempt: 1, startedAt: new Date().toISOString(), endedAt: new Date().toISOString(), outcome: "failed", mode: null, model: null, calls: 0, inputTokens: 0, outputTokens: 0, costUsd: 0, error: "x" });
+    await expect(db.query("update hq.executions set outcome='ok' where id='e-ap-1'")).rejects.toThrow(/append-only/);
+    await expect(db.query("delete from hq.executions where id='e-ap-1'")).rejects.toThrow(/append-only/);
   });
   it("an agency cannot be changed on an existing task", async () => {
     const a = new PgStore(db, agencyA); const [t] = await a.listTasks();

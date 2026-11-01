@@ -2,16 +2,16 @@ import { AGENTS } from "./agents/registry";
 import { makeContext } from "./agents/base";
 import { qaReview, renderQaReport, type QaResult } from "./qa";
 import { renderAgentOutput } from "./render";
-import { aiRecommendations, type LlmProvider } from "./provider";
+import type { AiEngine } from "./ai/engine";
+import { BudgetExceededError } from "./ai/types";
 import type { StorePort } from "./port";
 import { WorkspaceScope } from "./workspace";
-import type { AgentId, AgentOutput, Client, Fact, Task } from "./types";
+import type { AgentId, AgentOutput, Client, Fact, Task, ExecutionRecord } from "./types";
 
-/** Throw this from an agent/runner for failures worth retrying (timeouts, rate limits). */
-export class RecoverableError extends Error { readonly recoverable = true; }
+export { RecoverableError } from "./errors";
 
 export type RunnerFn = (task: Task, scope: WorkspaceScope, client: Client) => Promise<AgentOutput>;
-export type Options = { llm?: LlmProvider; maxConcurrency?: number; maxAttempts?: number; retryDelayMs?: number; runner?: RunnerFn };
+export type Options = { ai?: AiEngine; maxConcurrency?: number; maxAttempts?: number; retryDelayMs?: number; runner?: RunnerFn };
 
 type Step = { key: string; agent: Task["agent"]; step: Task["step"]; description: string; dependsOn: string[]; allowPartial?: boolean; priority?: Task["priority"] };
 
@@ -27,6 +27,18 @@ export const WORKFLOWS: Record<string, (clientName: string) => Step[]> = {
     { key: "G", agent: "orchestrator", step: "consolidate", description: "Consolidate specialist outputs, detect conflicts", dependsOn: ["A", "B", "C", "D", "E", "F"], allowPartial: true },
     { key: "H", agent: "qa", step: "qa", description: "Quality review of all outputs", dependsOn: ["G"], allowPartial: true },
     { key: "I", agent: "orchestrator", step: "deliver", description: "Deliver final audit with QA verdict", dependsOn: ["H"], allowPartial: true },
+  ],
+  full_review: (n) => [
+    { key: "A", agent: "research", step: "agent", description: `Research & market intelligence for ${n}`, dependsOn: [], priority: "high" },
+    { key: "B", agent: "audit_strategy", step: "agent", description: `Business audit & strategy for ${n}`, dependsOn: [], priority: "high" },
+    { key: "C", agent: "social", step: "agent", description: `Social media review for ${n}`, dependsOn: [] },
+    { key: "D", agent: "content", step: "agent", description: `Content strategy readiness for ${n}`, dependsOn: [] },
+    { key: "E", agent: "creative", step: "agent", description: `Creative direction readiness for ${n}`, dependsOn: [] },
+    { key: "F", agent: "seo_web", step: "agent", description: `SEO & website review for ${n}`, dependsOn: [] },
+    { key: "G", agent: "analytics", step: "agent", description: `Analytics & performance for ${n}`, dependsOn: [] },
+    { key: "H", agent: "orchestrator", step: "consolidate", description: "Consolidate specialist outputs, detect conflicts", dependsOn: ["A", "B", "C", "D", "E", "F", "G"], allowPartial: true },
+    { key: "I", agent: "qa", step: "qa", description: "Quality review of all outputs", dependsOn: ["H"], allowPartial: true },
+    { key: "J", agent: "orchestrator", step: "deliver", description: "Deliver final review with QA verdict", dependsOn: ["I"], allowPartial: true },
   ],
   content_plan: (n) => [
     { key: "A", agent: "social", step: "agent", description: `Platform priorities for ${n}`, dependsOn: [] },
@@ -47,9 +59,9 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 export type RunSummary = { runId: string; clientId: string; tasks: Task[]; maxObservedConcurrency: number; finalReport: string | null };
 
 export class Orchestrator {
-  private opts: Required<Omit<Options, "runner" | "llm">> & { runner?: RunnerFn; llm?: LlmProvider };
+  private opts: Required<Omit<Options, "runner" | "ai">> & { runner?: RunnerFn; ai?: AiEngine };
   constructor(private store: StorePort, opts: Options = {}) {
-    this.opts = { maxConcurrency: opts.maxConcurrency ?? 6, maxAttempts: opts.maxAttempts ?? 3, retryDelayMs: opts.retryDelayMs ?? 250, runner: opts.runner, llm: opts.llm };
+    this.opts = { maxConcurrency: opts.maxConcurrency ?? (Number(process.env.HQ_MAX_CONCURRENCY) || 8), maxAttempts: opts.maxAttempts ?? 3, retryDelayMs: opts.retryDelayMs ?? 250, runner: opts.runner, ai: opts.ai };
   }
 
   /** Creates tasks (with ids, deps, client id) without running them. */
@@ -105,8 +117,8 @@ export class Orchestrator {
       for (const t of pending.sort((a, b) => order[a.priority] - order[b.priority])) {
         const deps = t.dependsOn.map((d) => byId.get(d)!);
         if (deps.some((d) => d.status === "PENDING" || d.status === "IN PROGRESS")) continue;
-        if (deps.some((d) => d.status === "FAILED") && !t.allowPartial) {
-          await this.store.patchTask(t.id, { status: "FAILED", error: "Upstream task failed; not run", completedAt: new Date().toISOString() });
+        if (deps.some((d) => d.status === "FAILED" || d.status === "WAITING FOR APPROVAL") && !t.allowPartial) {
+          await this.store.patchTask(t.id, { status: "FAILED", error: "Upstream task failed or is waiting for approval; not run", completedAt: new Date().toISOString() });
           await this.store.log({ clientId, actor: "orchestrator", action: "task.blocked", detail: t.id });
           progressed = true; continue;
         }
@@ -140,22 +152,37 @@ export class Orchestrator {
       attempts++;
       const t = (await this.store.listTasks({ clientId: client.id })).find((x) => x.id === taskId)!;
       await this.store.patchTask(taskId, { attempts });
+      const startedAt = new Date().toISOString();
+      const rec = async (outcome: ExecutionRecord["outcome"], error: string | null) => {
+        const m = outputs.get(taskId)?.meta;
+        await this.store.recordExecution({ id: this.store.newId("exec"), taskId, runId: t.runId, clientId: client.id, agent: t.agent, attempt: attempts, startedAt, endedAt: new Date().toISOString(), outcome,
+          mode: m?.mode ?? (t.step === "agent" ? "rules" : t.step), model: m && m.calls ? m.model ?? null : null, calls: m?.calls ?? 0, inputTokens: m?.inputTokens ?? 0, outputTokens: m?.outputTokens ?? 0, costUsd: m?.costUsd ?? 0, error });
+      };
       try {
         if (t.step === "agent") await this.runAgent(t, client, outputs);
         else if (t.step === "consolidate") await this.consolidate(t, client, outputs);
         else if (t.step === "qa") await this.qa(t, client);
         else await this.deliver(t, client);
+        await rec("ok", null);
         return;
       } catch (e) {
-        const recoverable = (e as { recoverable?: boolean }).recoverable === true;
         const msg = e instanceof Error ? e.message : String(e);
+        if (e instanceof BudgetExceededError) {
+          await this.store.patchTask(taskId, { status: "WAITING FOR APPROVAL", error: `AI ${e.scope} spend limit reached: ${msg} Raise the cap (needs your approval) to continue.`, completedAt: new Date().toISOString() });
+          await this.store.log({ clientId: client.id, actor: t.agent, action: "ai.budget_blocked", detail: `${taskId}: ${e.scope}` });
+          await rec("waiting_approval", msg);
+          return;
+        }
+        const recoverable = (e as { recoverable?: boolean }).recoverable === true;
         if (recoverable && attempts < this.opts.maxAttempts) {
           await this.store.log({ clientId: client.id, actor: t.agent, action: "task.retry", detail: `${taskId} attempt ${attempts}: ${msg}` });
+          await rec("retrying", msg);
           await sleep(this.opts.retryDelayMs * attempts);
           continue;
         }
         await this.store.patchTask(taskId, { status: "FAILED", error: msg, completedAt: new Date().toISOString() });
         await this.store.log({ clientId: client.id, actor: t.agent, action: "task.failed", detail: `${taskId}: ${msg}` });
+        await rec("failed", msg);
         return;
       }
     }
@@ -165,13 +192,9 @@ export class Orchestrator {
     const agent = t.agent as AgentId;
     const def = AGENTS[agent];
     const scope = new WorkspaceScope(this.store, client.id, agent, def.knowledgePermissions);
-    const out = this.opts.runner
-      ? await this.opts.runner(t, scope, client)
-      : def.analyze(makeContext(client.name, await scope.allowedFacts()));
-    if (this.opts.llm && !this.opts.runner && !out.insufficientData) {
-      const facts = await scope.allowedFacts();
-      out.recommendations.push(...(await aiRecommendations(this.opts.llm, def.instructions, client.name, facts.map((f) => `${f.id} | ${f.kb}.${f.key} | ${f.status} | ${f.value}`))));
-    }
+    const facts = await scope.allowedFacts();
+    let out = this.opts.runner ? await this.opts.runner(t, scope, client) : def.analyze(makeContext(client.name, facts));
+    if (this.opts.ai && !this.opts.runner) out = await this.opts.ai.enhance({ task: t, client, def, facts, rules: out });
     outputs.set(t.id, out);
     const md = renderAgentOutput(out, { clientId: client.id, clientName: client.name, taskId: t.id, agent, at: new Date().toISOString() });
     const outputPath = await scope.saveOutput(`${agent}-${t.id}.md`, md);
@@ -224,7 +247,11 @@ export class Orchestrator {
     const seen = new Set<string>();
     for (const { task, out } of done) for (const r of out.recommendations) if (!seen.has(r)) { seen.add(r); L.push(`- (${task.agent}) ${r}`); }
     L.push("", "## Limitations", "");
-    L.push("- Agents are rule-based workspace analysts: they do not browse the web or call ad platforms from this app. Live research and platform data require an AI provider and approved connectors (see Integrations).");
+    const aiRuns = done.filter((d) => d.out.meta?.mode === "ai"), fallbacks = done.filter((d) => d.out.meta?.mode === "rules-fallback");
+    const mockRuns = aiRuns.filter((d) => d.out.meta?.provider === "mock").length;
+    L.push(aiRuns.length ? `- AI was used by ${aiRuns.length} of ${done.length} agents${mockRuns ? ` (${mockRuns} via the MOCK provider: simulated text, not real model reasoning)` : ""}. AI agents reason only over this client's stored facts; every AI finding cites fact ids; they do not browse the web or call ad platforms from this app.` : "- No AI was used in this run: agents ran rule-based checks over stored facts only.");
+    if (fallbacks.length) L.push(`- ${fallbacks.length} agent(s) fell back to rule-based output because the AI reply failed validation: ${fallbacks.map((d) => d.task.agent).join(", ")}.`);
+    L.push("- Live web research and platform data require approved connectors (see Integrations); none is connected.");
     L.push("- Nothing in this report has been published, sent or spent. External actions need explicit approval.", "");
     const rel = await this.store.saveOutput(client.id, `audit-draft-${t.runId}.md`, L.join("\n"));
     await this.store.patchTask(t.id, { status: "UNDER REVIEW", outputPath: rel, completedAt: new Date().toISOString() });

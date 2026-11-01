@@ -20,6 +20,12 @@ export function defaultStore(): StorePort {
   return fileStore();
 }
 export function fileStore() { return new HqStore(process.env.HQ_DATA_DIR ?? path.join(process.cwd(), "data", "hq")); }
-export { anthropicProvider, providerFromEnv } from "./provider";
+export { aiEngineFromEnv, describeAi } from "./ai/config";
+export { summarizeUsage, parallelism } from "./ai/summary";
+export { USD_INR } from "./ai/pricing";
+export { AiEngine } from "./ai/engine";
+export { MockProvider } from "./ai/mock";
+export { BudgetGuard, DEFAULT_CAPS } from "./ai/budget";
+export * from "./ai/types";
 export { PgStore } from "./pgStore";
 export { exportAll, importAll } from "./backup";
