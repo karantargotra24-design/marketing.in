@@ -1,0 +1,27 @@
+# Social media review — Karan Targotra (Personal Brand)
+
+Client ID: karan-personal-brand · Task: task_mvxskr0t225ac7 · Agent: social · Generated: 2026-11-01T12:14:03.839Z
+
+## Summary
+
+Social Media Strategist reviewed 3 stored fact(s) for Karan Targotra (Personal Brand); 2 required input(s) missing.
+
+## Findings
+
+- [CLIENT-PROVIDED] instagram_handle: @karantargotra.a (live Instagram handle) — source: fact_mvxskr07b780cf · artifact:85961743-6db1-4b21-85e0-03dac4b9591b (Capability audit: Karan's personal brand OS, 2026-10-11)
+- [CLIENT-PROVIDED] voice: Brief, direct, lead with the answer; Hinglish-friendly; English for deliverables; honest when an idea is weak; India-aware (₹, local context) — source: fact_mvxskr09b4cabb · user-brief: Karan's standing preferences in this workspace
+- [CLIENT-PROVIDED] previous_content: Prior weekly content work exists: W43 content board/OS (Meta AI Ads week) with a reference-account system, 'Before you press Boost' carousel production package, 5-Pass Reel Carousel, W44 post preview and 'W44 Plan & Stats' (topics, 30-day stats, best posting times). — source: fact_mvxskr0e8b0a90 · artifact:2f2af97a-334e-4d8b-ba93-de5a0acd8dc9 (W44 Plan & Stats) ; artifact:305ef18e-15f1-45f2-80fc-d95ace6aac7b (W43 Content Board)
+
+## Missing information
+
+- audience.target_segments — targeting
+- performance.followers — baseline
+
+## Recommendations
+
+- Profile audit can run once read-only analytics access is approved.
+- No posting happens without approval (Approval Gate).
+
+## Handoffs
+
+- → content: Platform priorities feed the content calendar.

@@ -23,7 +23,7 @@ export async function updateSession(request: NextRequest) {
   const signedIn = Boolean(data?.claims);
   const path = request.nextUrl.pathname;
 
-  if (!signedIn && path.startsWith("/dashboard")) {
+  if (!signedIn && (path.startsWith("/dashboard") || path.startsWith("/hq"))) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
   return response;

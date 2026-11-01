@@ -35,3 +35,6 @@ Copy `.env.example` to `.env.local` when keys are needed (later phases). `.env.l
 
 Without those keys the app stays in **MOCK mode** and shows example clients that are not saved.
 Note: this Supabase project is shared with the Academy app, so Academy students can create logins too. They cannot see anything in Agency OS because they have no agency profile.
+
+## Agency HQ (multi-agent engine)
+Orchestrator, 12 specialist agents, client workspaces, QA and approval gate: see [docs/AGENCY_HQ.md](docs/AGENCY_HQ.md). Run `npm run hq -- audit all`, or open `/hq` in the app.
