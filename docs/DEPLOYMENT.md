@@ -31,7 +31,7 @@
 - No email/WhatsApp/ads integration is connected.
 
 ## Autonomous operation (added 2026-11-01)
-- **Migrations to apply** (additive, in order): `20261101000002_hq_executions.sql`, `20261101000003_hq_agency_ops.sql`. **Neither is applied to the live project yet.** Until both are applied, Postgres mode cannot store runs/deliverables/jobs/schedules/execution history. The file store (local development) works without them. Both are tested on a real Postgres engine (PGlite) together with the earlier migrations.
+- **Migrations** (additive, in order): `20261101000002_hq_executions.sql`, `20261101000003_hq_agency_ops.sql`. **Both applied to the live `marketing-os` project on 2026-11-02**; the security advisor reported no issues. Both are also tested on a real Postgres engine (PGlite) with the earlier migrations.
 - **Background work:** `submitInstruction` queues a job; after the response the server starts the worker in the background; `POST /api/worker` (cron) and the "Run worker now" button also process jobs and due schedules. Jobs are leased with `FOR UPDATE SKIP LOCKED`; a crashed worker's lease expires and the run resumes (IN PROGRESS tasks are reset to PENDING). Failed jobs retry with backoff, then stop as `failed`.
 - **Cron:** Vercel Hobby only allows daily cron. Use `.github/workflows/worker.yml` (every 10 minutes, free): set repo variable `WORKER_URL` and secret `HQ_WORKER_SECRET`. It is inert until both exist.
 - **Env for live AI** (all required): `HQ_AI=live`, `ANTHROPIC_API_KEY`, `HQ_AI_SPEND_APPROVED=1`, caps `HQ_AI_RUN_CAP_USD / DAILY / MONTHLY`.
