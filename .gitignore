@@ -8,3 +8,8 @@ coverage
 *.tsbuildinfo
 next-env.d.ts
 .DS_Store
+
+# Client data and local state never go in git
+data/
+.env.local
+*.pem
