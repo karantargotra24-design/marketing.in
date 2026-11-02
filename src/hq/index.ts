@@ -39,3 +39,4 @@ export type { StorePort, UsageRecord } from "./port";
 export { makeContext } from "./agents/base";
 export { qaDeliverables } from "./ops/handlers";
 export * from "./ops/schemas";
+export { runLiveTest, type LiveTestReport } from "./ops/liveTest";

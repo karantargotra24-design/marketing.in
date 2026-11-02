@@ -35,3 +35,10 @@
 - **Background work:** `submitInstruction` queues a job; after the response the server starts the worker in the background; `POST /api/worker` (cron) and the "Run worker now" button also process jobs and due schedules. Jobs are leased with `FOR UPDATE SKIP LOCKED`; a crashed worker's lease expires and the run resumes (IN PROGRESS tasks are reset to PENDING). Failed jobs retry with backoff, then stop as `failed`.
 - **Cron:** Vercel Hobby only allows daily cron. Use `.github/workflows/worker.yml` (every 10 minutes, free): set repo variable `WORKER_URL` and secret `HQ_WORKER_SECRET`. It is inert until both exist.
 - **Env for live AI** (all required): `HQ_AI=live`, `ANTHROPIC_API_KEY`, `HQ_AI_SPEND_APPROVED=1`, caps `HQ_AI_RUN_CAP_USD / DAILY / MONTHLY`.
+
+## Controlled first live AI test (₹100 cap)
+One client, one agent (Research), one task. Free dry run first:
+```bash
+HQ_AI=mock npm run hq -- live-test pahadi-origin
+```
+Real run (only after you approve the spend): set `ANTHROPIC_API_KEY`, `HQ_AI=live`, `HQ_AI_SPEND_APPROVED=1` and `HQ_LIVE_TEST_APPROVED=1`, then run the same command. Caps are clamped to ₹100. The report checks completion, cost, citations, QA and a secret-leak scan; exit code 0 = PASS.

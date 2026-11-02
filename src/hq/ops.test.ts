@@ -15,6 +15,7 @@ import { approvePlan, createSchedule, nextRun, processJobs, submitInstruction, t
 import { decideApproval } from "./approvals";
 import type { ContentItemBody } from "./ops/schemas";
 import type { StorePort } from "./port";
+import { runLiveTest } from "./ops/liveTest";
 
 let store: HqStore;
 const CAPS: Caps = { runUsd: 50, dailyUsd: 500, monthlyUsd: 5000 };
@@ -360,3 +361,22 @@ describe("approvals of produced work", () => {
   });
 });
 export type { StorePort };
+
+describe("controlled live test harness (mock dry run, no spend)", () => {
+  const MOCK = { HQ_AI: "mock" } as Record<string, string>;
+  it("passes in mock mode with one call and cost within cap", async () => {
+    const r = await runLiveTest(store, { clientId: "pahadi-origin", env: MOCK });
+    expect(r.failures).toEqual([]);
+    expect(r).toMatchObject({ verdict: "PASS", mode: "mock", secretLeaks: 0, invalidCitations: 0 });
+    expect(r.costInr).toBeLessThanOrEqual(100);
+  });
+  it("refuses without a mode, without live approval, and for unknown clients", async () => {
+    await expect(runLiveTest(store, { clientId: "pahadi-origin", env: {} })).rejects.toThrow(/HQ_AI=mock/);
+    await expect(runLiveTest(store, { clientId: "pahadi-origin", env: { HQ_AI: "live", ANTHROPIC_API_KEY: "k", HQ_AI_SPEND_APPROVED: "1" } })).rejects.toThrow(/Live test blocked/);
+    await expect(runLiveTest(store, { clientId: "nope", env: MOCK })).rejects.toThrow(/Unknown client/);
+  });
+  it("fails (not passes) when the budget is too small", async () => {
+    const r = await runLiveTest(store, { clientId: "pahadi-origin", env: MOCK, maxInr: 0.0000001 });
+    expect(r.verdict).toBe("FAIL");
+  });
+});

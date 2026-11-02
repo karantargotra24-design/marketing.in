@@ -279,6 +279,15 @@ describe("real-provider adapters against a fake HTTP layer (no real network, no 
     expect(JSON.stringify(seen!.body)).not.toContain(FAKE_KEY2);
     expect(seen!.body).not.toHaveProperty("temperature");
   });
+  it("anthropic: thinking is set per model (sonnet between_tools, haiku disabled, others untouched)", async () => {
+    const seen: Record<string, unknown>[] = [];
+    const f = (async (_u: string, init: RequestInit) => { seen.push(JSON.parse(init.body as string)); return new Response(JSON.stringify({ content: [{ type: "text", text: "x" }], usage: { input_tokens: 1, output_tokens: 1 }, stop_reason: "end_turn" })); }) as unknown as typeof fetch;
+    const p = anthropicProvider({ apiKey: "k", fetchImpl: f });
+    for (const model of ["claude-sonnet-5-5", "claude-haiku-5-5", "claude-opus-5-5"]) await p.complete({ ...req, model });
+    expect(seen[0].thinking).toEqual({ type: "between_tools" });
+    expect(seen[1].thinking).toEqual({ type: "disabled" });
+    expect(seen[2]).not.toHaveProperty("thinking");
+  });
   it("anthropic: 429/5xx/network errors are recoverable; 400 is fatal and never echoes the body or key", async () => {
     await expect(anthropicProvider({ apiKey: "k", fetchImpl: json({}, 429) }).complete(req)).rejects.toBeInstanceOf(RecoverableError);
     await expect(anthropicProvider({ apiKey: "k", fetchImpl: json({}, 529) }).complete(req)).rejects.toBeInstanceOf(RecoverableError);

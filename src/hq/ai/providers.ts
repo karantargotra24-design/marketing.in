@@ -1,6 +1,16 @@
 import { RecoverableError } from "../errors";
 import { AiRefusalError, type LlmProvider, type LlmRequest, type LlmResponse } from "./types";
 
+/**
+ * Structured JSON jobs do not need extended reasoning, and thinking tokens are billed as output and can exhaust max_tokens before any JSON is written.
+ * Sonnet 5.5 rejects {type:"disabled"} (400): its "off" is {type:"between_tools"}. Haiku 5.5 accepts "disabled" at effort <= high.
+ * Opus/Fable cannot turn thinking off, so the field is omitted (adaptive).
+ */
+export function thinkingFor(model: string): { thinking?: { type: string } } {
+  if (model.startsWith("claude-sonnet-5-5")) return { thinking: { type: "between_tools" } };
+  if (model.startsWith("claude-haiku-5-5")) return { thinking: { type: "disabled" } };
+  return {};
+}
 const retryable = (status: number) => status === 408 || status === 429 || status >= 500;
 
 /** Anthropic Messages API. Never constructed unless live AI is enabled AND spend approved. NOT yet tested against the real service. */
@@ -14,7 +24,7 @@ export function anthropicProvider(opts: { apiKey: string; effort?: "low" | "medi
         res = await f(`${opts.baseUrl ?? "https://api.anthropic.com"}/v1/messages`, {
           method: "POST",
           headers: { "x-api-key": opts.apiKey, "anthropic-version": "2023-06-01", "content-type": "application/json" },
-          body: JSON.stringify({ model: req.model, max_tokens: req.maxTokens, system: req.system, messages: [{ role: "user", content: req.user }], output_config: { effort: opts.effort ?? "medium" } }),
+          body: JSON.stringify({ model: req.model, max_tokens: req.maxTokens, system: req.system, messages: [{ role: "user", content: req.user }], output_config: { effort: opts.effort ?? "medium" }, ...thinkingFor(req.model) }),
         });
       } catch (e) { throw new RecoverableError(`AI provider unreachable: ${(e as Error).message}`); }
       if (retryable(res.status)) throw new RecoverableError(`AI provider ${res.status}`);
