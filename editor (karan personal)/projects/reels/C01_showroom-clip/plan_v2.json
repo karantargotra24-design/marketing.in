@@ -1,0 +1,5 @@
+{"effects": [
+ {"fx": "orbit", "start": 0.4, "end": 2.3, "images": "cards", "count": "6"},
+ {"fx": "lean-in", "start": 2.42, "end": 3.6},
+ {"fx": "lean-in", "start": 5.47, "end": 6.4}
+]}

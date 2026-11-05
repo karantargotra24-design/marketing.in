@@ -1,0 +1,2 @@
+# Skill: Quality Control and Analytics
+Check factual accuracy, source traceability, originality, audience relevance, hook strength, usefulness, readability, brand fit, CTA fit, and repetition. Revise weak dimensions. When metrics exist, compare appropriate outcomes such as saves, shares, profile visits, clicks, and leads; distinguish observations from causal claims. Update learning logs only with traceable evidence.

@@ -1,0 +1,6 @@
+# Biometric data (face + voice) never goes to git/GitHub. Keep it local or in private Drive.
+references/**
+voice/original-recordings/**
+voice/processed-audio/**
+generated/**
+!**/.gitkeep

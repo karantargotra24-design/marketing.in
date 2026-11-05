@@ -1,0 +1,11 @@
+# Raw media stays out of git (too heavy). Keep contact sheets + notes instead.
+*.mp4
+*.mov
+*.wav
+*.mp3
+projects/*/*/build/
+projects/*/*/*/build/
+build_glass/
+build_bd/
+projects/*/*/build_final/
+*.zip

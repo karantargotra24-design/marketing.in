@@ -1,0 +1,12 @@
+Most marketers use AI for one thing: captions.
+
+Here are 5 tasks I'd hand over first:
+1. Caption drafts (ChatGPT)
+2. Summarising long briefs and meeting notes (Claude)
+3. Fast topic research, with sources you verify (Gemini)
+4. Resizing one design for every format (Canva)
+5. Drafting replies to the DMs you get every day
+
+AI writes the first draft. You make it yours.
+
+Comment "TASKS" if you want the prompts.

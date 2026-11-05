@@ -1,0 +1,11 @@
+# QC Checklist (run before every delivery)
+- [ ] Sub-style consistent (fonts, caption position, colours)
+- [ ] Hook in first second
+- [ ] Captions = speech, spelling + brand names checked
+- [ ] Text inside IG safe zones, not on face
+- [ ] No unsourced stats
+- [ ] Cuts on beat, audio smooth
+- [ ] -14 LUFS ±1, peak ≤ -1 dBTP  (`ffmpeg -i out.mp4 -af ebur128 -f null -`)
+- [ ] Hinglish throughout; Comment "AI" pill CTA present
+- [ ] 1080×1920, correct fps, versioned filename
+- [ ] Original file untouched
