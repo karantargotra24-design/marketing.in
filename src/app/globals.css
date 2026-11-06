@@ -1,1 +1,164 @@
 @import "tailwindcss";
+
+/* Portfolio brand tokens. Mirror of src/portfolio/brand.ts — edit both together. */
+@theme {
+  --color-ink: #0a0a0a;
+  --color-surface: #141312;
+  --color-brand: #ff4d1f;
+  --color-brand-2: #c7361a;
+  --color-fog: #f3f1ec;
+  --color-mist: #8f8a84;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* "inline" so the font variables resolve on the .portfolio element where next/font defines them */
+@theme inline {
+  --font-display: var(--font-display-face), Impact, "Arial Narrow", sans-serif;
+  --font-body: var(--font-body-face), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-face), ui-monospace, SFMono-Regular, monospace;
+}
+
+/* ---------- Portfolio (public site) ---------- */
+html:has(.portfolio) {
+  background: var(--color-ink);
+  color-scheme: dark;
+}
+html:has(.portfolio) body {
+  background: var(--color-ink);
+  color: var(--color-fog);
+}
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+/* Heavy condensed display face: always uppercase, never faux-bold */
+.portfolio .font-display {
+  text-transform: uppercase;
+  letter-spacing: 0.004em;
+  font-weight: 400;
+  font-synthesis: none;
+}
+
+.portfolio ::selection {
+  background: var(--color-brand);
+  color: var(--color-ink);
+}
+
+/* Hide native cursor only on fine pointers once the custom cursor is mounted */
+@media (pointer: fine) {
+  html.has-custom-cursor .portfolio,
+  html.has-custom-cursor .portfolio a,
+  html.has-custom-cursor .portfolio button {
+    cursor: none;
+  }
+}
+
+.glass {
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.07), rgb(255 255 255 / 0.02));
+  border: 1px solid rgb(255 255 255 / 0.09);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+}
+
+.text-gradient {
+  background: linear-gradient(100deg, var(--color-brand) 30%, #ff7a45 70%, var(--color-brand) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.grid-lines {
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 75%);
+}
+
+/* Animated gradient blobs for the hero */
+@keyframes blob-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(12vw, -6vh) scale(1.15); }
+  66% { transform: translate(-8vw, 8vh) scale(0.92); }
+}
+@keyframes blob-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-14vw, -10vh) scale(1.2); }
+}
+.blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  will-change: transform;
+}
+.blob-a { animation: blob-a 18s ease-in-out infinite; }
+.blob-b { animation: blob-b 22s ease-in-out infinite; }
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+.float-slow { animation: float-y 7s ease-in-out infinite; }
+.float-mid { animation: float-y 5.5s ease-in-out infinite; }
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+.marquee-track { animation: marquee 32s linear infinite; }
+
+/* Spotlight that follows the pointer inside service cards */
+.spotlight {
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgb(255 77 31 / 0.18), transparent 45%);
+}
+
+/* Small looping "previews" used in project visuals */
+@keyframes rise { 0% { transform: scaleY(0.25); } 50% { transform: scaleY(1); } 100% { transform: scaleY(0.25); } }
+@keyframes slide-x { to { transform: translateX(-50%); } }
+@keyframes pulse-ring { 0% { transform: scale(0.6); opacity: 0.8; } 100% { transform: scale(2.2); opacity: 0; } }
+@keyframes drive { 0% { transform: translateX(-20%); } 100% { transform: translateX(120%); } }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+.anim-rise { animation: rise 2.6s ease-in-out infinite; transform-origin: bottom; }
+.anim-slide { animation: slide-x 14s linear infinite; }
+.anim-pulse { animation: pulse-ring 2.4s ease-out infinite; }
+.anim-drive { animation: drive 3.8s linear infinite; }
+.anim-blink { animation: blink 1.6s ease-in-out infinite; }
+
+/* Pause decorative loops when the card is off-screen (set by IntersectionObserver) */
+[data-paused="true"] * {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio *,
+  .portfolio *::before,
+  .portfolio *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Hard-cut "slam" for frames: two steps, no easing curve */
+@keyframes slam {
+  from { transform: scale(1.08); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.slam { animation: slam 140ms steps(2, end) both; }
+.marquee-slow { animation: marquee 80s linear infinite; }
