@@ -7,7 +7,7 @@ Plan: [docs/ARCHITECTURE_PLAN.md](docs/ARCHITECTURE_PLAN.md)
 1. Install Node.js 20 or newer from https://nodejs.org (choose "LTS").
 2. Open a terminal in this folder and run: `npm install`
 3. Start the app: `npm run dev`
-4. Open http://localhost:3000 on your computer. You should see "Setup OK".
+4. Open http://localhost:3000 to see the portfolio website. The old "Setup OK" status page is now at http://localhost:3000/setup.
 
 No accounts, API keys or passwords are needed in this phase.
 
@@ -35,3 +35,16 @@ Copy `.env.example` to `.env.local` when keys are needed (later phases). `.env.l
 
 Without those keys the app stays in **MOCK mode** and shows example clients that are not saved.
 Note: this Supabase project is shared with the Academy app, so Academy students can create logins too. They cannot see anything in Agency OS because they have no agency profile.
+
+## Portfolio website (public, at `/`)
+Animated agency portfolio: Next.js + Tailwind + Framer Motion + GSAP ScrollTrigger + Lenis smooth scroll + Lucide icons.
+
+| What to change | File |
+|---|---|
+| Name, email, phone, WhatsApp number, social links, brand colours | `src/portfolio/brand.ts` (+ colour tokens at the top of `src/app/globals.css`) |
+| Projects, case studies, services, stats, process steps | `src/portfolio/data.ts` |
+| Project videos | Put an `.mp4` in `public/work/` and set `video: "/work/name.mp4"` on the project. It loads only when the card is on screen. |
+
+Pages: `/` (home) and `/work/<project-slug>` (one case study per project, built automatically from `data.ts`).
+
+**Before publishing:** all project numbers, client descriptions and contact details in `data.ts` / `brand.ts` are sample placeholders. Replace them with your real, client-approved figures.
