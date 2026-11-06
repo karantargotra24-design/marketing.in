@@ -90,7 +90,7 @@ export function CaseStudy({ project: p, next }: { project: Project; next: Projec
         <div className="md:sticky md:top-32 md:self-start">
           <Eyebrow>The challenge</Eyebrow>
         </div>
-        <RevealHeading text={p.challenge} as="h2" className="font-display text-2xl font-medium leading-snug tracking-tight md:text-4xl" />
+        <RevealHeading text={p.challenge} as="h2" className="font-body text-2xl font-semibold leading-snug tracking-tight md:text-4xl" />
 
         <div className="md:sticky md:top-32 md:self-start">
           <Eyebrow>Strategy</Eyebrow>
@@ -119,7 +119,7 @@ export function CaseStudy({ project: p, next }: { project: Project; next: Projec
           <Eyebrow>Outcome</Eyebrow>
         </div>
         <div>
-          <RevealHeading text={p.outcome} as="h2" className="font-display text-2xl font-medium leading-snug tracking-tight md:text-4xl" />
+          <RevealHeading text={p.outcome} as="h2" className="font-body text-2xl font-semibold leading-snug tracking-tight md:text-4xl" />
           <div className="mt-10">
             <MagneticButton href={whatsappLink(`Hi Karan, I saw the "${p.title}" case study. I'd like something similar.`)} external>
               Get results like this <ArrowUpRight size={18} />

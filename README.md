@@ -41,7 +41,8 @@ Animated agency portfolio: Next.js + Tailwind + Framer Motion + GSAP ScrollTrigg
 
 | What to change | File |
 |---|---|
-| Name, email, phone, WhatsApp number, social links, brand colours | `src/portfolio/brand.ts` (+ colour tokens at the top of `src/app/globals.css`) |
+| Name, email, phone, WhatsApp number, social links, brand colours (now near-black #0A0A0A + ember #FF4D1F + warm white #F3F1EC) | `src/portfolio/brand.ts` (+ colour tokens at the top of `src/app/globals.css`) |
+| Fonts (Anton headlines, Inter body, JetBrains Mono labels) | `src/app/(site)/layout.tsx` |
 | Projects, case studies, services, stats, process steps | `src/portfolio/data.ts` |
 | Project videos | Put an `.mp4` in `public/work/` and set `video: "/work/name.mp4"` on the project. It loads only when the card is on screen. |
 

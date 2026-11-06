@@ -28,7 +28,7 @@ export function Services() {
         <div className="mb-14 grid gap-6 md:mb-20 md:grid-cols-2 md:items-end">
           <div>
             <Eyebrow>Services</Eyebrow>
-            <RevealHeading text="Everything you need to grow, under one roof." className="font-display text-4xl font-semibold leading-[1.02] tracking-tight md:text-6xl" />
+            <RevealHeading text="Everything you need to grow, *under *one *roof." className="font-display text-4xl font-semibold leading-[1.02] tracking-tight md:text-6xl" />
           </div>
           <p className="max-w-md text-mist md:justify-self-end md:text-lg">
             Strategy, creatives, ads and follow-up handled by one team, so nothing gets lost between agencies.

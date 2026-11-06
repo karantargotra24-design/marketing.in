@@ -32,7 +32,7 @@ export function Contact() {
       <div className="relative mx-auto grid max-w-7xl gap-14 px-5 md:px-8 lg:grid-cols-[1.1fr_1fr]">
         <div>
           <Eyebrow>Let&apos;s connect</Eyebrow>
-          <RevealHeading text="Ready for leads that actually convert?" className="font-display text-5xl font-semibold leading-[0.98] tracking-tight md:text-7xl" />
+          <RevealHeading text="Ready for leads that *actually *convert?" className="font-display text-5xl font-semibold leading-[0.98] tracking-tight md:text-7xl" />
           <p className="mt-6 max-w-md text-mist md:text-lg">
             Free 20-minute audit call. I&apos;ll look at your ads, funnel and follow-up, and tell you honestly what to fix first.
           </p>

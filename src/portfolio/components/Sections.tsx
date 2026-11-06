@@ -32,7 +32,7 @@ export function About() {
     <section className="mx-auto max-w-6xl px-5 py-24 md:px-8 md:py-40">
       <Eyebrow>Why brands work with me</Eyebrow>
       <ScrubText
-        className="font-display text-3xl font-medium leading-[1.15] tracking-tight md:text-6xl"
+        className="font-body text-3xl font-semibold leading-[1.15] tracking-tight md:text-6xl"
         text="Most agencies sell posts. I sell *outcomes. Every campaign starts with your numbers: cost per lead, showroom visits, site visits, *revenue. Then we build creatives and funnels that move them, and report in plain language every week."
       />
     </section>
@@ -82,7 +82,7 @@ export function Process() {
   return (
     <section id="process" className="mx-auto max-w-7xl scroll-mt-24 px-5 py-24 md:px-8 md:py-36">
       <Eyebrow>How we work</Eyebrow>
-      <RevealHeading text="From first call to first lead in 7 days." className="max-w-4xl font-display text-4xl font-semibold leading-[1.02] tracking-tight md:text-6xl" />
+      <RevealHeading text="From first call to *first *lead *in *7 *days." className="max-w-4xl font-display text-4xl font-semibold leading-[1.02] tracking-tight md:text-6xl" />
       <div ref={ref} className="relative mt-16">
         <div className="absolute left-0 right-0 top-6 hidden h-px bg-white/10 md:block">
           <div data-line className="h-full origin-left bg-gradient-to-r from-brand to-brand-2" />

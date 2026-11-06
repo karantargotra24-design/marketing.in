@@ -33,7 +33,7 @@ export function Work() {
       <div className="mb-12 flex flex-col gap-8 md:mb-16 md:flex-row md:items-end md:justify-between">
         <div>
           <Eyebrow>Selected work</Eyebrow>
-          <RevealHeading text="Campaigns that paid for themselves." className="max-w-3xl font-display text-4xl font-semibold leading-[1.02] tracking-tight md:text-7xl" />
+          <RevealHeading text="Campaigns that *paid *for *themselves." className="max-w-3xl font-display text-4xl font-semibold leading-[1.02] tracking-tight md:text-7xl" />
         </div>
         <LayoutGroup id="filters">
           <div role="tablist" aria-label="Filter projects" className="-mx-5 flex gap-1 overflow-x-auto px-5 pb-1 [scrollbar-width:none] md:mx-0 md:flex-wrap md:px-0">

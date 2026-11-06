@@ -2,15 +2,20 @@
 
 /* Portfolio brand tokens. Mirror of src/portfolio/brand.ts — edit both together. */
 @theme {
-  --color-ink: #07090b;
-  --color-surface: #0e1215;
-  --color-brand: #2ee59d;
-  --color-brand-2: #0fb5a6;
-  --color-fog: #eef2f0;
-  --color-mist: #8a958f;
-  --font-display: var(--font-display-face), ui-sans-serif, system-ui, sans-serif;
-  --font-body: var(--font-body-face), ui-sans-serif, system-ui, sans-serif;
+  --color-ink: #0a0a0a;
+  --color-surface: #141312;
+  --color-brand: #ff4d1f;
+  --color-brand-2: #c7361a;
+  --color-fog: #f3f1ec;
+  --color-mist: #8f8a84;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* "inline" so the font variables resolve on the .portfolio element where next/font defines them */
+@theme inline {
+  --font-display: var(--font-display-face), Impact, "Arial Narrow", sans-serif;
+  --font-body: var(--font-body-face), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-face), ui-monospace, SFMono-Regular, monospace;
 }
 
 /* ---------- Portfolio (public site) ---------- */
@@ -31,6 +36,14 @@ html.lenis body {
 }
 .lenis.lenis-stopped {
   overflow: clip;
+}
+
+/* Heavy condensed display face: always uppercase, never faux-bold */
+.portfolio .font-display {
+  text-transform: uppercase;
+  letter-spacing: 0.004em;
+  font-weight: 400;
+  font-synthesis: none;
 }
 
 .portfolio ::selection {
@@ -55,7 +68,7 @@ html.lenis body {
 }
 
 .text-gradient {
-  background: linear-gradient(100deg, var(--color-brand) 10%, var(--color-brand-2) 60%, var(--color-fog) 110%);
+  background: linear-gradient(100deg, var(--color-brand) 30%, #ff7a45 70%, var(--color-brand) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -112,7 +125,7 @@ html.lenis body {
 
 /* Spotlight that follows the pointer inside service cards */
 .spotlight {
-  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgb(46 229 157 / 0.16), transparent 45%);
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgb(255 77 31 / 0.18), transparent 45%);
 }
 
 /* Small looping "previews" used in project visuals */

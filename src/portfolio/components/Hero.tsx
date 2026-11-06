@@ -5,6 +5,7 @@ import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTrans
 import { ArrowDown, ArrowUpRight, BadgeIndianRupee, BellRing, TrendingUp } from "lucide-react";
 import { BRAND } from "../brand";
 import { MagneticButton } from "./Magnetic";
+import { CursorChips } from "./CursorChips";
 
 const ROTATING = ["leads.", "sales.", "footfall.", "growth."];
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -12,17 +13,26 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 function SplitLine({ text, delay = 0, className = "" }: { text: string; delay?: number; className?: string }) {
   return (
     <span className={`block overflow-hidden pb-[0.08em] ${className}`} aria-hidden>
-      {text.split("").map((ch, i) => (
-        <motion.span
-          key={i}
-          className="inline-block will-change-transform"
-          initial={{ y: "110%", rotate: 8 }}
-          animate={{ y: 0, rotate: 0 }}
-          transition={{ delay: delay + i * 0.028, duration: 0.9, ease: EASE }}
-        >
-          {ch === " " ? " " : ch}
-        </motion.span>
-      ))}
+      {text.split(" ").map((word, w, words) => {
+        // Letters are grouped per word so a line can only wrap between words.
+        const start = words.slice(0, w).join(" ").length + (w ? 1 : 0);
+        return (
+          <span key={w} className="inline-block whitespace-nowrap">
+            {word.split("").map((ch, i) => (
+              <motion.span
+                key={i}
+                className="inline-block will-change-transform"
+                initial={{ y: "110%", rotate: 8 }}
+                animate={{ y: 0, rotate: 0 }}
+                transition={{ delay: delay + (start + i) * 0.028, duration: 0.9, ease: EASE }}
+              >
+                {ch}
+              </motion.span>
+            ))}
+            {w < words.length - 1 && "\u00A0"}
+          </span>
+        );
+      })}
     </span>
   );
 }
@@ -42,7 +52,7 @@ function RotatingWord() {
           animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
           exit={{ y: "-100%", opacity: 0, filter: "blur(8px)" }}
           transition={{ duration: 0.7, ease: EASE }}
-          className="text-gradient inline-block pb-[0.08em]"
+          className="inline-block pb-[0.08em] text-brand"
         >
           {ROTATING[i]}
         </motion.span>
@@ -113,18 +123,19 @@ export function Hero() {
 
       {/* Dynamic gradient background */}
       <div aria-hidden className="absolute inset-0 -z-0">
-        <div className="blob blob-a left-[8%] top-[12%] h-[42vw] w-[42vw] max-h-[620px] max-w-[620px] bg-brand/25" />
-        <div className="blob blob-b right-[2%] top-[30%] h-[36vw] w-[36vw] max-h-[540px] max-w-[540px] bg-brand-2/25" />
+        <div className="blob blob-a left-[8%] top-[12%] h-[42vw] w-[42vw] max-h-[620px] max-w-[620px] bg-brand/15" />
+        <div className="blob blob-b right-[2%] top-[30%] h-[36vw] w-[36vw] max-h-[540px] max-w-[540px] bg-brand-2/20" />
         <div className="grid-lines absolute inset-0" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-ink" />
       </div>
+      <CursorChips />
 
       <motion.div style={{ scale, opacity, filter: blur }} className="relative z-10 mx-auto w-full max-w-7xl px-5 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9, duration: 0.8, ease: EASE }}
-          className="glass mb-8 inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs text-fog/80 md:text-sm"
+          className="glass mb-8 inline-flex items-center gap-2 rounded-full px-4 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-fog/80 md:text-xs"
         >
           <span className="relative flex h-2 w-2">
             <span className="anim-pulse absolute inline-flex h-full w-full rounded-full bg-brand" />
@@ -133,10 +144,10 @@ export function Hero() {
           Taking 3 new growth partners this quarter · {BRAND.city}
         </motion.div>
 
-        <h1 className="font-display text-[13vw] font-semibold leading-[0.92] tracking-[-0.045em] sm:text-[10vw] lg:text-[8.6rem]">
+        <h1 className="font-display text-[16vw] leading-[0.9] sm:text-[12vw] lg:text-[10.5rem]">
           <span className="sr-only">We turn attention into leads, sales, footfall and growth.</span>
           <SplitLine text="We turn" delay={0.8} />
-          <SplitLine text="attention into" delay={0.95} className="text-fog/90" />
+          <SplitLine text="attention into" delay={0.95} />
           <motion.span
             aria-hidden
             className="block"

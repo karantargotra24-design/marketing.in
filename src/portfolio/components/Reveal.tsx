@@ -40,7 +40,7 @@ export function Reveal({ children, className = "", stagger = 0.08, as: Tag = "di
   );
 }
 
-/** Headline whose words slide up from a mask when scrolled into view. */
+/** Headline whose words slide up from a mask when scrolled into view. Prefix a word with * to colour it in the accent. */
 export function RevealHeading({ text, className = "", as: Tag = "h2" }: { text: string; className?: string; as?: "h1" | "h2" | "h3" }) {
   const ref = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
@@ -59,11 +59,11 @@ export function RevealHeading({ text, className = "", as: Tag = "h2" }: { text: 
     return () => ctx.revert();
   }, []);
   return (
-    <Tag ref={ref} className={className} aria-label={text}>
+    <Tag ref={ref} className={className} aria-label={text.replace(/\*/g, "")}>
       {text.split(" ").map((w, i) => (
         <span key={i} className="inline-block overflow-hidden pb-[0.1em] align-bottom" aria-hidden>
-          <span data-word className="inline-block will-change-transform">
-            {w}
+          <span data-word className={`inline-block will-change-transform ${w.startsWith("*") ? "text-brand" : ""}`}>
+            {w.replace(/^\*/, "")}
             {" "}
           </span>
         </span>
@@ -100,7 +100,7 @@ export function ScrubText({ text, className = "" }: { text: string; className?: 
 
 export function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mb-5 inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.25em] text-brand">
+    <div className="mb-5 inline-flex items-center gap-2 font-mono text-[11px] font-medium uppercase tracking-[0.25em] text-brand">
       <span className="h-px w-8 bg-brand" />
       {children}
     </div>

@@ -36,7 +36,7 @@ export function Footer() {
         </div>
         <p
           aria-hidden
-          className="pointer-events-none mt-16 select-none text-center font-display text-[18vw] font-bold leading-none tracking-[-0.06em] text-transparent [-webkit-text-stroke:1px_rgb(238_242_240/0.12)]"
+          className="pointer-events-none mt-16 select-none text-center font-display text-[18vw] font-bold leading-none tracking-[-0.06em] text-transparent [-webkit-text-stroke:1px_rgb(243_241_236/0.12)]"
         >
           ScapeMedia
         </p>

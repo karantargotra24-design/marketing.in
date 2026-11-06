@@ -59,7 +59,7 @@ export function Cursor() {
         animate={{
           width: size,
           height: size,
-          backgroundColor: label ? "rgb(46 229 157 / 1)" : hovering ? "rgb(46 229 157 / 0.12)" : "rgb(46 229 157 / 0)",
+          backgroundColor: label ? "rgb(255 77 31 / 1)" : hovering ? "rgb(255 77 31 / 0.14)" : "rgb(255 77 31 / 0)",
           scale: down ? 0.85 : 1,
         }}
         transition={{ type: "spring", stiffness: 300, damping: 24 }}

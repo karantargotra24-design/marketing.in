@@ -70,7 +70,7 @@ function Art({ kind }: { kind: VisualKind }) {
   }
 }
 
-const bg = "absolute inset-0 bg-[radial-gradient(120%_90%_at_80%_0%,rgb(46_229_157/0.22),transparent_55%),radial-gradient(90%_80%_at_0%_100%,rgb(15_181_166/0.2),transparent_60%)]";
+const bg = "absolute inset-0 bg-[radial-gradient(120%_90%_at_80%_0%,rgb(255_77_31/0.22),transparent_55%),radial-gradient(90%_80%_at_0%_100%,rgb(199_54_26/0.18),transparent_60%)]";
 
 function CarArt() {
   return (
@@ -232,13 +232,13 @@ function BrandArt() {
             <span key={k} className="flex gap-10 pr-10">
               <span className="text-fog/90">Crafted</span>
               <span className="text-gradient">for Jammu</span>
-              <span className="text-transparent [-webkit-text-stroke:1px_rgb(238_242_240/0.4)]">homes</span>
+              <span className="text-transparent [-webkit-text-stroke:1px_rgb(243_241_236/0.4)]">homes</span>
             </span>
           ))}
         </div>
       </div>
       <div className="absolute bottom-5 left-5 flex gap-2">
-        {["#2EE59D", "#0FB5A6", "#EEF2F0", "#0E1215"].map((c) => (
+        {["#FF4D1F", "#C7361A", "#F3F1EC", "#141312"].map((c) => (
           <span key={c} className="h-6 w-6 rounded-full border border-white/20" style={{ background: c }} />
         ))}
       </div>

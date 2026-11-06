@@ -1,5 +1,6 @@
 /**
  * ONE place for brand identity. Change these values and the whole portfolio follows.
+ * Palette taken from the reference video (near-black, ember orange-red, warm white).
  * Colours are mirrored as CSS variables in src/app/globals.css (`.portfolio` block):
  * keep both in sync if you edit them.
  */
@@ -15,12 +16,12 @@ export const BRAND = {
   instagram: "https://instagram.com/scapemedia",
   linkedin: "https://linkedin.com/in/karantargotra",
   colors: {
-    ink: "#07090B",
-    surface: "#0E1215",
-    primary: "#2EE59D",
-    secondary: "#0FB5A6",
-    text: "#EEF2F0",
-    muted: "#8A958F",
+    ink: "#0A0A0A",
+    surface: "#141312",
+    primary: "#FF4D1F",
+    secondary: "#C7361A",
+    text: "#F3F1EC",
+    muted: "#8F8A84",
   },
 } as const;
 
