@@ -6,7 +6,7 @@
  * Showing invented results to prospects is a trust (and legal) risk.
  */
 
-export type VisualKind = "ads" | "car" | "property" | "funnel" | "social" | "brand";
+export type VisualKind = "ads" | "car" | "property" | "funnel" | "social" | "brand" | "pipeline";
 export type TileSize = "lg" | "wide" | "tall" | "sm";
 
 export type Metric = { value: number; prefix?: string; suffix?: string; label: string; decimals?: number };
@@ -31,7 +31,7 @@ export type Project = {
   outcome: string;
 };
 
-export const CATEGORIES = ["All", "Meta Ads", "Automotive", "Real Estate", "Lead Gen", "Social", "Brand"] as const;
+export const CATEGORIES = ["All", "Meta Ads", "Automotive", "Real Estate", "Lead Gen", "Social", "Brand", "AI Automation"] as const;
 
 export const PROJECTS: Project[] = [
   {
@@ -63,6 +63,36 @@ export const PROJECTS: Project[] = [
     ],
     outcome:
       "Lead quality rose fast enough that the dealership moved budget from print to Meta and asked for a service-department campaign.",
+  },
+  {
+    slug: "personal-brand-content-os",
+    title: "Personal Brand Content OS",
+    client: "My own system · Claude + Canva",
+    category: "AI Automation",
+    year: "2026",
+    summary: "An AI content engine: one weekly command turns brand memory and research into 2 carousels and 2 static posts, ready for Canva.",
+    tags: ["AI Automation", "Claude", "Canva", "Instagram"],
+    size: "wide",
+    visual: "pipeline",
+    metrics: [
+      { value: 4, suffix: "/wk", label: "Posts planned per week" },
+      { value: 8, label: "Reusable skill modules" },
+      { value: 1, label: "Command to run the week" },
+    ],
+    challenge:
+      "Consistent personal-brand content takes hours every week: research, hooks, slide copy, captions, design briefs and tracking what already worked.",
+    strategy: [
+      "Brand memory first: a profile, content log, performance log and learning log the system reads every run.",
+      "Eight skill modules: research, weekly strategy, carousel storytelling, static creative, captions & CTA, visual direction, quality and analytics.",
+      "Fixed weekly output: exactly 2 Instagram carousels and 2 static posts, with sources for every factual claim.",
+    ],
+    execution: [
+      "Claude Project instructions plus a one-line weekly run command.",
+      "Canva-ready briefs mapped to Brand Kit templates for carousels and statics.",
+      "Automation blueprint for Make or Zapier and a scheduler, with drafts and human approval before anything is published.",
+    ],
+    outcome:
+      "A repeatable content week that learns from its own performance log, and a blueprint I now adapt for client brands.",
   },
   {
     slug: "propedia",
@@ -222,3 +252,24 @@ export const PROCESS = [
 ];
 
 export const getProject = (slug: string) => PROJECTS.find((p) => p.slug === slug);
+
+/** Personal portfolio copy (first person). */
+export const PERSON = {
+  first: "Karan",
+  last: "Targotra",
+  title: "Performance Marketer & Growth Strategist",
+  intro:
+    "I build Meta Ads, lead-gen and WhatsApp funnels for car dealerships, real estate and local brands. Founder of ScapeMedia. I care about one number: revenue.",
+  meta: ["Based in Jammu, J&K", "Founder, ScapeMedia", "Open to new brands"],
+  /** Small stats stacked on the right of the hero (sample values: replace with your own). */
+  heroStats: [
+    { value: "38K", label: "Leads generated" },
+    { value: "60+", label: "Brands served" },
+    { value: "'26", label: "Seventh year" },
+  ],
+  manifesto: ["I don't sell posts.", "*I *sell *pipeline.", "Every rupee tracked.", "*Every *lead *followed *up."],
+  about: [
+    "I started ScapeMedia in Jammu to give local businesses the same performance playbook big brands use: clear offers, sharp creatives, tight funnels and honest reporting.",
+    "Today I run Meta and Google campaigns, WhatsApp automation and content systems for dealerships, builders, clinics and retail brands, and I review every account weekly myself.",
+  ],
+};

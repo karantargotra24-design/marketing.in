@@ -36,16 +36,19 @@ Copy `.env.example` to `.env.local` when keys are needed (later phases). `.env.l
 Without those keys the app stays in **MOCK mode** and shows example clients that are not saved.
 Note: this Supabase project is shared with the Academy app, so Academy students can create logins too. They cannot see anything in Agency OS because they have no agency profile.
 
-## Portfolio website (public, at `/`)
-Animated agency portfolio: Next.js + Tailwind + Framer Motion + GSAP ScrollTrigger + Lenis smooth scroll + Lucide icons.
+## Personal portfolio (public, single page at `/`)
+One-page personal portfolio for Karan Targotra. Layout and motion are adapted from the AnimatedWebs "Brutalist Concrete Type Studio" template (exposed 12-column grid, letter-drop hero, project ledger, slam-in frames, scroll-scrubbed process strip). Branding comes from the reference video: near-black #0A0A0A, ember #FF4D1F, warm white #F3F1EC, Anton headlines, JetBrains Mono labels, Figma-style cursor chips.
+
+Stack: Next.js + Tailwind + GSAP ScrollTrigger + Framer Motion + Lenis + Lucide.
 
 | What to change | File |
 |---|---|
-| Name, email, phone, WhatsApp number, social links, brand colours (now near-black #0A0A0A + ember #FF4D1F + warm white #F3F1EC) | `src/portfolio/brand.ts` (+ colour tokens at the top of `src/app/globals.css`) |
-| Fonts (Anton headlines, Inter body, JetBrains Mono labels) | `src/app/(site)/layout.tsx` |
-| Projects, case studies, services, stats, process steps | `src/portfolio/data.ts` |
-| Project videos | Put an `.mp4` in `public/work/` and set `video: "/work/name.mp4"` on the project. It loads only when the card is on screen. |
+| Name, title, intro, hero stats, manifesto, about text | `src/portfolio/data.ts` → `PERSON` |
+| Projects (each opens as an inline case study), services, stats, process | `src/portfolio/data.ts` |
+| Email, phone, WhatsApp, social links, **your photo** (`photo: "/karan.png"`), colours | `src/portfolio/brand.ts` (+ colour tokens at the top of `src/app/globals.css`) |
+| Fonts | `src/app/(site)/layout.tsx` |
+| Project videos | Put an `.mp4` in `public/work/` and set `video` on the project. Loaded only when visible. |
 
-Pages: `/` (home) and `/work/<project-slug>` (one case study per project, built automatically from `data.ts`).
+Sections: Hero → Platforms → About (manifesto) → Stats → Work ledger → Frames → Services → Process → Contact. Press **G** to hide/show the grid.
 
-**Before publishing:** all project numbers, client descriptions and contact details in `data.ts` / `brand.ts` are sample placeholders. Replace them with your real, client-approved figures.
+**Before publishing:** all client results and hero stats in `data.ts` and the contact details in `brand.ts` are sample placeholders. Replace them with your real, client-approved figures.

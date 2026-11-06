@@ -41,7 +41,7 @@ export function MagneticButton({ href, children, variant = "solid", className = 
   };
 
   const base =
-    "group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-7 py-4 text-sm font-semibold tracking-wide transition-colors duration-300 md:text-base";
+    "group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-sm px-7 py-4 font-mono text-xs font-bold uppercase tracking-[0.15em] transition-colors duration-300 md:text-sm";
   const look =
     variant === "solid"
       ? "bg-brand text-ink hover:bg-fog"

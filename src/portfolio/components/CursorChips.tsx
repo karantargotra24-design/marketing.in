@@ -11,7 +11,7 @@ type Chip = { label: string; color: string; x: string; y: string; path: [number,
 const DEFAULT: Chip[] = [
   { label: "Media buyer", color: "#F5C842", x: "58%", y: "22%", path: [[0, 0], [40, 30], [-20, 60], [0, 0]], duration: 11 },
   { label: "Copywriter", color: "#5AA9FF", x: "76%", y: "58%", path: [[0, 0], [-50, -20], [-10, 40], [0, 0]], duration: 13 },
-  { label: "Designer", color: "#B58CFF", x: "42%", y: "70%", path: [[0, 0], [60, -30], [20, 20], [0, 0]], duration: 12 },
+  { label: "Designer", color: "#B58CFF", x: "56%", y: "64%", path: [[0, 0], [60, -30], [20, 20], [0, 0]], duration: 12 },
   { label: "Analyst", color: "#6EE7A8", x: "88%", y: "16%", path: [[0, 0], [-30, 50], [10, 20], [0, 0]], duration: 10 },
   { label: "Karan", color: "#FF8FB1", x: "66%", y: "84%", path: [[0, 0], [30, -40], [-40, -10], [0, 0]], duration: 14 },
 ];

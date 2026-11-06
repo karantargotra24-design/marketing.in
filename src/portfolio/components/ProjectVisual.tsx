@@ -67,6 +67,8 @@ function Art({ kind }: { kind: VisualKind }) {
       return <SocialArt />;
     case "brand":
       return <BrandArt />;
+    case "pipeline":
+      return <PipelineArt />;
   }
 }
 
@@ -133,7 +135,7 @@ function PropertyArt() {
           </div>
         ))}
       </div>
-      <div className="glass absolute left-5 top-16 rounded-2xl px-4 py-3">
+      <div className="glass absolute left-5 top-16 rounded-none px-4 py-3">
         <div className="text-[10px] uppercase tracking-widest text-mist">Propedia</div>
         <div className="font-display text-lg font-semibold">3 BHK · Gandhi Nagar</div>
         <div className="mt-1 flex items-center gap-1 text-xs text-brand">
@@ -151,11 +153,11 @@ function AdsArt() {
       <div className="absolute bottom-6 left-0 top-16 flex w-max gap-4 anim-slide">
         {Array.from({ length: 2 }).flatMap((_, k) =>
           ["Kaju Katli Box", "Corporate Hamper", "Diwali Mithai", "Dry Fruit Combo"].map((t, i) => (
-            <div key={`${k}-${i}`} className="glass flex w-56 shrink-0 flex-col rounded-2xl p-3">
+            <div key={`${k}-${i}`} className="glass flex w-56 shrink-0 flex-col rounded-none p-3">
               <div className="flex items-center gap-2 text-[11px] text-mist">
                 <span className="h-5 w-5 rounded-full bg-brand/30" /> Sponsored
               </div>
-              <div className="mt-2 flex-1 rounded-xl bg-gradient-to-br from-brand/30 via-brand-2/20 to-transparent" />
+              <div className="mt-2 flex-1 rounded-none bg-gradient-to-br from-brand/30 via-brand-2/20 to-transparent" />
               <div className="mt-2 text-sm font-medium">{t}</div>
               <div className="mt-2 flex items-center justify-between rounded-lg bg-brand px-2 py-1.5 text-xs font-semibold text-ink">
                 Order on WhatsApp <MousePointerClick size={12} />
@@ -241,6 +243,35 @@ function BrandArt() {
         {["#FF4D1F", "#C7361A", "#F3F1EC", "#141312"].map((c) => (
           <span key={c} className="h-6 w-6 rounded-full border border-white/20" style={{ background: c }} />
         ))}
+      </div>
+    </div>
+  );
+}
+
+function PipelineArt() {
+  const nodes = ["Memory", "Research", "Strategy", "Carousels", "Canva", "Schedule"];
+  return (
+    <div className="@container absolute inset-0 bg-surface">
+      <div className={bg} />
+      <div className="absolute inset-x-5 top-1/2 flex -translate-y-1/2 items-center justify-between">
+        <span className="absolute inset-x-4 top-1/2 h-px bg-white/15" />
+        <span className="anim-drive absolute top-1/2 h-px w-1/4 -translate-y-1/2 bg-gradient-to-r from-transparent via-brand to-transparent" />
+        {nodes.map((n, i) => (
+          <span key={n} className="relative flex flex-col items-center gap-2">
+            <span
+              className={`anim-blink grid h-8 w-8 place-items-center border font-mono text-[10px] ${i === 0 ? "border-brand bg-brand text-ink" : "border-white/20 bg-ink text-fog/80"}`}
+              style={{ animationDelay: `${i * 0.35}s` }}
+            >
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <span className="hidden font-mono text-[9px] uppercase tracking-[0.15em] text-mist @lg:block">{n}</span>
+          </span>
+        ))}
+      </div>
+      <div className="glass absolute left-5 top-16 hidden px-3 py-1.5 @md:block font-mono text-[10px] uppercase tracking-[0.2em] text-fog/80">Run my weekly content system</div>
+      <div className="absolute right-5 top-5 hidden gap-2 @lg:flex font-mono text-[10px] uppercase text-mist">
+        <span className="border border-white/15 px-2 py-1">2 × Carousel</span>
+        <span className="border border-white/15 px-2 py-1">2 × Static</span>
       </div>
     </div>
   );

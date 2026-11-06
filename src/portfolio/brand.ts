@@ -15,6 +15,8 @@ export const BRAND = {
   whatsapp: "919000000000",
   instagram: "https://instagram.com/scapemedia",
   linkedin: "https://linkedin.com/in/karantargotra",
+  /** Your portrait for the hero, e.g. "/karan.png" in /public (a cut-out on a dark/transparent background looks best). */
+  photo: "" as string,
   colors: {
     ink: "#0A0A0A",
     surface: "#141312",

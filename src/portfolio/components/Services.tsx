@@ -43,12 +43,12 @@ export function Services() {
                 key={s.title}
                 data-reveal
                 onPointerMove={track}
-                className="group relative min-h-64 overflow-hidden rounded-3xl border border-white/10 bg-ink/60 p-6 transition-colors duration-500 hover:border-brand/40"
+                className="group relative min-h-64 overflow-hidden rounded-none border border-white/10 bg-ink/60 p-6 transition-colors duration-500 hover:border-brand/40"
               >
                 <div className="spotlight pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                 <div className="relative flex h-full flex-col">
                   <div className="flex items-center justify-between">
-                    <span className="grid h-12 w-12 place-items-center rounded-2xl bg-brand/10 text-brand transition-all duration-500 ease-out-expo group-hover:rotate-[-8deg] group-hover:scale-110 group-hover:bg-brand group-hover:text-ink">
+                    <span className="grid h-12 w-12 place-items-center rounded-none bg-brand/10 text-brand transition-all duration-500 ease-out-expo group-hover:rotate-[-8deg] group-hover:scale-110 group-hover:bg-brand group-hover:text-ink">
                       <Icon size={22} />
                     </span>
                     <span className="font-display text-sm text-mist">{String(i + 1).padStart(2, "0")}</span>

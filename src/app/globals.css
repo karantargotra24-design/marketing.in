@@ -154,3 +154,11 @@ html.lenis body {
     transition-duration: 0.001ms !important;
   }
 }
+
+/* Hard-cut "slam" for frames: two steps, no easing curve */
+@keyframes slam {
+  from { transform: scale(1.08); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.slam { animation: slam 140ms steps(2, end) both; }
+.marquee-slow { animation: marquee 80s linear infinite; }

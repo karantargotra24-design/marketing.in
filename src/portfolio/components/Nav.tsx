@@ -8,6 +8,7 @@ import { BRAND, whatsappLink } from "../brand";
 
 const LINKS = [
   { href: "/#work", label: "Work" },
+  { href: "/#about", label: "About" },
   { href: "/#services", label: "Services" },
   { href: "/#process", label: "Process" },
   { href: "/#contact", label: "Contact" },
@@ -45,10 +46,10 @@ export function Nav() {
             scrolled ? "glass shadow-[0_8px_40px_rgb(0_0_0/0.35)]" : "border border-transparent"
           }`}
         >
-          <Link href="/" className="flex items-center gap-2 font-display text-lg font-bold tracking-tight" aria-label={`${BRAND.name} home`}>
-            <span className="grid h-8 w-8 place-items-center rounded-full bg-brand text-sm font-black text-ink">S</span>
+          <Link href="/" className="flex items-center gap-2 font-display text-lg font-bold tracking-tight" aria-label={`${BRAND.person} home`}>
+            <span className="grid h-8 w-8 place-items-center rounded-full bg-brand text-sm text-ink">K</span>
             <span>
-              Scape<span className="text-brand">Media</span>
+              Karan<span className="text-brand">.</span>
             </span>
           </Link>
 

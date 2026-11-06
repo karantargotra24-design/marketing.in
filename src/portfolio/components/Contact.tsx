@@ -24,7 +24,7 @@ export function Contact() {
   };
 
   const chip = (on: boolean) =>
-    `rounded-full border px-4 py-2 text-sm transition-colors ${on ? "border-brand bg-brand text-ink" : "border-white/15 text-fog/70 hover:border-white/40"}`;
+    `rounded-sm border px-4 py-2 text-sm transition-colors ${on ? "border-brand bg-brand text-ink" : "border-white/15 text-fog/70 hover:border-white/40"}`;
 
   return (
     <section id="contact" className="relative scroll-mt-24 overflow-hidden py-24 md:py-36">
@@ -49,7 +49,7 @@ export function Contact() {
           </p>
         </div>
 
-        <form onSubmit={submit} className="glass rounded-3xl p-6 md:p-8" aria-label="Project enquiry">
+        <form onSubmit={submit} className="glass rounded-none p-6 md:p-8" aria-label="Project enquiry">
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="block">
               <span className="text-xs uppercase tracking-widest text-mist">Your name</span>
@@ -99,10 +99,10 @@ export function Contact() {
 
           <button
             type="submit"
-            className="group mt-10 flex w-full items-center justify-between rounded-full bg-brand py-4 pl-7 pr-3 font-semibold text-ink transition-colors hover:bg-fog"
+            className="group mt-10 flex w-full items-center justify-between rounded-sm bg-brand py-4 pl-7 pr-3 font-semibold text-ink transition-colors hover:bg-fog"
           >
             Send on WhatsApp
-            <span className="grid h-10 w-10 place-items-center rounded-full bg-ink text-brand transition-transform duration-500 ease-out-expo group-hover:rotate-45">
+            <span className="grid h-10 w-10 place-items-center bg-ink text-brand transition-transform duration-500 ease-out-expo group-hover:rotate-45">
               <ArrowUpRight size={18} />
             </span>
           </button>
