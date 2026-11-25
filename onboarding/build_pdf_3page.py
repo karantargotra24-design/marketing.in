@@ -16,15 +16,23 @@ def b64(p): return base64.b64encode(open(p, 'rb').read()).decode()
 def font(wt): return "@font-face{font-family:'Poppins';font-weight:%s;src:url(data:font/woff2;base64,%s) format('woff2')}" % (wt, b64(W + 'node_modules/@fontsource/poppins/files/poppins-latin-%s-normal.woff2' % wt))
 fonts = ''.join(font(w) for w in (400, 500, 600, 700))
 
-# Cover photo: clean full-width rectangle, bottom fades into the black page (no frame, no text on it)
+# Cover photo: full portrait (head + shoulders), sharpened, edges feathered into page black
+from PIL import ImageFilter, ImageEnhance
 src = Image.open(IM + '27.jpg').convert('RGB')
-ph = ImageOps.fit(src, (1080, 900), Image.LANCZOS, centering=(0.5, 0.20))
-mask = Image.new('L', (1080, 900), 0); d = ImageDraw.Draw(mask)
-for y in range(900):
-    a = 0 if y < 740 else int(255 * ((y - 740) / 160) ** 1.4)
-    d.line([(0, y), (1080, y)], fill=min(255, a))
-black = Image.new('RGB', (1080, 900), (10, 10, 10)); ph = Image.composite(black, ph, mask)
-bf = io.BytesIO(); ph.save(bf, 'JPEG', quality=90); cover = 'data:image/jpeg;base64,' + base64.b64encode(bf.getvalue()).decode()
+src = src.crop((0, 0, src.width - 24, src.height)).resize((1022, 1536), Image.LANCZOS)
+src = src.filter(ImageFilter.UnsharpMask(radius=2, percent=60, threshold=2))
+src = ImageEnhance.Contrast(src).enhance(1.06)
+PWID, PHT = 1022, 1536
+mask = Image.new('L', (PWID, PHT), 255); d = ImageDraw.Draw(mask)
+for x in range(260):
+    a = int(255 * (x / 260) ** 1.6); d.line([(x, 0), (x, PHT)], fill=a)
+m2 = Image.new('L', (PWID, PHT), 255); d2 = ImageDraw.Draw(m2)
+for y in range(PHT - 300, PHT):
+    a = int(255 * (1 - (y - (PHT - 300)) / 300) ** 1.4); d2.line([(0, y), (PWID, y)], fill=a)
+from PIL import ImageChops
+mask = ImageChops.multiply(mask, m2)
+black = Image.new('RGB', (PWID, PHT), (10, 10, 10)); ph = Image.composite(src, black, mask)
+bf = io.BytesIO(); ph.save(bf, 'JPEG', quality=92); cover = 'data:image/jpeg;base64,' + base64.b64encode(bf.getvalue()).decode()
 
 qr = qrcode.QRCode(border=1, box_size=10); qr.add_data('https://wa.me/919682514271?text=Hi%20Karan%2C%20I%27d%20like%20a%20free%20growth%20audit.'); qr.make(fit=True)
 qb = io.BytesIO(); qr.make_image(fill_color=BLACK, back_color='#FFFFFF').convert('RGB').save(qb, 'PNG')
@@ -44,19 +52,21 @@ body{width:1080px;font:400 26px/1.5 Poppins,sans-serif;-webkit-print-color-adjus
 h1,h2{font-family:Poppins;font-weight:700;letter-spacing:-.03em;line-height:1.06}
 .red{color:@RED@}
 
-/* PAGE 1: black, clean photo on top, text below, nothing overlapping */
+/* PAGE 1 */
 .p1{background:@BLACK@;color:@WHITE@;padding:0}
-.p1 .photo{position:absolute;left:0;top:0;width:1080px;height:900px;background:#000 center/cover no-repeat}
-.p1 .top{position:absolute;left:90px;top:70px;display:flex;gap:0;width:900px;justify-content:space-between;align-items:center}
-.p1 .top .logo{text-shadow:0 2px 12px #000}
-.p1 .text{position:absolute;left:90px;right:90px;top:905px}
-.p1 h1{font-size:92px;margin-top:20px}
-.p1 .sub{font:400 30px/1.45 Poppins;color:@G2@;margin-top:30px;max-width:840px}
-.p1 .tags{display:flex;gap:30px;align-items:center;margin-top:36px;font:600 24px Poppins}
-.p1 .tags span{display:flex;align-items:center;gap:30px}
-.p1 .tags span+span:before{content:"";width:9px;height:9px;border-radius:50%;background:@RED@}
-.p1 .base{position:absolute;left:90px;right:90px;bottom:64px;display:flex;justify-content:space-between;align-items:center;font:500 22px Poppins;color:#9a9a9a}
-.p1 .base .logo{color:#fff}
+.p1 .photo{position:absolute;right:-40px;top:0;width:700px;height:1052px;background:center top/cover no-repeat}
+.p1 .top{position:absolute;left:90px;top:80px}
+.p1 .top .kick{margin-top:22px}
+.p1 .del{position:absolute;left:90px;top:330px;width:330px}
+.p1 .del h4{font:600 17px Poppins;color:#8a8a8a;letter-spacing:.18em;text-transform:uppercase;margin-bottom:22px}
+.p1 .del div{padding:20px 0;border-top:2px solid #262626;font:600 30px/1.2 Poppins;letter-spacing:-.01em}
+.p1 .del div:last-child{border-bottom:2px solid #262626}
+.p1 .del b{display:block;color:@RED@;font:700 18px Poppins;margin-bottom:6px}
+.p1 .text{position:absolute;left:90px;right:90px;top:1010px}
+.p1 h1{font-size:98px;line-height:1.02}
+.p1 .sub{font:400 29px/1.5 Poppins;color:@G2@;margin-top:34px;max-width:860px}
+.p1 .base{position:absolute;left:90px;right:90px;bottom:64px;display:flex;justify-content:space-between;align-items:center;font:500 22px Poppins;color:#9a9a9a;border-top:2px solid #262626;padding-top:28px}
+.p1 .base b{color:#fff;font-weight:600}
 
 /* PAGE 2: white */
 .p2{background:@WHITE@;color:@BLACK@}
@@ -102,11 +112,12 @@ h1,h2{font-family:Poppins;font-weight:700;letter-spacing:-.03em;line-height:1.06
 for k, v in {'@RED@': RED, '@BLACK@': BLACK, '@WHITE@': WHITE, '@G1@': G1, '@G2@': G2, '@G3@': G3}.items(): css = css.replace(k, v)
 
 p1 = '''<section class="pg p1"><div class="photo" style="background-image:url(%s)"></div>
-<div class="text"><p class="kick">Performance marketing &middot; Jammu</p>
-<h1>We turn ad spend<br>into <span class="red">business<br>opportunities.</span></h1>
-<p class="sub">Meta Ads built on data, designed to generate leads and drive sales for businesses in Jammu &amp; J&amp;K.</p>
-<div class="tags"><span>Meta Ads</span><span>Lead generation</span><span>Sales</span><span>Data</span></div></div>
-<div class="base">%s<span>scapemedia.in</span></div></section>''' % (cover, logo)
+<div class="top">%s<p class="kick">Performance marketing &middot; Jammu</p></div>
+<div class="del"><h4>What we deliver</h4>
+<div><b>01</b>Qualified leads</div><div><b>02</b>Consistent sales</div><div><b>03</b>Scalable growth</div></div>
+<div class="text"><h1>More leads.<br><span class="red">More sales.</span><br>Built to scale.</h1>
+<p class="sub">Meta Ads engineered for one goal: growing your business with qualified leads, consistent sales and profitable scale.</p></div>
+<div class="base"><span><b>Karan Targotra</b> &nbsp;&middot;&nbsp; Founder</span><span>scapemedia.in</span></div></section>''' % (cover, logo)
 
 p2 = '''<section class="pg p2">%s<p class="kick" style="margin-top:36px">What we do</p>
 <h2>Performance marketing<br><span class="red">that sells.</span></h2>
