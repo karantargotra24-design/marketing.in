@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import { brandFromForm, tones, type SavedBrand } from "@/services/brandProfile";
+import { languageLabels } from "@/agents/contentWriter/schema";
 import { BRANDS_KEY, SEED_BRANDS } from "./brands";
+import { InfoNotice } from "./Notice";
 import { useMockList } from "./useMockList";
 
 const field = "rounded-lg border border-slate-300 bg-white p-3 text-base";
@@ -24,9 +26,9 @@ export function BrandOnboarding() {
 
   return (
     <div className="flex flex-col gap-5">
-      <p className="rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm">
+      <InfoNotice>
         <b>MOCK.</b> Profiles are saved only in this browser. Names marked (example) are made up.
-      </p>
+      </InfoNotice>
 
       <form key={formKey} onSubmit={onSubmit} className="flex flex-col gap-3 rounded-xl border border-slate-200 bg-white p-3">
         <h2 className="font-semibold">Onboard a client</h2>
@@ -38,7 +40,7 @@ export function BrandOnboarding() {
         <label className={label}>Who are their customers?<textarea name="audience" maxLength={300} rows={2} className={field} /></label>
         <div className="grid grid-cols-2 gap-3">
           <label className={label}>Tone<select name="tone" className={field}>{tones.map((t) => <option key={t}>{t}</option>)}</select></label>
-          <label className={label}>Language<select name="language" className={field}><option value="hinglish">Hinglish</option><option value="english">English</option></select></label>
+          <label className={label}>Language<select name="language" className={field}>{Object.entries(languageLabels).map(([value, text]) => <option key={value} value={value}>{text}</option>)}</select></label>
         </div>
         <label className={label}>What makes them special? (one per line)<textarea name="usps" rows={2} className={field} /></label>
         <label className={label}>Never say (one per line)<textarea name="doNot" rows={2} placeholder="fixed price&#10;guaranteed" className={field} /></label>

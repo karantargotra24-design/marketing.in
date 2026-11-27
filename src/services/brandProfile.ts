@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { languages } from "@/agents/contentWriter/schema";
 
 /** "a, b\nc" -> ["a","b","c"] (trimmed, no blanks, no duplicates, max 20). */
 export function parseList(value: string): string[] {
@@ -13,7 +14,7 @@ export const brandProfileSchema = z.object({
   city: z.string().trim().max(80).default(""),
   audience: z.string().trim().max(300).default(""),
   tone: z.enum(tones).default("friendly"),
-  language: z.enum(["english", "hinglish"]).default("hinglish"),
+  language: z.enum(languages).default("hinglish"),
   usps: z.array(z.string().max(120)).max(20).default([]),
   doNot: z.array(z.string().max(120)).max(20).default([]),
   competitors: z.array(z.string().max(120)).max(20).default([]),

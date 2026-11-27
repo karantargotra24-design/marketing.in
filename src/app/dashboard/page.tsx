@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getMyProfile, listClients, type ClientRow } from "@/db/agency";
 import { createSupabaseServer } from "@/db/supabase/server";
+import { ErrorNotice, InfoNotice } from "@/ui/Notice";
 import { signOut } from "../login/actions";
 import { addClient } from "./actions";
 
@@ -48,8 +49,8 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
 
       <Link href="/content" className="rounded-lg border border-slate-300 bg-white p-3 text-center font-semibold">Open content studio (mock)</Link>
 
-      {!supabase && <p className="rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm">MOCK data. Nothing is saved or connected.</p>}
-      {error && <p role="alert" className="rounded-lg border border-red-300 bg-red-50 p-3 text-sm text-red-800">{error}</p>}
+      {!supabase && <InfoNotice>MOCK data. Nothing is saved or connected.</InfoNotice>}
+      {error && <ErrorNotice>{error}</ErrorNotice>}
 
       <ul className="flex flex-col gap-2">
         {clients.length === 0 && <li className="rounded-lg border border-dashed border-slate-300 p-4 text-sm text-slate-600">No clients yet. Add your first one below.</li>}

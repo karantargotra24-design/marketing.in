@@ -4,6 +4,14 @@ export const platforms = ["instagram", "facebook", "google_business"] as const;
 export const formats = ["post", "reel", "carousel"] as const;
 export const languages = ["english", "hinglish"] as const;
 
+export const platformLabels: Record<(typeof platforms)[number], string> = {
+  instagram: "Instagram",
+  facebook: "Facebook",
+  google_business: "Google Business",
+};
+export const formatLabels: Record<(typeof formats)[number], string> = { post: "Post", reel: "Reel", carousel: "Carousel" };
+export const languageLabels: Record<(typeof languages)[number], string> = { hinglish: "Hinglish", english: "English" };
+
 export const contentRequestSchema = z.object({
   clientName: z.string().trim().min(1).max(120),
   industry: z.string().trim().max(80).default(""),

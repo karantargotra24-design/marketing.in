@@ -2,11 +2,15 @@
 
 import { useState } from "react";
 import { runContentWriter } from "@/agents/contentWriter";
-import type { ContentDraft } from "@/agents/contentWriter/schema";
+import { formatLabels, languageLabels, platformLabels, type ContentDraft } from "@/agents/contentWriter/schema";
 import type { SavedBrand } from "@/services/brandProfile";
 import { BRANDS_KEY, SEED_BRANDS } from "./brands";
+import { InfoNotice } from "./Notice";
 import { useMockList } from "./useMockList";
 import { labels, nextStatuses, humanOnly, transition, type ContentStatus } from "@/services/contentWorkflow";
+
+const options = (map: Record<string, string>) =>
+  Object.entries(map).map(([value, text]) => <option key={value} value={value}>{text}</option>);
 
 type Item = {
   id: string;
@@ -69,20 +73,20 @@ export function ContentStudio() {
 
   return (
     <div className="flex flex-col gap-5">
-      <p className="rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm">
+      <InfoNotice>
         <b>MOCK.</b> Drafts come from a template, not AI. They are saved only in this browser. Nothing is posted anywhere.
-      </p>
+      </InfoNotice>
 
       <form onSubmit={onGenerate} className="flex flex-col gap-3 rounded-xl border border-slate-200 bg-white p-3">
         <h2 className="font-semibold">New content</h2>
         <select name="client" aria-label="Client" className={field}>{brands.map((c, i) => <option key={c.id} value={i}>{c.name}</option>)}</select>
         <div className="grid grid-cols-2 gap-3">
-          <select name="platform" aria-label="Platform" className={field}><option value="instagram">Instagram</option><option value="facebook">Facebook</option><option value="google_business">Google Business</option></select>
-          <select name="format" aria-label="Format" className={field}><option value="post">Post</option><option value="reel">Reel</option><option value="carousel">Carousel</option></select>
+          <select name="platform" aria-label="Platform" className={field}>{options(platformLabels)}</select>
+          <select name="format" aria-label="Format" className={field}>{options(formatLabels)}</select>
         </div>
         <input name="topic" required minLength={3} maxLength={200} placeholder="Topic, e.g. Diwali test drive" aria-label="Topic" className={field} />
         <div className="grid grid-cols-2 gap-3">
-          <select name="language" aria-label="Language" defaultValue="hinglish" className={field}><option value="hinglish">Hinglish</option><option value="english">English</option></select>
+          <select name="language" aria-label="Language" defaultValue="hinglish" className={field}>{options(languageLabels)}</select>
           <input name="date" type="date" required defaultValue={today()} aria-label="Post date" className={field} />
         </div>
         {error && <p role="alert" className="text-sm text-red-700">{error}</p>}
@@ -115,7 +119,9 @@ export function ContentStudio() {
                     {i.draft.carouselSlides && <div><b>Slides</b><ol className="list-decimal pl-5">{i.draft.carouselSlides.map((s) => <li key={s}>{s}</li>)}</ol></div>}
                     {i.draft.editingNotes && <div><b>Editing notes</b><ul className="list-disc pl-5">{i.draft.editingNotes.map((s) => <li key={s}>{s}</li>)}</ul></div>}
                     <p><b>SEO:</b> {i.draft.seoTitle} · {i.draft.seoDescription}</p>
-                    <p className="rounded-lg bg-amber-50 p-2"><b>Check before approving:</b> {i.draft.qaFlags.join("; ")}</p>
+                    {i.draft.qaFlags.length > 0 && (
+                      <p className="rounded-lg bg-amber-50 p-2"><b>Check before approving:</b> {i.draft.qaFlags.join("; ")}</p>
+                    )}
                     <div className="flex flex-wrap gap-2">
                       {nextStatuses(i.status).map((to) => (
                         <button key={to} onClick={() => move(i.id, to)} className={`rounded-lg border px-3 py-2 font-semibold ${humanOnly.includes(to) ? "border-emerald-700 bg-emerald-700 text-white" : "border-slate-300 bg-white"}`}>
